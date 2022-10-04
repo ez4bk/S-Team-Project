@@ -19,7 +19,7 @@ formatter = logging.Formatter("%(asctime)s-%(levelname)s-%(message)s")
 ch = logging.StreamHandler(sys.stdout)
 ch.setFormatter(formatter)
 
-__commonlib_log_flag = True
+__commonlib_log_flag = False
 
 
 def __clear_log_handler():

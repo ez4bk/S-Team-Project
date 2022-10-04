@@ -34,4 +34,4 @@ class SocketInterface(object):
 
 
 if __name__ == "__main__":
-    SocketInterface.exchange("172.31.204.230", "hello world", 35, port=5007)
+    SocketInterface.exchange("172.31.204.230", "hello world", 35, port=50007)

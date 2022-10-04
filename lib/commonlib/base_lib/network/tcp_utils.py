@@ -84,7 +84,8 @@ def connect(ip, port, timeout=30):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(timeout)  # 设置超时旱为30S
-            sock.connect((ip, port))
+            binding = (ip, port)
+            sock.connect(binding)
             break
         except:
             _commonlib_log(traceback.format_exc())
@@ -150,13 +151,14 @@ def receive_protocol_data(sock, timeout):
         sock.settimeout(timeout / 1000)
         if data != "":
             data_length = __tran_length_to_int(binascii.b2a_hex(data).decode())
-            _commonlib_log("tcp data length:" + str(data_length))
+            _commonlib_log("tcp data length: " + str(data_length))
             data = ""
             while True:
                 tmp = sock.recv(data_length)
                 tmp_length = len(tmp)
                 data += binascii.b2a_hex(tmp).decode()
-                _commonlib_log("expect receive length " + str(data_length) + " ; act receive length " + str(len(tmp)))
+                _commonlib_log(
+                    "expect receive length " + str(data_length) + "; actually receive length " + str(len(tmp)))
                 if tmp_length == data_length:
                     break
                 else:
