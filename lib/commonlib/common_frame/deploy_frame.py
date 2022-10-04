@@ -1,9 +1,10 @@
 # coding=utf-8
 import traceback
 from abc import abstractmethod
-from commonlib.base_lib.mylog.mylog import log, log_e
-from commonlib.common_frame import frame_utils
-from commonlib.common_frame.frame_runner import FrameRunner, NEXT_TYPE_CONTINUE, NEXT_TYPE_BLOCK
+
+from lib.commonlib.base_lib.mylog.mylog import log, log_e
+from lib.commonlib.common_frame import frame_utils
+from lib.commonlib.common_frame.frame_runner import FrameRunner, NEXT_TYPE_CONTINUE, NEXT_TYPE_BLOCK
 
 deploy_type = ""
 

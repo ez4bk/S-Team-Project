@@ -2,11 +2,11 @@
 import time
 from abc import abstractmethod
 
-from commonlib.base_lib.mylog.mylog import log
-from commonlib.common_frame import frame_utils
-from commonlib.common_frame.frame_utils import load_runner_result, save_runner_result
-from commonlib.common_frame.runner import Runner
-from commonlib.common_frame.runner_setup import RunnerSetup
+from lib.commonlib.base_lib.mylog.mylog import log
+from lib.commonlib.common_frame import frame_utils
+from lib.commonlib.common_frame.frame_utils import load_runner_result, save_runner_result
+from lib.commonlib.common_frame.runner import Runner
+from lib.commonlib.common_frame.runner_setup import RunnerSetup
 
 NEXT_TYPE_BLOCK = "next_type_block"
 NEXT_TYPE_ERROR = "next_type_error"

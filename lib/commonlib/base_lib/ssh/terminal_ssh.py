@@ -1,5 +1,5 @@
 # coding=utf-8
-from lib.commonlib.base_lib import gvalue
+from config import server_info
 from lib.commonlib.base_lib.ssh import ssh_utils
 from lib.commonlib.base_lib.ssh.server_ssh import ServerSsh
 from lib.commonlib.base_lib.ssh.ssh_info import SshInfo
@@ -62,7 +62,7 @@ class TerminalSsh(SshUtils):
         :return:返回SSH连接属性信息类
         """
         if not fix_flag:
-            for a in gvalue.ssh_info_list:
+            for a in server_info.ssh_info_list:
                 if a.ip == self._ip:
                     self._ssh_info = a
                     return a
@@ -70,7 +70,7 @@ class TerminalSsh(SshUtils):
             if self._server_ssh_info is not None:
                 self._ssh_info = get_security_terminal_ssh(self._server_ssh_info, self._ip)
                 if self._ssh_info is not None:
-                    gvalue.ssh_info_list.append(self._ssh_info)
+                    server_info.ssh_info_list.append(self._ssh_info)
                     return self._ssh_info
             self._ssh_info = ssh_utils.get_terminal_ssh_info(self._ip, fix_flag)
 

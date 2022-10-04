@@ -3,8 +3,8 @@ import os
 
 import simplejson
 
-from commonlib.base_lib.system_utils import fileutils, systemutils
-from commonlib.base_lib.utils.processpath import cur_file_dir
+from lib.commonlib.base_lib.system_utils import fileutils
+from lib.commonlib.base_lib.utils.processpath import cur_file_dir
 
 frame_runner_backup_file = os.path.join(cur_file_dir(), "tmp", "tmp.json")
 retry_flag = False

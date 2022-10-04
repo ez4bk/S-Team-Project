@@ -58,10 +58,11 @@ def __init_file_handler(file_path, log_name):
     if not os.path.exists(file_path):
         os.makedirs(file_path)
     if log_name != "":
-        log_file_name = file_path + "\\" + log_name
+        log_file_name = os.path.join(file_path, log_name)
     else:
-        log_file_name = file_path + "\\" + str(datetime.datetime.now().strftime("%Y-%m-%d")) + ".log"
-    commonlib_file_name = file_path + "\\commonlib_" + str(datetime.datetime.now().strftime("%Y-%m-%d")) + ".log"
+        log_file_name = os.path.join(file_path, str(datetime.datetime.now().strftime("%Y-%m-%d")) + ".log")
+    commonlib_file_name = os.path.join(file_path, "commonlib_" +
+                                       str(datetime.datetime.now().strftime("%Y-%m-%d")) + ".log")
 
     fh = logging.FileHandler(log_file_name, encoding="UTF-8")
     fh.setFormatter(formatter)
@@ -74,11 +75,11 @@ def __init_logger(test_log_path="", log_name=""):
     global user_logger
     global default_log_path
     global __commonlib_log_flag
-    if str(cur_file_dir()).__contains__("CommonLib"):
+    if str(cur_file_dir()).__contains__("commonlib"):
         __commonlib_log_flag = True
     if test_log_path == "":
         path = str(cur_file_dir())
-        test_log_path = path + "\\log"
+        test_log_path = os.path.join(path, 'log')
     default_log_path = test_log_path
     commonlib_logger = logging.getLogger("commonlib")
 

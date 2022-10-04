@@ -3,7 +3,7 @@ import traceback
 
 import paramiko
 
-from lib.commonlib.base_lib import gvalue
+from config import server_info
 from lib.commonlib.base_lib.mylog.mylog import _commonlib_log
 from lib.commonlib.base_lib.ssh.shell_cmd_interface import ShellCmdInterface
 from lib.commonlib.base_lib.ssh.ssh_info import SshInfo
@@ -22,58 +22,59 @@ def get_terminal_ssh_info(server_ip, fix_flag=False):
     :return: 返回连接终端使用的ssh_info信息
     """
     if not fix_flag:
-        for a in gvalue.ssh_info_list:
+        for a in server_info.ssh_info_list:
             if a.ip == server_ip:
                 return a
-    ssh_client = connect_ssh(server_ip, gvalue.NEW_TERMINAL_SSH_PORT, gvalue.TERMINAL_NEW_SSH_USER,
-                             gvalue.NEW_TERMINAL_SSH_PASSWORD)
+    ssh_client = connect_ssh(server_ip, server_info.NEW_TERMINAL_SSH_PORT, server_info.TERMINAL_NEW_SSH_USER,
+                             server_info.NEW_TERMINAL_SSH_PASSWORD)
     if ssh_client is not None:
         ssh_client.close()
-        ssh_info = SshInfo(server_ip, gvalue.NEW_TERMINAL_SSH_PORT, gvalue.TERMINAL_NEW_SSH_USER,
-                           gvalue.NEW_TERMINAL_SSH_PASSWORD, "root", gvalue.NEW_ROOT_TERMINAL_SSH_PASSWORD)
-        gvalue.ssh_info_list.append(ssh_info)
+        ssh_info = SshInfo(server_ip, server_info.NEW_TERMINAL_SSH_PORT, server_info.TERMINAL_NEW_SSH_USER,
+                           server_info.NEW_TERMINAL_SSH_PASSWORD, "root", server_info.NEW_ROOT_TERMINAL_SSH_PASSWORD)
+        server_info.ssh_info_list.append(ssh_info)
         return ssh_info
-    ssh_client = connect_ssh(server_ip, gvalue.TERMINAL_SSH_PORT, gvalue.SERVER_SSH_USER,
-                             gvalue.TERMINAL_SSH_PASSWORD)
+    ssh_client = connect_ssh(server_ip, server_info.TERMINAL_SSH_PORT, server_info.SERVER_SSH_USER,
+                             server_info.TERMINAL_SSH_PASSWORD)
     if ssh_client is not None:
         ssh_client.close()
-        ssh_info = SshInfo(server_ip, gvalue.TERMINAL_SSH_PORT, gvalue.SERVER_SSH_USER, gvalue.TERMINAL_SSH_PASSWORD,
-                           "root", gvalue.TERMINAL_SSH_PASSWORD)
-        gvalue.ssh_info_list.append(ssh_info)
+        ssh_info = SshInfo(server_ip, server_info.TERMINAL_SSH_PORT, server_info.SERVER_SSH_USER,
+                           server_info.TERMINAL_SSH_PASSWORD,
+                           "root", server_info.TERMINAL_SSH_PASSWORD)
+        server_info.ssh_info_list.append(ssh_info)
         return ssh_info
-    ssh_client = connect_ssh(server_ip, gvalue.NEW_TERMINAL_SSH_PORT, gvalue.TERMINAL_NEW_SSH_USER,
-                             gvalue.TERMINAL_SSH_PASSWORD)
+    ssh_client = connect_ssh(server_ip, server_info.NEW_TERMINAL_SSH_PORT, server_info.TERMINAL_NEW_SSH_USER,
+                             server_info.TERMINAL_SSH_PASSWORD)
     if ssh_client is not None:
         ssh_client.close()
-        ssh_info = SshInfo(server_ip, gvalue.NEW_TERMINAL_SSH_PORT, gvalue.TERMINAL_NEW_SSH_USER,
-                           gvalue.TERMINAL_SSH_PASSWORD, "root", gvalue.TERMINAL_SSH_PASSWORD)
-        gvalue.ssh_info_list.append(ssh_info)
+        ssh_info = SshInfo(server_ip, server_info.NEW_TERMINAL_SSH_PORT, server_info.TERMINAL_NEW_SSH_USER,
+                           server_info.TERMINAL_SSH_PASSWORD, "root", server_info.TERMINAL_SSH_PASSWORD)
+        server_info.ssh_info_list.append(ssh_info)
         return ssh_info
     return None
 
 
 def get_server_ssh_info(server_ip, fix_flag=False):
     if not fix_flag:
-        for a in gvalue.ssh_info_list:
+        for a in server_info.ssh_info_list:
             if a.ip == server_ip:
                 return a
-    ssh_client = connect_ssh(server_ip, gvalue.SERVER_SSH_PORT, gvalue.SERVER_SSH_USER,
-                             gvalue.DEFAULT_SERVER_PASSWORD_MjI)
+    ssh_client = connect_ssh(server_ip, server_info.SERVER_SSH_PORT, server_info.SERVER_SSH_USER,
+                             server_info.DEFAULT_SERVER_PASSWORD_MjI)
     if ssh_client is not None:
         ssh_client.close()
-        ssh_info = SshInfo(server_ip, gvalue.SERVER_SSH_PORT, gvalue.SERVER_SSH_USER,
-                           gvalue.DEFAULT_SERVER_PASSWORD_MjI,
-                           gvalue.SERVER_SSH_USER, gvalue.DEFAULT_SERVER_PASSWORD_MjI)
-        gvalue.ssh_info_list.append(ssh_info)
+        ssh_info = SshInfo(server_ip, server_info.SERVER_SSH_PORT, server_info.SERVER_SSH_USER,
+                           server_info.DEFAULT_SERVER_PASSWORD_MjI,
+                           server_info.SERVER_SSH_USER, server_info.DEFAULT_SERVER_PASSWORD_MjI)
+        server_info.ssh_info_list.append(ssh_info)
         return ssh_info
-    ssh_client = connect_ssh(server_ip, gvalue.SERVER_SSH_PORT, gvalue.SERVER_SSH_USER,
-                             gvalue.DEFAULT_SERVER_PASSWORD_35_)
+    ssh_client = connect_ssh(server_ip, server_info.SERVER_SSH_PORT, server_info.SERVER_SSH_USER,
+                             server_info.DEFAULT_SERVER_PASSWORD_35_)
     if ssh_client is not None:
         ssh_client.close()
-        ssh_info = SshInfo(server_ip, gvalue.SERVER_SSH_PORT, gvalue.SERVER_SSH_USER,
-                           gvalue.DEFAULT_SERVER_PASSWORD_35_, gvalue.SERVER_SSH_USER,
-                           gvalue.DEFAULT_SERVER_PASSWORD_35_)
-        gvalue.ssh_info_list.append(ssh_info)
+        ssh_info = SshInfo(server_ip, server_info.SERVER_SSH_PORT, server_info.SERVER_SSH_USER,
+                           server_info.DEFAULT_SERVER_PASSWORD_35_, server_info.SERVER_SSH_USER,
+                           server_info.DEFAULT_SERVER_PASSWORD_35_)
+        server_info.ssh_info_list.append(ssh_info)
         return ssh_info
     return None
 
@@ -118,9 +119,9 @@ class SshUtils(ShellCmdInterface):
         ssh_client = connect_ssh(self._ip, self._ssh_info.port, self._ssh_info.user_name,
                                  self._ssh_info.user_pwd)
         if ssh_client is None:
-            for a in gvalue.ssh_info_list:
+            for a in server_info.ssh_info_list:
                 if a.ip == self._ip:
-                    gvalue.ssh_info_list.remove(a)
+                    server_info.ssh_info_list.remove(a)
                     return self._get_ssh()
         self._ssh_client = ssh_client
 

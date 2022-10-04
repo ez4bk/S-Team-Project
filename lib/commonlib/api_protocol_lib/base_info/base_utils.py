@@ -2,7 +2,7 @@
 
 from jsonpath import jsonpath
 
-from commonlib.base_lib.mylog.mylog import log
+from lib.commonlib.base_lib.mylog.mylog import log
 
 
 class BaseUtils(object):

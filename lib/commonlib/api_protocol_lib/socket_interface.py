@@ -7,8 +7,8 @@
 @software: PyCharm
 @time: 2019/12/2 16:16
 """
-from commonlib.base_lib.mylog.mylog import log
-from commonlib.base_lib.network import tcp_utils
+from lib.commonlib.base_lib.mylog.mylog import log
+from lib.commonlib.base_lib.network import tcp_utils
 
 
 def tcp_call(ip, port, message, timeout=35):
@@ -34,4 +34,4 @@ class SocketInterface(object):
 
 
 if __name__ == "__main__":
-    pass
+    SocketInterface.exchange("172.31.204.230", "hello world", 35, port=5007)

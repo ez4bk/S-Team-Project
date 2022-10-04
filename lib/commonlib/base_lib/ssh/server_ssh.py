@@ -3,7 +3,7 @@ import re
 
 import requests
 
-from lib.commonlib.base_lib import gvalue
+from config import server_info
 from lib.commonlib.base_lib.ssh import ssh_utils, ssh_security_utils
 from lib.commonlib.base_lib.ssh.ssh_info import SshInfo
 from lib.commonlib.base_lib.ssh.ssh_utils import SshUtils
@@ -64,7 +64,7 @@ class ServerSsh(SshUtils):
         :return:返回SSH连接属性信息类
         """
         if not fix_flag:
-            for a in gvalue.ssh_info_list:
+            for a in server_info.ssh_info_list:
                 if a.ip == self._ip:
                     self._ssh_info = a
                     return a

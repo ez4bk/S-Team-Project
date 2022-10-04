@@ -11,12 +11,12 @@ import json
 import time
 import traceback
 
-import requests
 import bcrypt
-from commonlib.base_lib.mylog.mylog import log
+import requests
 
-from commonlib.base_lib.ssh.server_ssh import ServerSsh
-from commonlib.base_lib.utils.aes_pass import AESCipher
+from lib.commonlib.base_lib.mylog.mylog import log
+from lib.commonlib.base_lib.ssh.server_ssh import ServerSsh
+from lib.commonlib.base_lib.utils.aes_pass import AESCipher
 
 requests.packages.urllib3.disable_warnings()
 
@@ -31,8 +31,8 @@ encrypt_type = "new"
 
 def get_sunny_user_pwd_encode(server_ip, password, ssh_info, encode_file_path='/usr/rcd/bin/aes_encode.sh'):
     # 测试数 port=22, user_name='rcdtest', user_pwd='b9594546', root_name='rcdtest', root_pwd='b9594546'
-    # ssh_info = SshInfo(server_ip, gvalue.TERMINAL_SSH_PORT, gvalue.SERVER_SSH_USER, gvalue.server_ssh_password,
-    #                    "root", gvalue.server_ssh_password)
+    # ssh_info = SshInfo(server_ip, server_info.TERMINAL_SSH_PORT, server_info.SERVER_SSH_USER, server_info.server_ssh_password,
+    #                    "root", server_info.server_ssh_password)
     ssh = ServerSsh(server_ip, ssh_info)
     pwd_encode = ssh.exec_command('sh {0} {1}'.format(encode_file_path, password))
     return pwd_encode.strip()
@@ -88,7 +88,7 @@ def http_get_cookie(login_url, user_name, user_pwd):
         encrypt_type = tmp
         cookies = _http_get_cookie_do(login_url, user_name, user_pwd, tmp)
         if type(cookies) is tuple:
-            assert False,cookies[1]
+            assert False, cookies[1]
     return cookies
 
 
