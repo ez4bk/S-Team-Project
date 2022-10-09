@@ -3,80 +3,9 @@ import traceback
 
 import paramiko
 
-from config import server_info
 from lib.commonlib.base_lib.mylog.mylog import _commonlib_log
 from lib.commonlib.base_lib.ssh.shell_cmd_interface import ShellCmdInterface
 from lib.commonlib.base_lib.ssh.ssh_info import SshInfo
-
-"""
-内部函数
-"""
-
-
-def get_terminal_ssh_info(server_ip, fix_flag=False):
-    """
-    终端连接
-
-    :param fix_flag:
-    :param server_ip: 要连接的终端IP
-    :return: 返回连接终端使用的ssh_info信息
-    """
-    if not fix_flag:
-        for a in server_info.ssh_info_list:
-            if a.ip == server_ip:
-                return a
-    ssh_client = connect_ssh(server_ip, server_info.NEW_TERMINAL_SSH_PORT, server_info.TERMINAL_NEW_SSH_USER,
-                             server_info.NEW_TERMINAL_SSH_PASSWORD)
-    if ssh_client is not None:
-        ssh_client.close()
-        ssh_info = SshInfo(server_ip, server_info.NEW_TERMINAL_SSH_PORT, server_info.TERMINAL_NEW_SSH_USER,
-                           server_info.NEW_TERMINAL_SSH_PASSWORD, "root", server_info.NEW_ROOT_TERMINAL_SSH_PASSWORD)
-        server_info.ssh_info_list.append(ssh_info)
-        return ssh_info
-    ssh_client = connect_ssh(server_ip, server_info.TERMINAL_SSH_PORT, server_info.SERVER_SSH_USER,
-                             server_info.TERMINAL_SSH_PASSWORD)
-    if ssh_client is not None:
-        ssh_client.close()
-        ssh_info = SshInfo(server_ip, server_info.TERMINAL_SSH_PORT, server_info.SERVER_SSH_USER,
-                           server_info.TERMINAL_SSH_PASSWORD,
-                           "root", server_info.TERMINAL_SSH_PASSWORD)
-        server_info.ssh_info_list.append(ssh_info)
-        return ssh_info
-    ssh_client = connect_ssh(server_ip, server_info.NEW_TERMINAL_SSH_PORT, server_info.TERMINAL_NEW_SSH_USER,
-                             server_info.TERMINAL_SSH_PASSWORD)
-    if ssh_client is not None:
-        ssh_client.close()
-        ssh_info = SshInfo(server_ip, server_info.NEW_TERMINAL_SSH_PORT, server_info.TERMINAL_NEW_SSH_USER,
-                           server_info.TERMINAL_SSH_PASSWORD, "root", server_info.TERMINAL_SSH_PASSWORD)
-        server_info.ssh_info_list.append(ssh_info)
-        return ssh_info
-    return None
-
-
-def get_server_ssh_info(server_ip, fix_flag=False):
-    if not fix_flag:
-        for a in server_info.ssh_info_list:
-            if a.ip == server_ip:
-                return a
-    ssh_client = connect_ssh(server_ip, server_info.SERVER_SSH_PORT, server_info.SERVER_SSH_USER,
-                             server_info.DEFAULT_SERVER_PASSWORD_MjI)
-    if ssh_client is not None:
-        ssh_client.close()
-        ssh_info = SshInfo(server_ip, server_info.SERVER_SSH_PORT, server_info.SERVER_SSH_USER,
-                           server_info.DEFAULT_SERVER_PASSWORD_MjI,
-                           server_info.SERVER_SSH_USER, server_info.DEFAULT_SERVER_PASSWORD_MjI)
-        server_info.ssh_info_list.append(ssh_info)
-        return ssh_info
-    ssh_client = connect_ssh(server_ip, server_info.SERVER_SSH_PORT, server_info.SERVER_SSH_USER,
-                             server_info.DEFAULT_SERVER_PASSWORD_35_)
-    if ssh_client is not None:
-        ssh_client.close()
-        ssh_info = SshInfo(server_ip, server_info.SERVER_SSH_PORT, server_info.SERVER_SSH_USER,
-                           server_info.DEFAULT_SERVER_PASSWORD_35_, server_info.SERVER_SSH_USER,
-                           server_info.DEFAULT_SERVER_PASSWORD_35_)
-        server_info.ssh_info_list.append(ssh_info)
-        return ssh_info
-    return None
 
 
 def connect_ssh(host, port, user_name, password):
@@ -95,34 +24,29 @@ def connect_ssh(host, port, user_name, password):
 
 class SshUtils(ShellCmdInterface):
 
-    def __init__(self, device_ip, ssh_info=None):
-        super().__init__(device_ip)
+    def __init__(self, server_ip, ssh_info=None):
+        super().__init__(server_ip)
         self._ssh_client = None
         self._ssh_info = ssh_info
         self._channel_obj = None
 
-    def get_ssh_info(self, fix_flag=False):
+    def get_ssh_info(self):
         """
         获取服务器SSH连接的属性信息,类型为SshInfo
 
         :return:返回SSH连接属性信息类
         """
         if self._ssh_info is None:
-            self._ssh_info = get_server_ssh_info(self._ip, fix_flag)
+            self._ssh_info = SshInfo()
         return self._ssh_info
 
     def _get_ssh(self):
         self.get_ssh_info()
         if self._ssh_info is None:
             return None
-        # raise Exception("can not get server " + str(self._ip) + " server info")
         ssh_client = connect_ssh(self._ip, self._ssh_info.port, self._ssh_info.user_name,
                                  self._ssh_info.user_pwd)
-        if ssh_client is None:
-            for a in server_info.ssh_info_list:
-                if a.ip == self._ip:
-                    server_info.ssh_info_list.remove(a)
-                    return self._get_ssh()
+        assert ssh_client is not None, f"SSH connection failed!"
         self._ssh_client = ssh_client
 
     def check_ssh(self):
@@ -153,36 +77,45 @@ class SshUtils(ShellCmdInterface):
         if self._ssh_client is None:
             raise Exception("ssh can not connect server " + str(self._ip))
         _commonlib_log("server ssh cmd: " + str(cmd))
-        chanel_ssh_ob = self._ssh_client.invoke_shell()  # 建立交互式的shell
-        chanel_ssh_ob.settimeout(cmd_timeout / 1000 + 3)  # 设置接收与发送超时时间
-        result = self._chanel_root(chanel_ssh_ob, self._ssh_info.root_pwd)
-        if result:
-            result = self._simple_ssh_cmd(chanel_ssh_ob, cmd, cmd_timeout)
-        _commonlib_log("ssh result: \r" + str(result))
+        stdin, stdout, stderr = self._ssh_client.exec_command(cmd)
+        result = str(stdout.read().decode("utf-8").strip())
+        error = str(stderr.read().decode('utf-8').strip())
+        assert error is not None, "Error in SSH executing command: {}".format(error)
+        _commonlib_log("ssh result: %s" % result)
         self._close_ssh()
         return result
 
-    def channel_exec_command(self, cmd, cmd_timeout=5 * 1000, process_callback=None):
-        """
-
-        :param cmd:
-        :param cmd_timeout:
-        :param process_callback:   函数原型：  def process_callback_func(channel,msg)
-        :return:
-        """
-        if self._channel_obj is None:
-            self._get_ssh()
-            if self._ssh_client is None:
-                raise Exception("ssh can not connect server " + str(self._ip))
-
-            self._channel_obj = self._ssh_client.invoke_shell()  # 建立交互式的shell
-            result = self._chanel_root(self._channel_obj, self._ssh_info.root_pwd)
-        _commonlib_log("server ssh cmd: " + str(cmd))
-        self._channel_obj.settimeout(cmd_timeout / 1000 + 3)  # 设置接收与发送超时时间
-        result = self._simple_ssh_cmd(self._channel_obj, cmd, cmd_timeout, process_callback)
-        _commonlib_log("ssh result: \r" + str(result))
-        return result
+    # def channel_exec_command(self, cmd, cmd_timeout=5 * 1000, process_callback=None):
+    #     """
+    #     not yet implemented
+    #     :param cmd:
+    #     :param cmd_timeout:
+    #     :param process_callback:   函数原型：  def process_callback_func(channel,msg)
+    #     :return:
+    #     """
+    #     if self._channel_obj is None:
+    #         self._get_ssh()
+    #         if self._ssh_client is None:
+    #             raise Exception("ssh can not connect server " + str(self._ip))
+    #         stdin, stdout, stderr = self._ssh_client.exec_command(cmd)
+    #         _commonlib_log("server ssh cmd: " + str(cmd))
+    #         result = str(stdout.read().decode("utf-8"))
+    #         # self._channel_obj = self._ssh_client.invoke_shell()  # 建立交互式的shell
+    #         # result = self._chanel_root(self._channel_obj, self._ssh_info.root_pwd)
+    #     # self._channel_obj.settimeout(cmd_timeout / 1000 + 3)  # 设置接收与发送超时时间
+    #     # result = self._simple_ssh_cmd(self._channel_obj, cmd, cmd_timeout, process_callback)
+    #     # self._ssh_client.close()
+    #     _commonlib_log("ssh result: %s" % result)
+    #
+    #     return result
 
     def channel_destroy(self):
         self._channel_obj = None
         self._close_ssh()
+
+
+if __name__ == "__main__":
+    # from lib.commonlib.base_lib.ssh.ssh_utils import SSHUtils
+    ssh_util = SshUtils('127.0.0.1')
+    result = ssh_util.exec_command('ls')
+    # print(result)

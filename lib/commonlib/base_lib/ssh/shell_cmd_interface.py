@@ -13,11 +13,11 @@ class ShellCmdInterface(object):
     SSH 抽象接口类，提供给终端SSH与服务器SSH进行具体实例
     """
 
-    def __init__(self, device_ip):
+    def __init__(self, server_ip):
         """
-        :param device_ip:
+        :param server_ip:
         """
-        self._ip = device_ip
+        self._ip = server_ip
         self._ssh_info = None
 
     @abstractmethod
@@ -39,20 +39,6 @@ class ShellCmdInterface(object):
                 client.close()
             except Exception:
                 _commonlib_log(traceback.format_exc())
-
-    def _chanel_root(self, chanel_ssh_ob, pwd):
-        result = self.__cmd_whoami(chanel_ssh_ob)
-        if str(result).__contains__("~$"):
-            _commonlib_log("change ssh root by pwd " + str(pwd))
-            cmd = 'su root'
-            chanel_ssh_ob.send(cmd)
-            chanel_ssh_ob.send("\n")
-            for a in range(3):
-                time.sleep(0.1)
-                result = chanel_ssh_ob.recv(9999).decode("utf8")
-                if result.endswith("Password: "):
-                    return self.__input_password(chanel_ssh_ob, pwd)
-        return True
 
     def __input_password(self, chanel_ssh_ob, pwd, timeout=10 * 1000):
         chanel_ssh_ob.send(pwd)
@@ -179,3 +165,7 @@ class ShellCmdInterface(object):
         #     if tmp[-1].endswith("\n"):
         #         tmp[-1] = tmp[-1][:-1]
         return ret
+
+
+if __name__ == "__main__":
+    pass

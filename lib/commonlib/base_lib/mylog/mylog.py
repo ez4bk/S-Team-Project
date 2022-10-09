@@ -3,57 +3,36 @@ import logging
 import os
 import sys
 
-from lib.commonlib.base_lib.utils.processpath import cur_file_dir
+from config.project_info import LOG_DIR
 
 # sys.stderr = sys.stdout
-
-commonlib_logger = None
 user_logger = None
-commonlib_fh = None
 fh = None
-default_log_path = ""
-commonlib_log_file_name = ""
+default_log_path = LOG_DIR
 log_file_name = ""
 formatter = logging.Formatter("%(asctime)s-%(levelname)s-%(message)s")
 
 ch = logging.StreamHandler(sys.stdout)
 ch.setFormatter(formatter)
 
-__commonlib_log_flag = False
-
 
 def __clear_log_handler():
-    global commonlib_logger
     # global user_logger
-    global commonlib_fh
     global fh
-    commonlib_logger.removeHandler(commonlib_fh)
-    commonlib_logger.removeHandler(ch)
     user_logger.removeHandler(fh)
-    user_logger.removeHandler(commonlib_fh)
     user_logger.removeHandler(ch)
 
 
 def __add_log_handler():
-    global commonlib_logger
     global user_logger
-    global commonlib_fh
     global fh
-    commonlib_logger.addHandler(commonlib_fh)
     user_logger.addHandler(fh)
-    # commonlib_logger.addHandler(commonlib_ch)
     user_logger.addHandler(ch)
-
-    user_logger.addHandler(commonlib_fh)
-    if __commonlib_log_flag:
-        commonlib_logger.addHandler(ch)
 
 
 def __init_file_handler(file_path, log_name):
     global formatter
-    global commonlib_fh
     global fh
-    global commonlib_file_name
     global log_file_name
     if not os.path.exists(file_path):
         os.makedirs(file_path)
@@ -61,31 +40,20 @@ def __init_file_handler(file_path, log_name):
         log_file_name = os.path.join(file_path, log_name)
     else:
         log_file_name = os.path.join(file_path, str(datetime.datetime.now().strftime("%Y-%m-%d")) + ".log")
-    commonlib_file_name = os.path.join(file_path, "commonlib_" +
-                                       str(datetime.datetime.now().strftime("%Y-%m-%d")) + ".log")
 
     fh = logging.FileHandler(log_file_name, encoding="UTF-8")
     fh.setFormatter(formatter)
-    commonlib_fh = logging.FileHandler(commonlib_file_name, encoding="UTF-8")
-    commonlib_fh.setFormatter(formatter)
 
 
 def __init_logger(test_log_path="", log_name=""):
-    global commonlib_logger
     global user_logger
     global default_log_path
-    global __commonlib_log_flag
-    if str(cur_file_dir()).__contains__("commonlib"):
-        __commonlib_log_flag = True
     if test_log_path == "":
-        path = str(cur_file_dir())
-        test_log_path = os.path.join(path, 'log')
+        test_log_path = LOG_DIR
     default_log_path = test_log_path
-    commonlib_logger = logging.getLogger("commonlib")
 
     user_logger = logging.getLogger("user")
-    commonlib_logger.setLevel(logging.DEBUG)
-    user_logger.setLevel(logging.INFO)
+    user_logger.setLevel(logging.DEBUG)
     __clear_log_handler()
     __init_file_handler(test_log_path, log_name)
     __add_log_handler()
@@ -112,24 +80,15 @@ def get_log_path():
 
 
 def get_common_lib_log_file_name():
-    global commonlib_log_file_name
-    return commonlib_log_file_name
+    # global commonlib_log_file_name
+    # return commonlib_log_file_name
+    global log_file_name
+    return log_file_name
 
 
 def get_log_file_name():
     global log_file_name
     return log_file_name
-
-
-def open_commonlib_log(open_flag=True):
-    """
-    开启公共库日志，调用此接口，公共库部份的日志将也输出到控制台
-
-    :param open_flag: True时开启公共库日志，False时关闭公共库日志，默认为开启
-    """
-    global __commonlib_log_flag
-    __commonlib_log_flag = open_flag
-    __init_logger()
 
 
 def set_log_level(log_level):
@@ -153,10 +112,8 @@ def set_log_level(log_level):
     else:
         level = logging.INFO
     global user_logger
-    global commonlib_logger
     print("set mylog level " + str(level))
     user_logger.setLevel(level)
-    commonlib_logger.setLevel(level)
 
 
 def log_d(msg):
@@ -218,8 +175,7 @@ def _commonlib_log_d(msg):
 
     :param msg:  要打印的日志信息
     """
-    auxiliary_msg = __get_auxiliary_info()
-    commonlib_logger.debug(auxiliary_msg + str(msg))
+    log_d(msg)
 
 
 def _commonlib_log_i(msg):
@@ -228,8 +184,7 @@ def _commonlib_log_i(msg):
 
     :param msg:  要打印的日志信息
     """
-    auxiliary_msg = __get_auxiliary_info()
-    commonlib_logger.info(auxiliary_msg + str(msg))
+    log_i(msg)
 
 
 def _commonlib_log_w(msg):
@@ -238,8 +193,7 @@ def _commonlib_log_w(msg):
 
     :param msg:  要打印的日志信息
     """
-    auxiliary_msg = __get_auxiliary_info()
-    commonlib_logger.warning(auxiliary_msg + str(msg))
+    log_w(msg)
 
 
 def _commonlib_log_e(msg):
@@ -248,8 +202,7 @@ def _commonlib_log_e(msg):
 
     :param msg:  要打印的日志信息
     """
-    auxiliary_msg = __get_auxiliary_info()
-    commonlib_logger.error(auxiliary_msg + str(msg))
+    log_e(msg)
 
 
 def _commonlib_log(msg):
@@ -258,7 +211,7 @@ def _commonlib_log(msg):
 
     :param msg:  要打印的日志信息
     """
-    _commonlib_log_i(msg)
+    log_i(msg)
 
 
 def __get_auxiliary_info():
@@ -278,22 +231,4 @@ def __get_auxiliary_info():
 __init_logger()
 
 if __name__ == '__main__':
-    # set_log_level("error")
-    log_i("77777")
-    open_commonlib_log(True)
-    _commonlib_log("111")
-    # _commonlib_log("222")
-    # _commonlib_log("333")
-    # # set_log_level("warning")
-    # log_w("5555")
-    # _commonlib_log_e("66666")
-
-    # set_log_path("D:")
-    # log_d("888")
-    # _commonlib_log_e("99999")
-    # log_w("000000")
-    #
-    # log_w("5555")
-    # set_log_path(os.path.dirname("D:\\"), "build.log")
-    # _commonlib_log_e("66666")
-    # log_i("77777")
+    pass

@@ -1,5 +1,6 @@
 # -*- coding: cp936 -*-
-import sys, os
+import os
+import sys
 
 
 # 获取脚本文件的当前路径
@@ -15,4 +16,9 @@ def cur_file_dir():
 
 # 打印结果
 if __name__ == '__main__':
-    print(cur_file_dir())
+    # print(cur_file_dir())
+    path = os.getcwd()
+    print(path)
+    os.chdir('..')
+    path = os.getcwd()
+    print(path)

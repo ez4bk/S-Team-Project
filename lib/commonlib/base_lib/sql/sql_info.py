@@ -1,4 +1,5 @@
 # coding=utf-8
+from config.server_info import MYSQL_USER, MYSQL_PWD, MYSQL_PORT, MYSQL_DATABASE
 from lib.commonlib.base_lib.ssh.ssh_info import SshInfo
 
 
@@ -14,7 +15,8 @@ class SqlInfo(object):
 
     """
 
-    def __init__(self, ssh_info, sql_user, sql_pwd, sql_port, sql_name):
+    def __init__(self, ssh_info=None, sql_user=MYSQL_USER, sql_pwd=MYSQL_PWD,
+                 sql_port=MYSQL_PORT, sql_name=MYSQL_DATABASE):
         """
         :type ssh_info SshInfo
         :param ssh_info:

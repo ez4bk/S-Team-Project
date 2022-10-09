@@ -1,18 +1,20 @@
 import psutil
 
+from lib.commonlib.base_lib.mylog.mylog import log
+
 
 class ProcessListen(object):
     def __init__(self):
         pass
 
-    @staticmethod
-    def find_process_by_name(keyword):
+    def find_process_by_name(self, keyword):
         """
         Find the process by keyword fuzzy matching
         :param keyword: keyword of the process
         :return proc_list: list of matching process id
         """
         proc_list = []
+
         for p in psutil.process_iter(['name', 'pid', 'status']):
             try:
                 if keyword in p.info['name'] and p.info['status'] == 'running':
@@ -28,4 +30,5 @@ class ProcessListen(object):
 
 
 if __name__ == '__main__':
-    ProcessListen.find_process_by_name('')
+    process_listen = ProcessListen()
+    log(f'>>>%s' % process_listen.find_process_by_name(''))

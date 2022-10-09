@@ -15,7 +15,6 @@ import bcrypt
 import requests
 
 from lib.commonlib.base_lib.mylog.mylog import log
-from lib.commonlib.base_lib.ssh.server_ssh import ServerSsh
 from lib.commonlib.base_lib.utils.aes_pass import AESCipher
 
 requests.packages.urllib3.disable_warnings()
@@ -27,15 +26,6 @@ SUNNY_DATA_PORT = '9000'
 HTTPS_CONTENT_TYPE = 'application/json'
 
 encrypt_type = "new"
-
-
-def get_sunny_user_pwd_encode(server_ip, password, ssh_info, encode_file_path='/usr/rcd/bin/aes_encode.sh'):
-    # 测试数 port=22, user_name='rcdtest', user_pwd='b9594546', root_name='rcdtest', root_pwd='b9594546'
-    # ssh_info = SshInfo(server_ip, server_info.TERMINAL_SSH_PORT, server_info.SERVER_SSH_USER, server_info.server_ssh_password,
-    #                    "root", server_info.server_ssh_password)
-    ssh = ServerSsh(server_ip, ssh_info)
-    pwd_encode = ssh.exec_command('sh {0} {1}'.format(encode_file_path, password))
-    return pwd_encode.strip()
 
 
 def php_head_set(server_ip, sunny_user, sunny_user_password, login_api_name='/rj/index.php',
