@@ -1,6 +1,6 @@
 import psutil
 
-from lib.commonlib.base_lib.mylog.mylog import log
+from lib.base_lib import log
 
 
 class ProcessListen(object):
