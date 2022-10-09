@@ -119,43 +119,6 @@ class SqlUtils(object):
         log("sql_exec cmd>>>" + str(sql_cmd))
         return self.__sql_cmd_exec_by_ssh(sql_info, sql_cmd, result_flag)
 
-    # @staticmethod
-    # def __sql_connect(sql_info):
-    #     for a in range(3):
-    #         try:
-    #             conn = mysql.connect(database=sql_info.sql_name, user=sql_info.sql_user, password=sql_info.sql_pwd,
-    #                                  host=sql_info.ssh_info.ip,
-    #                                  port=sql_info.sql_port)
-    #             return conn
-    #         except Exception:
-    #             log(traceback.format_exc())
-    #     return None
-
-    # def __sql_cmd_exec(self, sql_info, sql_cmd, result_flag=1):
-    #     """
-    #     :type sql_info SqlInfo
-    #     :param sql_info:
-    #     :param result_flag:
-    #     :return:
-    #     """
-    #     conn = None
-    #     try:
-    #         conn = self.__sql_connect(sql_info)
-    #         cursor = conn.cursor()
-    #         cursor.execute(sql_cmd)
-    #
-    #         if result_flag == 1:
-    #             rows = cursor.fetchall()
-    #             log(str(rows))
-    #             return rows
-    #         else:
-    #             conn.commit()
-    #     except Exception as e:
-    #         raise e
-    #     finally:
-    #         if conn:
-    #             conn.close()
-
 
 if __name__ == '__main__':
     aa = SqlUtils()

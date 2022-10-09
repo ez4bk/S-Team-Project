@@ -86,30 +86,6 @@ class SshUtils(ShellCmdInterface):
         self._close_ssh()
         return result
 
-    # def channel_exec_command(self, cmd, cmd_timeout=5 * 1000, process_callback=None):
-    #     """
-    #     not yet implemented
-    #     :param cmd:
-    #     :param cmd_timeout:
-    #     :param process_callback:   函数原型：  def process_callback_func(channel,msg)
-    #     :return:
-    #     """
-    #     if self._channel_obj is None:
-    #         self._get_ssh()
-    #         if self._ssh_client is None:
-    #             raise Exception("ssh can not connect server " + str(self._ip))
-    #         stdin, stdout, stderr = self._ssh_client.exec_command(cmd)
-    #         log("server ssh cmd: " + str(cmd))
-    #         result = str(stdout.read().decode("utf-8"))
-    #         # self._channel_obj = self._ssh_client.invoke_shell()  # 建立交互式的shell
-    #         # result = self._chanel_root(self._channel_obj, self._ssh_info.root_pwd)
-    #     # self._channel_obj.settimeout(cmd_timeout / 1000 + 3)  # 设置接收与发送超时时间
-    #     # result = self._simple_ssh_cmd(self._channel_obj, cmd, cmd_timeout, process_callback)
-    #     # self._ssh_client.close()
-    #     log("ssh result: %s" % result)
-    #
-    #     return result
-
     def channel_destroy(self):
         self._channel_obj = None
         self._close_ssh()
