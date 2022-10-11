@@ -3,6 +3,7 @@ import traceback
 
 import paramiko
 
+from config.server_info import SERVER_IP
 from lib.base_lib.mylog.mylog import log
 from lib.base_lib.ssh.shell_cmd_interface import ShellCmdInterface
 from lib.base_lib.ssh.ssh_info import SshInfo
@@ -25,7 +26,7 @@ def connect_ssh(host, port, user_name, password):
 
 class SshUtils(ShellCmdInterface):
 
-    def __init__(self, server_ip, ssh_info=None):
+    def __init__(self, server_ip=SERVER_IP, ssh_info=None):
         super().__init__(server_ip)
         self._ssh_client = None
         self._ssh_info = ssh_info
@@ -93,6 +94,7 @@ class SshUtils(ShellCmdInterface):
 
 if __name__ == "__main__":
     # from lib.commonlib.base_lib.ssh.ssh_utils import SSHUtils
-    ssh_util = SshUtils('127.0.0.1')
+    ssh_util = SshUtils()
     result_cmd = ssh_util.exec_command('ls')
+    # ssh_util.check_ssh()
     # print(result)

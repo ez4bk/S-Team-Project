@@ -18,8 +18,8 @@ mysql_server_config = {
 # SSH Information
 SSH_USER = 'ez4bk'
 SSH_PWD = 'Wyc1qaz2wsx~'
-SSH_ROOT = 'abc'
-SSH_ROOT_PWD = 'abc~'
+SSH_ROOT = 'ez4bk'
+SSH_ROOT_PWD = 'Wyc1qaz2wsx~'
 SSH_PORT = 22
 
 if __name__ == '__main__':
