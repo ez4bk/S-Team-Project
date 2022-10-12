@@ -1,11 +1,11 @@
 # coding=utf-8
-SERVER_IP = '127.0.0.1'
+SERVER_IP = 'cs431-06.cs.rutgers.edu'
 
 # Database Server Information
-MYSQL_USER = 'root'
-MYSQL_PWD = '123456'
+MYSQL_USER = 'dev'
+MYSQL_PWD = 'FamiOwl123'
 MYSQL_DATABASE = 'FamiOwl'
-MYSQL_PORT = 3307
+MYSQL_PORT = 3306
 
 mysql_server_config = {
     'host': SERVER_IP,
@@ -16,10 +16,8 @@ mysql_server_config = {
 }
 
 # SSH Information
-SSH_USER = 'ez4bk'
+SSH_USER = 'yw780'
 SSH_PWD = 'Wyc1qaz2wsx~'
-SSH_ROOT = 'ez4bk'
-SSH_ROOT_PWD = 'Wyc1qaz2wsx~'
 SSH_PORT = 22
 
 if __name__ == '__main__':

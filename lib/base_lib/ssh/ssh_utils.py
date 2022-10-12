@@ -95,6 +95,6 @@ class SshUtils(ShellCmdInterface):
 if __name__ == "__main__":
     # from lib.commonlib.base_lib.ssh.ssh_utils import SSHUtils
     ssh_util = SshUtils()
-    result_cmd = ssh_util.exec_command('ls')
+    result_cmd = ssh_util.exec_command('ifconfig')
     # ssh_util.check_ssh()
     # print(result)

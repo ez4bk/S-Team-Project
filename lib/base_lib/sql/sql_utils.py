@@ -72,8 +72,11 @@ class SqlUtils(object):
         session = None
         try:
             engine = create_engine(
-                'mysql+pymysql://{0}:{1}@localhost:{2}/{3}'.format(sql_info.sql_user, sql_info.sql_pwd, bind_port,
-                                                                   sql_info.sql_name), poolclass=NullPool)
+                'mysql+pymysql://{0}:{1}@{2}:{3}/{4}'.format(sql_info.sql_user,
+                                                             sql_info.sql_pwd,
+                                                             SERVER_IP,
+                                                             bind_port,
+                                                             sql_info.sql_name), poolclass=NullPool)
             Session = sessionmaker(bind=engine)
             session = Session()
             if result_flag == 0:
