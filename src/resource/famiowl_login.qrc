@@ -2,6 +2,9 @@
   <qresource prefix="famiowl_title">
     <file>famiowl_title.png</file>
   </qresource>
+  <qresource prefix="signup_pic">
+    <file>Image_4.png</file>
+  </qresource>
   <qresource prefix="owl_gif">
     <file>owl_gif.gif</file>
   </qresource>
