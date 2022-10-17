@@ -1,7 +1,7 @@
 import sys
 
 from PyQt6 import QtWidgets
-from PyQt6.QtWidgets import QMainWindow, QMessageBox
+from PyQt6.QtWidgets import QMainWindow, QMessageBox, QLineEdit
 
 from config.sql_query.account_query import *
 from lib.base_lib.sql.sql_utils import SqlUtils
@@ -14,6 +14,7 @@ sql_utils = SqlUtils()
 def message_info_box(parent, msg_str):
     """
     Pull up a message box.
+
     :param parent: parent window the msg box belongs to
     :param msg_str: message text
     :return: Null
@@ -26,8 +27,12 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         super(SigninWindow, self).__init__(parent)
         self.setupUi(self)
         self.signup_window = None
+
         self.__userid = ''
         self.__pwd = ''
+
+        self.pwd_line.setEchoMode(QLineEdit.EchoMode.Password)
+
         self.__define_exit_button()
         self.__define_signin_button()
         self.__define_signup_button()
@@ -47,7 +52,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
 
         signin_code = self.__signin_query()
         if signin_code == 0:
-            pass
+            message_info_box(self, "Sign in Successfully!")
         elif signin_code == 1:
             message_info_box(self, "Incorrect password!")
         elif signin_code == 2:
@@ -89,10 +94,12 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
         super(SignupWindow, self).__init__(parent)
         self.parent = parent
         self.setupUi(self)
+
         self.__userid = ''
         self.__username = ''
         self.__pwd = ''
-        # self.__clear_signup_lines()
+
+        self.signup_pwd_line.setEchoMode(QLineEdit.EchoMode.Password)
         self.__define_back_button()
         self.__define_signup_button()
 
