@@ -37,15 +37,17 @@ def define_exit_button(exit_button):
 
 
 def define_signin_button(signin_button, userid_line, pwd_line):
+    signin_button.clicked.connect(lambda: signin(userid_line, pwd_line))
+
+
+def signin(userid_line, pwd_line):
+    userid, pwd = '', ''
     try:
         userid = str(userid_line.text())
         pwd = str(pwd_line.text())
     except TypeError as e:
-        pass
-    signin_button.clicked.connect(lambda: signin(userid, pwd))
+        signin_window.message_info_box('e')
 
-
-def signin(userid, pwd):
     signin_code = signin_query(userid, pwd)
     if signin_code == 0:
         pass
@@ -85,7 +87,7 @@ def signin_query(userid, pwd):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     signin_window = SigninWindow()
-    # signin_window.show()
+    signin_window.show()
 
     signup_window = SignupWindow()
     signup_window.show()
