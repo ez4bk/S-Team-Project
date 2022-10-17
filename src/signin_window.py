@@ -180,7 +180,7 @@ class Ui_Signin_Window(object):
 
     def retranslateUi(self, Signin_Window):
         _translate = QtCore.QCoreApplication.translate
-        Signin_Window.setWindowTitle(_translate("Signin_Window", "MainWindow"))
+        Signin_Window.setWindowTitle(_translate("Signin_Window", "FamiOwl Sign In"))
         self.place_holder_button.setText(_translate("Signin_Window", "X"))
         self.exit_button.setText(_translate("Signin_Window", "X"))
         self.signup_button.setText(_translate("Signin_Window", "Sign up ->"))

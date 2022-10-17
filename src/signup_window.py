@@ -16,7 +16,8 @@ class Ui_Signup_Window(object):
         Signup_Window.setMinimumSize(QtCore.QSize(800, 450))
         Signup_Window.setMaximumSize(QtCore.QSize(800, 450))
         Signup_Window.setStyleSheet("background-color: black;\n"
-"color: white;")
+                                    "color: white;")
+        Signup_Window.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.centralwidget = QtWidgets.QWidget(Signup_Window)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -51,7 +52,8 @@ class Ui_Signup_Window(object):
         self.signup_info_label.setStyleSheet("color: white;")
         self.signup_info_label.setObjectName("signup_info_label")
         self.signup_info_layout.addWidget(self.signup_info_label)
-        spacerItem = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
+        spacerItem = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Policy.Minimum,
+                                           QtWidgets.QSizePolicy.Policy.Fixed)
         self.signup_info_layout.addItem(spacerItem)
         self.signup_email_label = QtWidgets.QLabel(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Maximum)
@@ -67,8 +69,11 @@ class Ui_Signup_Window(object):
         self.signup_email_line = QtWidgets.QLineEdit(self.centralwidget)
         self.signup_email_line.setStyleSheet("background-color: white;")
         self.signup_email_line.setObjectName("signup_email_line")
+        self.signup_email_line.setStyleSheet("background-color: white;"
+                                             "color: black")
         self.signup_info_layout.addWidget(self.signup_email_line)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Policy.Minimum,
+                                            QtWidgets.QSizePolicy.Policy.Fixed)
         self.signup_info_layout.addItem(spacerItem1)
         self.signup_username_edit = QtWidgets.QLabel(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Maximum)
@@ -84,8 +89,11 @@ class Ui_Signup_Window(object):
         self.signup_username_line = QtWidgets.QLineEdit(self.centralwidget)
         self.signup_username_line.setStyleSheet("background-color: white;")
         self.signup_username_line.setObjectName("signup_username_line")
+        self.signup_username_line.setStyleSheet("background-color: white;"
+                                                "color: black")
         self.signup_info_layout.addWidget(self.signup_username_line)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Policy.Minimum,
+                                            QtWidgets.QSizePolicy.Policy.Fixed)
         self.signup_info_layout.addItem(spacerItem2)
         self.signup_pwd_label = QtWidgets.QLabel(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Maximum)
@@ -101,19 +109,23 @@ class Ui_Signup_Window(object):
         self.signup_pwd_line = QtWidgets.QLineEdit(self.centralwidget)
         self.signup_pwd_line.setStyleSheet("background-color: white;")
         self.signup_pwd_line.setObjectName("signup_pwd_line")
+        self.signup_pwd_line.setStyleSheet("background-color: white;"
+                                           "color: black")
         self.signup_info_layout.addWidget(self.signup_pwd_line)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Policy.Minimum,
+                                            QtWidgets.QSizePolicy.Policy.Fixed)
         self.signup_info_layout.addItem(spacerItem3)
         self.signup_button_layout = QtWidgets.QHBoxLayout()
         self.signup_button_layout.setObjectName("signup_button_layout")
-        spacerItem4 = QtWidgets.QSpacerItem(20, 0, QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 0, QtWidgets.QSizePolicy.Policy.Fixed,
+                                            QtWidgets.QSizePolicy.Policy.Minimum)
         self.signup_button_layout.addItem(spacerItem4)
         self.signup_back_button = QtWidgets.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setPointSize(14)
         self.signup_back_button.setFont(font)
         self.signup_back_button.setStyleSheet("background-color: rgb(60, 32, 228);\n"
-"color:rgb(255, 255, 255)")
+                                              "color:rgb(255, 255, 255)")
         self.signup_back_button.setObjectName("signup_back_button")
         self.signup_button_layout.addWidget(self.signup_back_button)
         self.signup_button = QtWidgets.QPushButton(self.centralwidget)
@@ -126,10 +138,11 @@ class Ui_Signup_Window(object):
         font.setPointSize(14)
         self.signup_button.setFont(font)
         self.signup_button.setStyleSheet("background-color: rgb(60, 32, 228);\n"
-"color:rgb(255, 255, 255)")
+                                         "color:rgb(255, 255, 255)")
         self.signup_button.setObjectName("signup_button")
         self.signup_button_layout.addWidget(self.signup_button)
-        spacerItem5 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem5 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Policy.Fixed,
+                                            QtWidgets.QSizePolicy.Policy.Minimum)
         self.signup_button_layout.addItem(spacerItem5)
         self.signup_info_layout.addLayout(self.signup_button_layout)
         self.horizontalLayout_2.addLayout(self.signup_info_layout)
@@ -141,7 +154,7 @@ class Ui_Signup_Window(object):
         self.signup_pic.setSizePolicy(sizePolicy)
         self.signup_pic.setMaximumSize(QtCore.QSize(375, 450))
         self.signup_pic.setText("")
-        self.signup_pic.setPixmap(QtGui.QPixmap(":/signup_pic/Image_4.png"))
+        self.signup_pic.setPixmap(QtGui.QPixmap("src/resource/Image_4.png"))
         self.signup_pic.setScaledContents(True)
         self.signup_pic.setObjectName("signup_pic")
         self.horizontalLayout_2.addWidget(self.signup_pic)
@@ -152,11 +165,14 @@ class Ui_Signup_Window(object):
 
     def retranslateUi(self, Signup_Window):
         _translate = QtCore.QCoreApplication.translate
-        Signup_Window.setWindowTitle(_translate("Signup_Window", "MainWindow"))
+        Signup_Window.setWindowTitle(_translate("Signup_Window", "FamiOwl Sign Up"))
         self.signup_title_label.setText(_translate("Signup_Window", "Create your account."))
         self.signup_info_label.setText(_translate("Signup_Window", "No more worries on your kids playing games!"))
-        self.signup_email_label.setText(_translate("Signup_Window", "<html><head/><body><p><span style=\" color:#ffffff;\">Your E-mail (This is your user ID) </span><span style=\" color:#ff2600;\">*</span></p></body></html>"))
-        self.signup_username_edit.setText(_translate("Signup_Window", "<html><head/><body><p><span style=\" color:#ffffff;\">Your User Name </span><span style=\" color:#ff2600;\">*</span></p></body></html>"))
-        self.signup_pwd_label.setText(_translate("Signup_Window", "<html><head/><body><p><span style=\" color:#ffffff;\">Your Password </span><span style=\" color:#ff2600;\">*</span></p></body></html>"))
+        self.signup_email_label.setText(_translate("Signup_Window",
+                                                   "<html><head/><body><p><span style=\" color:#ffffff;\">Your E-mail (This is your user ID) </span><span style=\" color:#ff2600;\">*</span></p></body></html>"))
+        self.signup_username_edit.setText(_translate("Signup_Window",
+                                                     "<html><head/><body><p><span style=\" color:#ffffff;\">Your User Name </span><span style=\" color:#ff2600;\">*</span></p></body></html>"))
+        self.signup_pwd_label.setText(_translate("Signup_Window",
+                                                 "<html><head/><body><p><span style=\" color:#ffffff;\">Your Password </span><span style=\" color:#ff2600;\">*</span></p></body></html>"))
         self.signup_back_button.setText(_translate("Signup_Window", "Back to Sign in"))
         self.signup_button.setText(_translate("Signup_Window", "Sign up"))

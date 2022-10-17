@@ -1,87 +1,144 @@
 import sys
 
+from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
 from config.sql_query.account_query import *
 from lib.base_lib.sql.sql_utils import SqlUtils
-from src.signin_window import *
-from src.signup_window import *
+from src.signin_window import Ui_Signin_Window
+from src.signup_window import Ui_Signup_Window
+
+sql_utils = SqlUtils()
+
+
+def message_info_box(parent, msg_str):
+    """
+    Pull up a message box.
+    :param parent: parent window the msg box belongs to
+    :param msg_str: message text
+    :return: Null
+    """
+    QMessageBox.information(parent, 'FamiOwl Information', msg_str)
 
 
 class SigninWindow(QMainWindow, Ui_Signin_Window):
     def __init__(self, parent=None):
         super(SigninWindow, self).__init__(parent)
         self.setupUi(self)
+        self.signup_window = None
+        self.__userid = ''
+        self.__pwd = ''
+        self.__define_exit_button()
+        self.__define_signin_button()
+        self.__define_signup_button()
 
-    def message_info_box(self, msg_str):
+    def __define_exit_button(self):
+        self.exit_button.clicked.connect(lambda: sys.exit(app.exec()))
+
+    def __define_signin_button(self):
+        self.signin_button.clicked.connect(lambda: self.__signin())
+
+    def __signin(self):
+        try:
+            self.__userid = str(self.userid_line.text())
+            self.__pwd = str(self.pwd_line.text())
+        except TypeError as e:
+            message_info_box(self, e)
+
+        signin_code = self.__signin_query()
+        if signin_code == 0:
+            pass
+        elif signin_code == 1:
+            message_info_box(self, "Incorrect password!")
+        elif signin_code == 2:
+            message_info_box(self, "User does not exist. Sign up now!")
+        elif signin_code == 3:
+            message_info_box(self, "Empty User ID or Password!")
+
+    def __signin_query(self):
         """
-        Pull up a message box.
-        :param msg_str: message text
-        :return: Null
+        Get all parents accounts information and find match. Return result code.
+        :return: 0 Success, 1 pwd not match, 2 userid not found, 3 empty entry
         """
-        button = QMessageBox.information(self, 'FamiOwl Information', msg_str)
-        # msg_box.setStyleSheet('blackground-color: black;'
-        #                       'color: white;')
-        # msg_box.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
-        # msg_box.exec()
+        if self.__userid == '' or self.__pwd == '':
+            return 3
+
+        parent_accounts = sql_utils.sql_exec(parent_signin, 1)
+        for parent in parent_accounts:
+            if parent[0] == self.__userid:
+                if parent[2] == self.__pwd:
+                    return 0
+                else:
+                    return 1
+        return 2
+
+    def __define_signup_button(self):
+        self.signup_button.clicked.connect(lambda: self.__to_signup_window())
+
+    def __to_signup_window(self):
+        self.signup_window = SignupWindow(self)
+        if self.signup_window.isVisible():
+            self.signup_window.hide()
+        else:
+            self.hide()
+            self.signup_window.show()
 
 
 class SignupWindow(QMainWindow, Ui_Signup_Window):
-    def __int__(self, parent=None):
+    def __init__(self, parent=None):
         super(SignupWindow, self).__init__(parent)
+        self.parent = parent
         self.setupUi(self)
+        self.__userid = ''
+        self.__username = ''
+        self.__pwd = ''
+        # self.__clear_signup_lines()
+        self.__define_back_button()
+        self.__define_signup_button()
 
+    def __define_back_button(self):
+        self.signup_back_button.clicked.connect(lambda: self.__back_to_signin())
 
-def define_exit_button(exit_button):
-    exit_button.clicked.connect(lambda: sys.exit(app.exec()))
+    def __back_to_signin(self):
+        if signin_window.isVisible():
+            self.parent.hide()
+        else:
+            self.hide()
+            self.parent.show()
 
+    def __define_signup_button(self):
+        self.signup_button.clicked.connect(lambda: self.__signup())
 
-def define_signin_button(signin_button, userid_line, pwd_line):
-    signin_button.clicked.connect(lambda: signin(userid_line, pwd_line))
+    def __signup(self):
+        try:
+            self.__userid = self.signup_email_line.text()
+            self.__username = self.signup_username_line.text()
+            self.__pwd = self.signup_pwd_line.text()
+        except TypeError as e:
+            message_info_box(self, e)
+        result_code = self.__signup_query()
+        if result_code == 1:
+            message_info_box(self, "E-mail already registered!")
+        elif result_code == 2:
+            message_info_box(self, "Empty entry!")
+        elif result_code == 0:
+            message_info_box(self, "You have signed up successfully!")
 
+    def __signup_query(self):
+        """
+        Insert a new account to parent table.
+        :return: result code, 0 success, 1 duplicate, 2 empty entry
+        """
+        if self.__userid == '' or self.__username == '' or self.__pwd == '':
+            return 2
 
-def signin(userid_line, pwd_line):
-    userid, pwd = '', ''
-    try:
-        userid = str(userid_line.text())
-        pwd = str(pwd_line.text())
-    except TypeError as e:
-        signin_window.message_info_box(e)
-
-    signin_code = signin_query(userid, pwd)
-    if signin_code == 0:
-        pass
-    elif signin_code == 1:
-        signin_window.message_info_box("Incorrect password!")
-    elif signin_code == 2:
-        signin_window.message_info_box("User does not exist. Sign up now!")
-
-
-def signin_query(userid, pwd):
-    """
-    Get all parents accounts information and find match. Return result code.
-    :param userid: parent email to be found
-    :param pwd: parent password to match
-    :return: 0 Success, 1 pwd not match, 2 userid not found
-    """
-    sql_utils = SqlUtils()
-    parent_accounts = sql_utils.sql_exec(parent_signin, 1)
-    for parent in parent_accounts:
-        if parent[0] == userid:
-            if parent[2] == pwd:
-                return 0
-            else:
+        parent_accounts = sql_utils.sql_exec(parent_signin, 1)
+        for parent in parent_accounts:
+            if parent[0] == self.__userid:
                 return 1
-    return 2
-
-
-# def define_signup_button(signup_button):
-#     signup_button.clicked.connect(lambda: to_signup_window())
-
-
-# def to_signup_window():
-#     signup_window = SignupWindow()
-#     signup_window.show()
+        signup_query = parent_signup.format(self.__userid, self.__username, self.__pwd)
+        sql_utils.sql_exec(signup_query, 0)
+        return 0
 
 
 if __name__ == "__main__":
@@ -89,10 +146,4 @@ if __name__ == "__main__":
     signin_window = SigninWindow()
     signin_window.show()
 
-    signup_window = SignupWindow()
-    signup_window.show()
-
-    define_exit_button(signin_window.exit_button)
-    define_signin_button(signin_window.signin_button, signin_window.userid_line, signin_window.pwd_line)
-    # define_signup_button(signin_window.signup_button)
     sys.exit(app.exec())
