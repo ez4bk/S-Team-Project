@@ -46,7 +46,7 @@ def signin(userid_line, pwd_line):
         userid = str(userid_line.text())
         pwd = str(pwd_line.text())
     except TypeError as e:
-        signin_window.message_info_box('e')
+        signin_window.message_info_box(e)
 
     signin_code = signin_query(userid, pwd)
     if signin_code == 0:
