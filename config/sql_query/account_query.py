@@ -1,2 +1,2 @@
 parent_signin = 'select * from parents;'
-parent_signup = 'insert into parents(parent_id, parent_name, password) values("{0}", "{1}", "{2}");'
+parent_signup = 'insert into parents(user_id, User_name, password) values("{0}", "{1}", "{2}");'

@@ -53,6 +53,8 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         signin_code = self.__signin_query()
         if signin_code == 0:
             message_info_box(self, "Sign in Successfully!")
+            # time.sleep(5)
+            # sys.exit()
         elif signin_code == 1:
             message_info_box(self, "Incorrect password!")
         elif signin_code == 2:
