@@ -15,12 +15,5 @@
       <jdbc-url>jdbc:mariadb://cs431-06.cs.rutgers.edu:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="FamiOwl_MySQL" uuid="5b776c39-62e5-4053-a204-592a00ffd80e">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://cs431-06.cs.rutgers.edu:3306</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
   </component>
 </project>

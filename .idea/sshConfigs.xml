@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="cs431-06.cs.rutgers.edu" id="8fde25f4-fd3b-402d-9342-d82c3a141dcb" port="22" nameFormat="DESCRIPTIVE" username="yw780" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>
