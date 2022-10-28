@@ -1,5 +1,9 @@
+import re
+
+from PyQt6 import QtCore
 from PyQt6.QtWidgets import QMainWindow, QLineEdit
 
+from config.front_end.stylesheet import signup_button_ss, signup_button_disabled_ss
 from config.sql_query.account_query import parent_signup, parent_signin
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.pyqt_lib.message_box import message_info_box
@@ -19,8 +23,11 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
         self.__pwd = ''
 
         self.signup_pwd_line.setEchoMode(QLineEdit.EchoMode.Password)
+        self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
+
         self.__define_back_button()
         self.__define_signup_button()
+        self.__define_email_line()
 
     def __define_back_button(self):
         self.signup_back_button.clicked.connect(lambda: self.__back_to_signin())
@@ -65,3 +72,17 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
         signup_query = parent_signup.format(self.__userid, self.__username, self.__pwd)
         sql_utils.sql_exec(signup_query, 0)
         return 0
+
+    def __define_email_line(self):
+        self.signup_email_line.textChanged.connect(lambda: self.__validate_email())
+
+    def __validate_email(self):
+        email_regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+        if not re.fullmatch(email_regex, self.signup_email_line.text()):
+            self.signup_button.setDisabled(True)
+            self.signup_button.setStyleSheet(signup_button_disabled_ss)
+            self.signup_button.setToolTip("Invalid E-mail")
+        else:
+            self.signup_button.setEnabled(True)
+            self.signup_button.setStyleSheet(signup_button_ss)
+            self.signup_button.setToolTip("")

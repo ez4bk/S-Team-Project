@@ -17,7 +17,6 @@ class Ui_Signup_Window(object):
         Signup_Window.setMaximumSize(QtCore.QSize(800, 450))
         Signup_Window.setStyleSheet("background-color: black;\n"
                                     "color: white;")
-        Signup_Window.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.centralwidget = QtWidgets.QWidget(Signup_Window)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -154,7 +153,7 @@ class Ui_Signup_Window(object):
         self.signup_pic.setSizePolicy(sizePolicy)
         self.signup_pic.setMaximumSize(QtCore.QSize(375, 450))
         self.signup_pic.setText("")
-        self.signup_pic.setPixmap(QtGui.QPixmap("src/resource/Image_4.png"))
+        self.signup_pic.setPixmap(QtGui.QPixmap("src/resource/signup_child.png"))
         self.signup_pic.setScaledContents(True)
         self.signup_pic.setObjectName("signup_pic")
         self.horizontalLayout_2.addWidget(self.signup_pic)
