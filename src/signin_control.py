@@ -42,33 +42,23 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
             message_info_box(self, e)
 
         signin_code = self.__signin_query()
-        if signin_code == 0:
+        if signin_code == 1:
             message_info_box(self, "Sign in Successfully!")
             # time.sleep(5)
             # sys.exit()
-        elif signin_code == 1:
-            message_info_box(self, "Incorrect password!")
+        elif signin_code == 0:
+            message_info_box(self, "Password and username does not match with our records")
         elif signin_code == 2:
-            message_info_box(self, "User does not exist. Sign up now!")
-        elif signin_code == 3:
             message_info_box(self, "Empty User ID or Password!")
 
     def __signin_query(self):
         """
         Get all parents accounts information and find match. Return result code.
-        :return: 0 Success, 1 pwd not match, 2 userid not found, 3 empty entry
+        :return: 0 wrong pwd OR user DNE, 1 success, 2 empty entry
         """
         if self.__userid == '' or self.__pwd == '':
-            return 3
-
-        parent_accounts = sql_utils.sql_exec(parent_signin, 1)
-        for parent in parent_accounts:
-            if parent[0] == self.__userid:
-                if parent[2] == self.__pwd:
-                    return 0
-                else:
-                    return 1
-        return 2
+            return 2
+        return sql_utils.sql_exec(parent_signin.format(self.__userid, self.__pwd), 1)
 
     def __define_signup_button(self):
         self.signup_button.clicked.connect(lambda: self.__to_signup_window())
