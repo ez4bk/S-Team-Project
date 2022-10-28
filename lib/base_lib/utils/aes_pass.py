@@ -12,7 +12,7 @@
 import base64
 import random
 
-from Cryptodome.Cipher import AES
+from Crypto.Cipher import AES
 
 
 class AESCipher:

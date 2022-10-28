@@ -18,7 +18,6 @@ class Ui_Signin_Window(object):
         Signin_Window.setMaximumSize(QtCore.QSize(800, 450))
         Signin_Window.setStyleSheet("background-color: black;\n"
                                     "color: white")
-        Signin_Window.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.centralwidget = QtWidgets.QWidget(Signin_Window)
         self.centralwidget.setMinimumSize(QtCore.QSize(800, 450))
         self.centralwidget.setMaximumSize(QtCore.QSize(800, 450))
