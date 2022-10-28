@@ -1,5 +1,6 @@
 import sys
 
+from PyQt6 import QtCore
 from PyQt6.QtWidgets import QMainWindow, QLineEdit
 
 from config.sql_query.account_query import parent_signin
@@ -21,6 +22,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         self.__pwd = ''
 
         self.pwd_line.setEchoMode(QLineEdit.EchoMode.Password)
+        self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
 
         self.__define_exit_button()
         self.__define_signin_button()
