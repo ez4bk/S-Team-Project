@@ -1,8 +1,9 @@
 # match input username and password to db
 # return 1 when success, return 0 when password does not match or user does not exist
-parent_signin = 'select exists(select* from parents where user_id = "{0}" and password="{1}") as result;'
+parent_signin = 'select password from parents where parent_id = "{0}"'
 
-parent_signup = 'insert into parents(user_id, User_name, password) values("{0}", "{1}", "{2}");'
+parent_id_check = 'select exists(select* from parents where parent_id = "{0}") as result;'
+parent_signup = 'insert into parents(parent_id, user_name, password) values("{0}", "{1}", "{2}");'
 
 # show kids user have where parent_id = input id
 kids_select = 'select * from kids where parent_id = "{0}";'

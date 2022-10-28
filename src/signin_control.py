@@ -5,11 +5,13 @@ from PyQt6.QtWidgets import QMainWindow, QLineEdit
 
 from config.sql_query.account_query import parent_signin
 from lib.base_lib.sql.sql_utils import SqlUtils
+from lib.base_lib.utils.aes_pass import AESCipher
 from lib.pyqt_lib.message_box import message_info_box
 from src.signin_window import Ui_Signin_Window
 from src.signup_control import SignupWindow
 
 sql_utils = SqlUtils()
+aes_cipher = AESCipher()
 
 
 class SigninWindow(QMainWindow, Ui_Signin_Window):
@@ -58,7 +60,15 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         """
         if self.__userid == '' or self.__pwd == '':
             return 2
-        return sql_utils.sql_exec(parent_signin.format(self.__userid, self.__pwd), 1)
+        res = None
+        try:
+            res = sql_utils.sql_exec(parent_signin.format(self.__userid), 1)[0][0]
+        except Exception as e:
+            message_info_box(self, e)
+
+        if aes_cipher.decrypt_main(res) == self.__pwd:
+            return 1
+        return 0
 
     def __define_signup_button(self):
         self.signup_button.clicked.connect(lambda: self.__to_signup_window())
