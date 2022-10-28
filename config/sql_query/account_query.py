@@ -12,3 +12,7 @@ show_inventory = 'select * from game_inventory where parent_id = "{0}";'
 
 # show game in the distributing platform where id = input id
 show_game = 'select * from game_library where game_id = "{0}";'
+
+# show kid's icon image location where id = input id
+# image icons are stored at /home/wh319/famiowl_files/kids_icon
+show_kid_icon = 'select icon_image from kids where id = "{0}";'
