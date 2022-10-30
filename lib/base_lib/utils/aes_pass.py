@@ -1,14 +1,3 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
-"""
-@File        : aes_pass.py
-@Contact     : zhouxihong@ruijie.com.cn
-@Version     : 1.0
-@Modify Time : 2020/3/23 13:50
-@Author      : zhouxihong
-@Desciption  : None
-@License     : (C)Copyright 2020-Inf, zhouxihong
-"""
 import base64
 import random
 
