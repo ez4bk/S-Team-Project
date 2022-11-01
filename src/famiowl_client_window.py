@@ -14,88 +14,88 @@ class Ui_FamiOwl(object):
         FamiOwl.setObjectName("FamiOwl")
         FamiOwl.resize(900, 600)
         FamiOwl.setStyleSheet("QScrollBar:horizontal{\n"
-"    height:8px;\n"
-"    background:rgba(0,0,0,0%);\n"
-"border-radius:4px;\n"
-"\n"
-"}\n"
-"QScrollBar::handle:horizontal{\n"
-"    background:rgba(125,125,125,50%);\n"
-"border-radius:4px;\n"
-"}\n"
-"QScrollBar::handle:horizontal:hover{\n"
-"    background:rgba(125,125,125,100%);\n"
-"    min-width:0;\n"
-"}\n"
-"QScrollBar::add-line:horizontal{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::sub-line:horizontal{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::add-line:horizontal:hover{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::sub-line:horizontal:hover{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal\n"
-"{\n"
-"    background:rgba(0,0,0,10%);\n"
-"    border-radius:4px;\n"
-"}\n"
-"\n"
-"QScrollBar:vertical{\n"
-"    width:8px;\n"
-"    background:rgba(0,0,0,0%);\n"
-"\n"
-"}\n"
-"QScrollBar::handle:vertical{\n"
-"    width:0px;\n"
-"    background:rgba(125,125,125,50%);\n"
-"    border-radius:4px;\n"
-"}\n"
-"QScrollBar::handle:vertical:hover{\n"
-"    width:0px;\n"
-"    background:rgba(125,125,125,100%);\n"
-"    border-radius:4px;\n"
-"    min-width:20;\n"
-"}\n"
-"QScrollBar::add-line:vertical{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::sub-line:vertical{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::add-line:vertical:hover{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::sub-line:vertical:hover{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical\n"
-"{\n"
-"    background:rgba(0,0,0,10%);\n"
-"    border-radius:4px;\n"
-"}\n"
-"")
+                              "    height:8px;\n"
+                              "    background:rgba(0,0,0,0%);\n"
+                              "border-radius:4px;\n"
+                              "\n"
+                              "}\n"
+                              "QScrollBar::handle:horizontal{\n"
+                              "    background:rgba(125,125,125,50%);\n"
+                              "border-radius:4px;\n"
+                              "}\n"
+                              "QScrollBar::handle:horizontal:hover{\n"
+                              "    background:rgba(125,125,125,100%);\n"
+                              "    min-width:0;\n"
+                              "}\n"
+                              "QScrollBar::add-line:horizontal{\n"
+                              "    height:0px;width:0px;\n"
+                              "\n"
+                              "}\n"
+                              "QScrollBar::sub-line:horizontal{\n"
+                              "    height:0px;width:0px;\n"
+                              "\n"
+                              "}\n"
+                              "QScrollBar::add-line:horizontal:hover{\n"
+                              "    height:0px;width:0px;\n"
+                              "\n"
+                              "}\n"
+                              "QScrollBar::sub-line:horizontal:hover{\n"
+                              "    height:0px;width:0px;\n"
+                              "\n"
+                              "}\n"
+                              "QScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal\n"
+                              "{\n"
+                              "    background:rgba(0,0,0,10%);\n"
+                              "    border-radius:4px;\n"
+                              "}\n"
+                              "\n"
+                              "QScrollBar:vertical{\n"
+                              "    width:8px;\n"
+                              "    background:rgba(0,0,0,0%);\n"
+                              "\n"
+                              "}\n"
+                              "QScrollBar::handle:vertical{\n"
+                              "    width:0px;\n"
+                              "    background:rgba(125,125,125,50%);\n"
+                              "    border-radius:4px;\n"
+                              "}\n"
+                              "QScrollBar::handle:vertical:hover{\n"
+                              "    width:0px;\n"
+                              "    background:rgba(125,125,125,100%);\n"
+                              "    border-radius:4px;\n"
+                              "    min-width:20;\n"
+                              "}\n"
+                              "QScrollBar::add-line:vertical{\n"
+                              "    height:0px;width:0px;\n"
+                              "\n"
+                              "}\n"
+                              "QScrollBar::sub-line:vertical{\n"
+                              "    height:0px;width:0px;\n"
+                              "\n"
+                              "}\n"
+                              "QScrollBar::add-line:vertical:hover{\n"
+                              "    height:0px;width:0px;\n"
+                              "\n"
+                              "}\n"
+                              "QScrollBar::sub-line:vertical:hover{\n"
+                              "    height:0px;width:0px;\n"
+                              "\n"
+                              "}\n"
+                              "QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical\n"
+                              "{\n"
+                              "    background:rgba(0,0,0,10%);\n"
+                              "    border-radius:4px;\n"
+                              "}\n"
+                              "")
         self.centralwidget = QtWidgets.QWidget(FamiOwl)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.central_frame = QtWidgets.QFrame(self.centralwidget)
         self.central_frame.setStyleSheet("QFrame#central_frame{\n"
-"    background-color: rgba(255, 255, 255, 150);\n"
-"    border-radius:20px;\n"
-"}")
+                                         "    background-color: rgba(255, 255, 255, 150);\n"
+                                         "    border-radius:20px;\n"
+                                         "}")
         self.central_frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.central_frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.central_frame.setObjectName("central_frame")
@@ -105,9 +105,9 @@ class Ui_FamiOwl(object):
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.profile_frame = QtWidgets.QFrame(self.central_frame)
         self.profile_frame.setStyleSheet("QFrame#profile_frame{\n"
-"    background-color: rgba(255, 255, 255, 0.8);\n"
-"    border-radius:20px;\n"
-"}")
+                                         "    background-color: rgba(255, 255, 255, 0.8);\n"
+                                         "    border-radius:20px;\n"
+                                         "}")
         self.profile_frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.profile_frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.profile_frame.setObjectName("profile_frame")
@@ -132,7 +132,7 @@ class Ui_FamiOwl(object):
         self.profile_image_widget.setMinimumSize(QtCore.QSize(65, 65))
         self.profile_image_widget.setMaximumSize(QtCore.QSize(65, 65))
         self.profile_image_widget.setStyleSheet("border-radius:32px;\n"
-"background-color: rgb(223, 223, 223);")
+                                                "background-color: rgb(223, 223, 223);")
         self.profile_image_widget.setObjectName("profile_image_widget")
         self.horizontalLayout_6.addWidget(self.profile_image_widget)
         self.verticalLayout_2.addWidget(self.profile_image_frame)
@@ -160,60 +160,64 @@ class Ui_FamiOwl(object):
         font.setBold(True)
         self.listWidget.setFont(font)
         self.listWidget.setStyleSheet("QListView {\n"
-"    padding-top:24px;\n"
-"    border-radius: 20px;\n"
-"    color: rgb(106, 106, 106);\n"
-"    background-color: transparent;\n"
-"}\n"
-"QListView::item{\n"
-"background-color: transparent;\n"
-"height:40px;\n"
-"padding-left:12px;\n"
-"padding:12px;\n"
-"}\n"
-"QListView::item:hover {\n"
-"    background-color: rgba(216, 216, 216, 50);\n"
-"\n"
-"}\n"
-"QListView::item:selected {\n"
-"    /*background-color: transparent;*/\n"
-"    background-color: rgba(90, 216, 212,50);\n"
-"    color: rgb(40, 92, 90);\n"
-"border-left: 2px solid rgb(90, 216, 212)\n"
-"\n"
-"\n"
-"}\n"
-"")
+                                      "    padding-top:24px;\n"
+                                      "    border-radius: 20px;\n"
+                                      "    color: rgb(106, 106, 106);\n"
+                                      "    background-color: transparent;\n"
+                                      "}\n"
+                                      "QListView::item{\n"
+                                      "background-color: transparent;\n"
+                                      "height:40px;\n"
+                                      "padding-left:12px;\n"
+                                      "padding:12px;\n"
+                                      "}\n"
+                                      "QListView::item:hover {\n"
+                                      "    background-color: rgba(216, 216, 216, 50);\n"
+                                      "\n"
+                                      "}\n"
+                                      "QListView::item:selected {\n"
+                                      "    /*background-color: transparent;*/\n"
+                                      "    background-color: rgba(90, 216, 212,50);\n"
+                                      "    color: rgb(40, 92, 90);\n"
+                                      "border-left: 2px solid rgb(90, 216, 212)\n"
+                                      "\n"
+                                      "\n"
+                                      "}\n"
+                                      "")
         self.listWidget.setIconSize(QtCore.QSize(24, 24))
         self.listWidget.setObjectName("listWidget")
         item = QtWidgets.QListWidgetItem()
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/buttom/img/buttom/任天堂游戏_switch-nintendo.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap(":/buttom/img/buttom/任天堂游戏_switch-nintendo.svg"), QtGui.QIcon.Mode.Normal,
+                       QtGui.QIcon.State.Off)
         item.setIcon(icon)
         self.listWidget.addItem(item)
         item = QtWidgets.QListWidgetItem()
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/buttom/img/buttom/文件柜_file-cabinet.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon1.addPixmap(QtGui.QPixmap(":/buttom/img/buttom/文件柜_file-cabinet.svg"), QtGui.QIcon.Mode.Normal,
+                        QtGui.QIcon.State.Off)
         item.setIcon(icon1)
         self.listWidget.addItem(item)
         item = QtWidgets.QListWidgetItem()
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/buttom/img/buttom/设置配置_setting-config.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon2.addPixmap(QtGui.QPixmap(":/buttom/img/buttom/设置配置_setting-config.svg"), QtGui.QIcon.Mode.Normal,
+                        QtGui.QIcon.State.Off)
         item.setIcon(icon2)
         self.listWidget.addItem(item)
         item = QtWidgets.QListWidgetItem()
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/buttom/img/buttom/退出_logout.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon3.addPixmap(QtGui.QPixmap(":/buttom/img/buttom/退出_logout.svg"), QtGui.QIcon.Mode.Normal,
+                        QtGui.QIcon.State.Off)
         item.setIcon(icon3)
         self.listWidget.addItem(item)
         self.verticalLayout_2.addWidget(self.listWidget)
         self.frame_6 = QtWidgets.QFrame(self.profile_frame)
         self.frame_6.setStyleSheet("QFrame{\n"
-"    background-color: rgb(89, 217, 212);\n"
-"    border-radius:20px;color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"")
+                                   "    background-color: rgb(89, 217, 212);\n"
+                                   "    border-radius:20px;color: rgb(255, 255, 255);\n"
+                                   "}\n"
+                                   "\n"
+                                   "")
         self.frame_6.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_6.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_6.setObjectName("frame_6")
@@ -249,8 +253,8 @@ class Ui_FamiOwl(object):
         self.horizontalLayout.addLayout(self.verticalLayout)
         self.widget_2 = QtWidgets.QWidget(self.frame_6)
         self.widget_2.setStyleSheet("image: url(:/buttom/img/buttom/切换_switch.svg);\n"
-"border-radius:32px;\n"
-"background-color: transparent;")
+                                    "border-radius:32px;\n"
+                                    "background-color: transparent;")
         self.widget_2.setObjectName("widget_2")
         self.horizontalLayout.addWidget(self.widget_2)
         self.verticalLayout_2.addWidget(self.frame_6)
@@ -261,9 +265,9 @@ class Ui_FamiOwl(object):
         self.content_frame.setObjectName("content_frame")
         self.active_game_frame = QtWidgets.QFrame(self.central_frame)
         self.active_game_frame.setStyleSheet(".QFrame{\n"
-"    background-color: rgba(255, 255, 255, 0);\n"
-"    border-radius:20px;\n"
-"}")
+                                             "    background-color: rgba(255, 255, 255, 0);\n"
+                                             "    border-radius:20px;\n"
+                                             "}")
         self.active_game_frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.active_game_frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.active_game_frame.setObjectName("active_game_frame")
@@ -283,24 +287,26 @@ class Ui_FamiOwl(object):
         self.active_game_line = QtWidgets.QLineEdit(self.active_game_frame)
         self.active_game_line.setMinimumSize(QtCore.QSize(0, 32))
         self.active_game_line.setStyleSheet(".QLineEdit{\n"
-"    background-color: rgba(255, 255, 255,0.8);\n"
-"    border:0px solid red;\n"
-"    border-radius:14px;\n"
-"}")
+                                            "    background-color: rgba(255, 255, 255,0.8);\n"
+                                            "    border:0px solid red;\n"
+                                            "    border-radius:14px;\n"
+                                            "}")
         self.active_game_line.setInputMask("")
-        self.active_game_line.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
+        self.active_game_line.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignLeading | QtCore.Qt.AlignmentFlag.AlignLeft | QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.active_game_line.setReadOnly(True)
         self.active_game_line.setObjectName("active_game_line")
         self.active_game_layout.addWidget(self.active_game_line)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
+                                           QtWidgets.QSizePolicy.Policy.Minimum)
         self.active_game_layout.addItem(spacerItem)
         self.verticalLayout_3.addLayout(self.active_game_layout)
         self.content_frame.addWidget(self.active_game_frame)
         self.frame_4 = QtWidgets.QFrame(self.central_frame)
         self.frame_4.setStyleSheet(".QFrame{\n"
-"    background-color: rgba(255, 255, 255, 0);\n"
-"    border-radius:20px;\n"
-"}")
+                                   "    background-color: rgba(255, 255, 255, 0);\n"
+                                   "    border-radius:20px;\n"
+                                   "}")
         self.frame_4.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_4.setObjectName("frame_4")
@@ -309,9 +315,9 @@ class Ui_FamiOwl(object):
         self.horizontalLayout_13.setObjectName("horizontalLayout_13")
         self.scrollArea = QtWidgets.QScrollArea(self.frame_4)
         self.scrollArea.setStyleSheet("QWidget{\n"
-"border:none;\n"
-"    background-color: rgba(255, 255, 255, 0);\n"
-"}")
+                                      "border:none;\n"
+                                      "    background-color: rgba(255, 255, 255, 0);\n"
+                                      "}")
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.scrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.scrollArea.setWidgetResizable(True)
@@ -327,12 +333,12 @@ class Ui_FamiOwl(object):
         self.game_widget_0.setMinimumSize(QtCore.QSize(0, 121))
         self.game_widget_0.setMaximumSize(QtCore.QSize(16777215, 121))
         self.game_widget_0.setStyleSheet(".QWidget{\n"
-"    background-color: qlineargradient(x1:0, y0:0, x2:1, y2:0,stop:0 rgb(234, 249, 253), stop:1 rgb(155, 230, 237));\n"
-"    border-radius:20px;\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"")
+                                         "    background-color: qlineargradient(x1:0, y0:0, x2:1, y2:0,stop:0 rgb(234, 249, 253), stop:1 rgb(155, 230, 237));\n"
+                                         "    border-radius:20px;\n"
+                                         "    color: rgb(255, 255, 255);\n"
+                                         "}\n"
+                                         "\n"
+                                         "")
         self.game_widget_0.setObjectName("game_widget_0")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.game_widget_0)
         self.horizontalLayout_5.setContentsMargins(24, 24, 24, 24)
@@ -340,8 +346,7 @@ class Ui_FamiOwl(object):
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.widget_5 = QtWidgets.QWidget(self.game_widget_0)
         self.widget_5.setMaximumSize(QtCore.QSize(100, 16777215))
-        self.widget_5.setStyleSheet("\n"
-"image: url(:/svg/img/button_png/image.jpg);")
+        self.widget_5.setStyleSheet("image: url(:/svg/img/button_png/image.jpg);")
         self.widget_5.setObjectName("widget_5")
         self.horizontalLayout_5.addWidget(self.widget_5)
         self.game_info_layout_0 = QtWidgets.QVBoxLayout()
@@ -364,15 +369,15 @@ class Ui_FamiOwl(object):
         self.game_info_layout_0.addWidget(self.game_info_0)
         self.game_limit_bar_0 = QtWidgets.QProgressBar(self.game_widget_0)
         self.game_limit_bar_0.setStyleSheet("QProgressBar::chunk {\n"
-"        border-top-left-radius:8px;\n"
-"border-bottom-left-radius:8px;\n"
-"    background-color: rgb(103, 216, 217)\n"
-"}\n"
-"QProgressBar{\n"
-"border-radius:8px;\n"
-"background-color: rgb(223, 223, 223);\n"
-"}\n"
-"")
+                                            "        border-top-left-radius:8px;\n"
+                                            "border-bottom-left-radius:8px;\n"
+                                            "    background-color: rgb(103, 216, 217)\n"
+                                            "}\n"
+                                            "QProgressBar{\n"
+                                            "border-radius:8px;\n"
+                                            "background-color: rgb(223, 223, 223);\n"
+                                            "}\n"
+                                            "")
         self.game_limit_bar_0.setProperty("value", 60)
         self.game_limit_bar_0.setTextVisible(False)
         self.game_limit_bar_0.setObjectName("game_limit_bar_0")
