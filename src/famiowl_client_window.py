@@ -329,62 +329,7 @@ class Ui_FamiOwl(object):
         self.verticalLayout_13.setContentsMargins(36, 36, 124, 36)
         self.verticalLayout_13.setSpacing(24)
         self.verticalLayout_13.setObjectName("verticalLayout_13")
-        self.game_widget_0 = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-        self.game_widget_0.setMinimumSize(QtCore.QSize(0, 121))
-        self.game_widget_0.setMaximumSize(QtCore.QSize(16777215, 121))
-        self.game_widget_0.setStyleSheet(".QWidget{\n"
-                                         "    background-color: qlineargradient(x1:0, y0:0, x2:1, y2:0,stop:0 rgb(234, 249, 253), stop:1 rgb(155, 230, 237));\n"
-                                         "    border-radius:20px;\n"
-                                         "    color: rgb(255, 255, 255);\n"
-                                         "}\n"
-                                         "\n"
-                                         "")
-        self.game_widget_0.setObjectName("game_widget_0")
-        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.game_widget_0)
-        self.horizontalLayout_5.setContentsMargins(24, 24, 24, 24)
-        self.horizontalLayout_5.setSpacing(24)
-        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.widget_5 = QtWidgets.QWidget(self.game_widget_0)
-        self.widget_5.setMaximumSize(QtCore.QSize(100, 16777215))
-        self.widget_5.setStyleSheet("image: url(:/svg/img/button_png/image.jpg);")
-        self.widget_5.setObjectName("widget_5")
-        self.horizontalLayout_5.addWidget(self.widget_5)
-        self.game_info_layout_0 = QtWidgets.QVBoxLayout()
-        self.game_info_layout_0.setSpacing(2)
-        self.game_info_layout_0.setObjectName("game_info_layout_0")
-        self.game_name_0 = QtWidgets.QLabel(self.game_widget_0)
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        font.setBold(True)
-        self.game_name_0.setFont(font)
-        self.game_name_0.setStyleSheet("color: rgb(22, 54, 53)")
-        self.game_name_0.setObjectName("game_name_0")
-        self.game_info_layout_0.addWidget(self.game_name_0)
-        self.game_info_0 = QtWidgets.QLabel(self.game_widget_0)
-        font = QtGui.QFont()
-        font.setBold(False)
-        self.game_info_0.setFont(font)
-        self.game_info_0.setStyleSheet("color: rgb(22, 54, 53)")
-        self.game_info_0.setObjectName("game_info_0")
-        self.game_info_layout_0.addWidget(self.game_info_0)
-        self.game_limit_bar_0 = QtWidgets.QProgressBar(self.game_widget_0)
-        self.game_limit_bar_0.setStyleSheet("QProgressBar::chunk {\n"
-                                            "        border-top-left-radius:8px;\n"
-                                            "border-bottom-left-radius:8px;\n"
-                                            "    background-color: rgb(103, 216, 217)\n"
-                                            "}\n"
-                                            "QProgressBar{\n"
-                                            "border-radius:8px;\n"
-                                            "background-color: rgb(223, 223, 223);\n"
-                                            "}\n"
-                                            "")
-        self.game_limit_bar_0.setProperty("value", 60)
-        self.game_limit_bar_0.setTextVisible(False)
-        self.game_limit_bar_0.setObjectName("game_limit_bar_0")
-        self.game_info_layout_0.addWidget(self.game_limit_bar_0)
-        self.horizontalLayout_5.addLayout(self.game_info_layout_0)
-        self.horizontalLayout_5.setStretch(0, 1)
-        self.verticalLayout_13.addWidget(self.game_widget_0)
+
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.horizontalLayout_13.addWidget(self.scrollArea)
         self.content_frame.addWidget(self.frame_4)
@@ -419,5 +364,5 @@ class Ui_FamiOwl(object):
         self.label_5.setText(_translate("FamiOwl", "Kid"))
         self.active_game_title_label.setText(_translate("FamiOwl", "Active Games"))
         self.active_game_line.setText(_translate("FamiOwl", "   Assassin\'s Creed: Brotherhood"))
-        self.game_name_0.setText(_translate("FamiOwl", "Assossins Creed Vathaila"))
-        self.game_info_0.setText(_translate("FamiOwl", "PS5 Version"))
+        # self.game_name_0.setText(_translate("FamiOwl", "Assossins Creed Vathaila"))
+        # self.game_info_0.setText(_translate("FamiOwl", "PS5 Version"))
