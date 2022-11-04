@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from djangoProject.models import User
+from aes_pass import *
 
 
 def register(request):
@@ -117,5 +118,5 @@ def page(request):
      uname = request.session.get("user_id")
      print(uname)
      if not uname:
-         return redirect("/register")
+         return redirect("/login")
      return render(request, "home.html", {"uname": uname})
