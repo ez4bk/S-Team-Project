@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<!--表单域，action用于将获取的到信息提交到后台地址-->
+
+<form action="save" method="get">
+    <span>
+        Email（id）:<input type="text" name="userid">
+    </span>
+    <br>
+    <span>
+        User_Name:<input type="text" name="username">
+    </span>
+    <br>
+    <span>
+        Password:<input type="password" name="password">
+    </span>
+    <br>
+    <span>
+        <input type="submit" name="submit1" value="Register">
+    </span>
+
+</form>
+{#<form action="http://172.16.122.22:8000/login/">#}
+{#    <input type="submit" value="Go to Login" />#}
+{#</form>#}
+<a href="{% url 'login' %}">Sign in</a>
+</body>
+</html>
