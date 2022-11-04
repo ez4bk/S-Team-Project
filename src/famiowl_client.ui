@@ -95,7 +95,7 @@ QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical
      <widget class="QFrame" name="central_frame">
       <property name="styleSheet">
        <string notr="true">QFrame#central_frame{
-	background-color: rgba(255, 255, 255, 150);
+	background-color: rgb(235, 235, 235);
 	border-radius:20px;
 }</string>
       </property>

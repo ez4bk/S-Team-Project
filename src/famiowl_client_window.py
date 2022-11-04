@@ -93,7 +93,7 @@ class Ui_FamiOwl(object):
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.central_frame = QtWidgets.QFrame(self.centralwidget)
         self.central_frame.setStyleSheet("QFrame#central_frame{\n"
-                                         "    background-color: rgba(255, 255, 255, 150);\n"
+                                         "    background-color: rgb(235, 235, 235);\n"
                                          "    border-radius:20px;\n"
                                          "}")
         self.central_frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
@@ -252,7 +252,7 @@ class Ui_FamiOwl(object):
         self.verticalLayout.addWidget(self.label_5)
         self.horizontalLayout.addLayout(self.verticalLayout)
         self.widget_2 = QtWidgets.QWidget(self.frame_6)
-        self.widget_2.setStyleSheet("image: url(:/buttom/img/buttom/切换_switch.svg);\n"
+        self.widget_2.setStyleSheet("image: url(src/resource/img/buttom/切换_switch.svg);\n"
                                     "border-radius:32px;\n"
                                     "background-color: transparent;")
         self.widget_2.setObjectName("widget_2")

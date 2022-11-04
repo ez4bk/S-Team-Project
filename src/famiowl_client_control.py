@@ -2,6 +2,7 @@ from PyQt6 import QtCore, QtWidgets, QtGui
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QMainWindow
 
+from config.front_end.icon_path import list_widget_icons
 from src.famiowl_client_window import Ui_FamiOwl
 
 
@@ -18,6 +19,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
         self.active_game_line.setAttribute(QtCore.Qt.WidgetAttribute.WA_MacShowFocusRect, 0)
         self.create_game_widgets()
+        self.define_icons()
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.MouseButton.LeftButton:
@@ -106,3 +108,12 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_card_layout.setStretch(0, 1)
 
             self.verticalLayout_13.addWidget(game_card)
+
+    def define_icons(self):
+        for i in range(4):
+            item = self.listWidget.item(i)
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap(list_widget_icons[i]),
+                           QtGui.QIcon.Mode.Normal,
+                           QtGui.QIcon.State.Off)
+            item.setIcon(icon)
