@@ -1,10 +1,13 @@
 # coding=utf-8
+import os
+import time
 import traceback
 
 import paramiko
 
+from config.project_info import DOWNLOAD_DIR
 from config.server_info import SERVER_IP
-from lib.base_lib.mylog.mylog import log
+from lib.base_lib.mylog.mylog import log, log_e
 from lib.base_lib.ssh.shell_cmd_interface import ShellCmdInterface
 from lib.base_lib.ssh.ssh_info import SshInfo
 
@@ -90,6 +93,21 @@ class SshUtils(ShellCmdInterface):
     def channel_destroy(self):
         self._channel_obj = None
         self._close_ssh()
+
+    def download_from_ssh(self, vm_dir_path, file_name, local_dir=DOWNLOAD_DIR):
+        for i in range(3):
+            try:
+                scp = paramiko.Transport(self._ip, self._ssh_info.port)
+                scp.connect(username=self._ssh_info.user_name, password=self._ssh_info.user_pwd)
+                sftp = paramiko.SFTPClient.from_transport(scp)
+                path = os.path.join(local_dir, file_name)
+                sftp.get(vm_dir_path, path)
+                scp.close()
+            except Exception as e:
+                if i == 2:
+                    raise e
+                log_e(e)
+                time.sleep(2)
 
 
 if __name__ == "__main__":
