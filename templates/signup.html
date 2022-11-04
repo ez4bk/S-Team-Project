@@ -1,0 +1,114 @@
+ <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <title>Sign Up</title>
+          <style>
+           * {
+               margin: 0;
+               padding: 0;
+           }
+
+          body {
+              background-color: rgb(235, 235, 235);
+          }
+
+          form {
+              width: 400px;
+              height: 320px;
+              background-color: white;
+              padding: 20px;
+              box-sizing: border-box;
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+              /* 相对于现在所处位置的位移变化，x便偏移自己宽度的50%，y偏移自己高度的50% */
+          }
+
+          h2 {
+              margin-bottom: 20px;
+              text-align: center;
+          }
+
+          form input {
+              width: 100%;
+              height: 30px;
+              display: block;
+              margin-bottom: 20px;
+              padding-left: 10px;
+              box-sizing: border-box;
+          }
+
+          .mya {
+              width: 100%;
+              height: 30px;
+              margin-bottom: 20px;
+          }
+
+          .mya a:nth-child(1) {
+              float: left;
+          }
+
+          .mya a:nth-child(2) {
+              float: right;
+          }
+
+          button {
+              width: 100%;
+              height: 40px;
+              background-color: rgb(235, 235, 235);
+              border: none;
+          }
+
+          button:active {
+              box-shadow: 0 0 3px rgb(173, 172, 172);
+              /* x偏移  y偏移  模糊值 颜色 */
+          }
+      </style>
+  </head>
+  <body>
+      <form  method="post">
+          <h2>Sign Up</h2>
+          {% csrf_token %}
+          <input id="user_id" type="text" placeholder="Enter Email" name="user_id">
+          <input id="username" type="text" placeholder="Enter User Name" name="username">
+          <input id="password" type="password" placeholder="Enter Password" name="password">
+          <div class="mya">
+              <a href="{% url 'signin' %}">Already Have Account</a>
+          </div>
+          <button id="login-btn" type="submit">Sign Up</button>
+      </form>
+
+      <script>
+          // let 定义一个变量
+          let user_id = document.getElementById('user_id')
+          let username = document.getElementById('username')
+          let password = document.getElementById('password')
+          let loginBtn = document.getElementById('login-btn')
+              // js里面不允许出现 -
+
+          //一般的交互事件
+          // onclick 点击事件
+          // onmousemove  鼠标移入事件
+          // onmouseout  鼠标移出事件
+          // ondblclick  双击事件
+          // onfocus  input框获取焦点事件
+          // onblur  失焦事件
+
+
+          loginBtn.onclick = function() {
+              let usernamevalue = username.value
+              let passwordvalue = password.value
+                 // console.log(usernamevalue, passwordvalue)
+                 // 便于检查的时候判断是否成功
+             if (!usernamevalue) {
+                 return alert('Please Enter Correct User Name')
+                     //return 跳出当前函数，并且返回后面的值
+             }
+             console.log(usernamevalue, passwordvalue)
+
+         }
+     </script>
+ </body>
+ </html>
