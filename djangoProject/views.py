@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from djangoProject.models import User
+from aes_pass import *
 
 
 def register(request):
