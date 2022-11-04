@@ -1,7 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect
 from djangoProject.models import User
-from aes_pass import *
+from djangoProject.aes_pass import *
 
+aes_pass = AESCipher()
 
 def register(request):
     """
@@ -37,7 +38,7 @@ def register(request):
         if users:
             return HttpResponse("Duplicate username")
         try:
-            User.objects.create(user_name=uname, password=pwd, user_id = user_id)
+            User.objects.create(user_name=uname, password=aes_pass.encrypt(pwd), user_id = user_id)
         except Exception as e:
             return HttpResponse("数据库写入失败")
         res = redirect("/")
