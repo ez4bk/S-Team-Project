@@ -117,5 +117,5 @@ def page(request):
      uname = request.session.get("user_id")
      print(uname)
      if not uname:
-         return redirect("/register")
+         return redirect("/login")
      return render(request, "home.html", {"uname": uname})
