@@ -2,7 +2,7 @@
    <html lang="en">
    <head>
        <meta charset="UTF-8">
-       <title>登录</title>
+       <title>Login</title>
           <style>
            * {
                margin: 0;
@@ -69,14 +69,14 @@
   </head>
   <body>
       <form  method="post">
-          <h2>登录界面</h2>
+          <h2>User Login</h2>
           {% csrf_token %}
           <input id="user_id" type="text" placeholder="Enter User ID/Email" name="user_id">
           <input id="password" type="password" placeholder="Enter Password" name="password">
           <div class="mya">
               <a href="{% url 'register' %}">Sign Up</a>
           </div>
-          <button id="login-btn" type="submit">登录</button>
+          <button id="login-btn" type="submit">Login</button>
       </form>
 
       <script>
