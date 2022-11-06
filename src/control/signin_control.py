@@ -7,8 +7,8 @@ from config.sql_query.account_query import parent_signin
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
 from lib.pyqt_lib.message_box import message_info_box
+from src.control.signup_control import SignupWindow
 from src.signin_window import Ui_Signin_Window
-from src.signup_control import SignupWindow
 
 sql_utils = SqlUtils()
 aes_cipher = AESCipher()

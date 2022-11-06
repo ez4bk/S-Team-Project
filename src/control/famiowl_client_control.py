@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QMainWindow
 
 from config.client_info import child_select
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
-from src.famiowl_child_selection_control import FamiOwlChildSelectionWindow
+from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
 
 

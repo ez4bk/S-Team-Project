@@ -4,7 +4,7 @@ from PyQt6 import QtWidgets
 
 from lib.base_lib.sql.sql_utils import SqlUtils
 # from src.signin_control import SigninWindow
-from src.famiowl_client_control import FamiOwlClientWindow
+from src.control.famiowl_client_control import FamiOwlClientWindow
 
 sql_utils = SqlUtils()
 
