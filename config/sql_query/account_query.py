@@ -9,9 +9,4 @@ parent_signup = 'insert into parents(parent_id, user_name, password) values("{0}
 kids_select = 'select * from kids where parent_id = "{0}";'
 
 # show games user own where parent_id = input id
-show_inventory = 'select * from game_inventory where parent_id = "{0}";'
-
-# show game in the distributing platform where id = input id
-show_game = 'select * from game_library where game_id = "{0}";'
-
-
+show_parent_inventory = 'select * from game_inventory where parent_id = "{0}";'
