@@ -228,7 +228,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __switch_child(self):
         self.child_name_label.setText(config['current_child'])
-        a = 'src/resource/like_icon.png'
+        a = "src/resource/profile_icons/" + config['profile_icon'] + ".png"
         self.profile_image_widget.setStyleSheet("border-radius:32px;"
                                                 "background-color: rgb(223, 223, 223);"
                                                 "image: url(%s);" % a)
