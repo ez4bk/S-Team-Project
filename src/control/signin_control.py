@@ -1,10 +1,12 @@
 import sys
 
-from PyQt6 import QtCore
+from PyQt6 import QtCore, QtGui
 from PyQt6.QtCore import QThread
+from PyQt6.QtGui import QMovie
 from PyQt6.QtWidgets import QMainWindow, QLineEdit
 
 from config.client_info import config, write_to_json
+from config.front_end.icon_path import owl_gif, title_img, signin_icon
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
 from lib.pyqt_lib.message_box import message_info_box
@@ -28,17 +30,23 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         self.__userid = ''
         self.__pwd = ''
 
+        self.famiowl_title_label.setPixmap(QtGui.QPixmap(title_img))
+        self.owl_gif_movie = QMovie(owl_gif)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(signin_icon), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
+        self.signin_button.setIcon(icon)
+        self.signin_button.setIconSize(QtCore.QSize(60, 60))
+        if config['signin_state']:
+            self.userid_line.setText(config['parent_id'])
+            self.pwd_line.setText(aes_cipher.decrypt_main(config['parent_pwd']))
+            self.__signin()
+
         self.pwd_line.setEchoMode(QLineEdit.EchoMode.Password)
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
 
         self.__define_exit_button()
         self.__define_signin_button()
         self.__define_signup_button()
-
-        if config['signin_state']:
-            self.userid_line.setText(config['parent_id'])
-            self.pwd_line.setText(aes_cipher.decrypt_main(config['parent_pwd']))
-            self.__signin()
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.MouseButton.LeftButton:

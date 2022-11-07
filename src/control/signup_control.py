@@ -1,9 +1,10 @@
 import re
 
-from PyQt6 import QtCore
+from PyQt6 import QtCore, QtGui
 from PyQt6.QtCore import QThread
 from PyQt6.QtWidgets import QMainWindow, QLineEdit
 
+from config.front_end.icon_path import child_img
 from config.front_end.stylesheet import signup_button_ss, signup_button_disabled_ss
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
@@ -28,6 +29,8 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
         self.__userid = ''
         self.__username = ''
         self.__pwd = ''
+
+        self.signup_pic.setPixmap(QtGui.QPixmap(child_img))
 
         self.signup_pwd_line.setEchoMode(QLineEdit.EchoMode.Password)
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)

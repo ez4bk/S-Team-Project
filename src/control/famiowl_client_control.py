@@ -159,6 +159,9 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         elif widget_to_go == 'Settings':
             self.stackedWidget.setCurrentWidget(self.setting_page)
         elif widget_to_go == 'Exit':
+            # TODO: Separate sign-out and exit
+            # config['signin_state'] = False
+            # write_to_json()
             exit()
 
     def __create_library_widget(self):
