@@ -1,10 +1,10 @@
 {
-    "signin_state": true,
-    "parent_id": "test@test.com",
-    "parent_name": "test",
-    "parent_pwd": "MDAwMDAwMDAwMDAwMDc5NvH+3hISG0KxUVaq6Z/je3k=",
+    "signin_state": false,
+    "parent_id": null,
+    "parent_name": "Yuchen Wei",
+    "parent_pwd": null,
     "signin_timestamp": null,
     "default_child": null,
-    "current_child": "kid4",
-    "profile_icon": "4"
+    "current_child": null,
+    "profile_icon": "1"
 }
