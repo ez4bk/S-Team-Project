@@ -26,7 +26,7 @@ import pymysql
 # 登录页面
 # def login(request):
 #     # 指定要访问的页面，render的功能：讲请求的页面结果提交给客户端
-#     return render(request, 'login.html')
+#     return render(request, 'login_old.html')
     # if request.method == 'POST':
     #     form = LoginForm(request.POST)
     #
@@ -43,7 +43,7 @@ import pymysql
     # else:
     #     form = LoginForm()
     #
-    # return render(request, 'login.html', {'form': form})
+    # return render(request, 'login_old.html', {'form': form})
 
 
 # def index(request):
@@ -172,7 +172,7 @@ import pymysql
 #     if has_user == 1:
 #         return HttpResponse(('Login Success'))
 #     else:
-#         return render(request, 'login.html')
+#         return render(request, 'login_old.html')
 #
 # def index(request):
 #     # 读取客户端请求携带的cookie，如果不为空，表示为已登录帐号
