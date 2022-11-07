@@ -25,6 +25,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__define_icons()
         self.__define_menu_listwidget()
         self.__define_switch_child_button()
+        self.__sync_profile()
 
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
         self.stackedWidget.setCurrentWidget(self.game_page)
@@ -138,6 +139,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
         else:
+            # self.child_selection_window.
             self.child_selection_window.show()
 
     def __define_switch_child_button(self):
@@ -219,3 +221,14 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_card_layout.setStretch(0, 1)
 
             self.verticalLayout_14.addWidget(game_card)
+
+    def __sync_profile(self):
+        self.windowTitleChanged.connect(lambda: self.__switch_child())
+
+    def __switch_child(self):
+        print(child_select)
+        self.child_name_label = child_select
+        a = 'src/resource/like_icon.png'
+        self.profile_image_widget.setStyleSheet("border-radius:32px;"
+                                                "background-color: rgb(223, 223, 223);"
+                                                "image: url(%s);" % a)

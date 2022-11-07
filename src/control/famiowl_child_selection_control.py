@@ -26,16 +26,15 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
             self.move(self.pos_x, self.pos_y)
 
     def __define_profile_buttons(self):
-        self.child_profile_0.clicked.connect(lambda: self.__save_child_select(self.child_profile_0.objectName()))
-        self.child_profile_1.clicked.connect(lambda: self.__save_child_select(self.child_profile_1.objectName()))
-        self.child_profile_2.clicked.connect(lambda: self.__save_child_select(self.child_profile_2.objectName()))
-        self.child_profile_3.clicked.connect(lambda: self.__save_child_select(self.child_profile_3.objectName()))
+        self.child_profile_0.clicked.connect(lambda: self.__save_child_select(self.child_name_0.text()))
+        self.child_profile_1.clicked.connect(lambda: self.__save_child_select(self.child_name_1.text()))
+        self.child_profile_2.clicked.connect(lambda: self.__save_child_select(self.child_name_2.text()))
+        self.child_profile_3.clicked.connect(lambda: self.__save_child_select(self.child_name_3.text()))
 
     def __save_child_select(self, profile):
-        global child_select
         child_select = profile
-        print(child_select)
-        self.hide()
+        self.parent.setWindowTitle(self.parent.windowTitle() + " - " + child_select)
+        self.close()
 
     def mouseDoubleClickEvent(self, event):
         self.hide()
