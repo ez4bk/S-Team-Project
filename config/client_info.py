@@ -8,4 +8,4 @@ f.close()
 
 def write_to_json():
     with open('config.json', 'w') as f:
-        json.dump(config, f, indent=len(config))
+        json.dump(config, f, indent=4)

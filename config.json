@@ -1,6 +1,9 @@
 {
-  "signin_state": false,
-  "signin_timestamp": null,
-  "default_child": null,
-  "current_child": "Child B"
+    "signin_state": true,
+    "parent_id": "yw780@rutgers.edi",
+    "parent_name": "Yuchen Wei",
+    "parent_pwd": "MDAwMDAwMDAwMDAwMDU0NU9JhgRM9zaWhwiQrfy8hh0=",
+    "signin_timestamp": null,
+    "default_child": null,
+    "current_child": "Child D"
 }

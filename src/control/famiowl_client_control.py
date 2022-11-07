@@ -13,9 +13,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         super(FamiOwlClientWindow, self).__init__(parent)
         self.setupUi(self)
         self.child_selection_window = None
-
         self.start_x = None
         self.start_y = None
+
+        self.parent_name_label.setText(config['parent_name'])
 
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
