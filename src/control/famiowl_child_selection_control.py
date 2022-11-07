@@ -1,6 +1,7 @@
 from PyQt6 import QtCore
 from PyQt6.QtWidgets import QMainWindow
 
+from config.client_info import config, write_to_json
 from src.famiowl_child_selection_window import Ui_FamiOwlChildSelection
 
 
@@ -32,8 +33,9 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
         self.child_profile_3.clicked.connect(lambda: self.__save_child_select(self.child_name_3.text()))
 
     def __save_child_select(self, profile):
-        child_select = profile
-        self.parent.setWindowTitle(self.parent.windowTitle() + " - " + child_select)
+        config['current_child'] = profile
+        write_to_json()
+        self.parent.setWindowTitle(self.parent.windowTitle() + " - " + profile)
         self.close()
 
     def mouseDoubleClickEvent(self, event):

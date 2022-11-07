@@ -2,7 +2,7 @@ from PyQt6 import QtCore, QtWidgets, QtGui
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QMainWindow
 
-from config.client_info import child_select
+from config.client_info import config
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
@@ -30,7 +30,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
         self.stackedWidget.setCurrentWidget(self.game_page)
 
-        if child_select is None:
+        if config['current_child'] is None:
             self.__to_child_selection_window()
 
     def mousePressEvent(self, event):
@@ -226,8 +226,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.windowTitleChanged.connect(lambda: self.__switch_child())
 
     def __switch_child(self):
-        print(child_select)
-        self.child_name_label = child_select
+        self.child_name_label.setText(config['current_child'])
         a = 'src/resource/like_icon.png'
         self.profile_image_widget.setStyleSheet("border-radius:32px;"
                                                 "background-color: rgb(223, 223, 223);"
