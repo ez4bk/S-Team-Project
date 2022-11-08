@@ -1,4 +1,3 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse, redirect
 from djangoProject.models import User
 from djangoProject.aes_pass import *
@@ -129,6 +128,6 @@ def page(request):
 47     """
     uname = request.session.get("user_id")
     #print(uname)
-    if not uname:
-        return redirect("/login")
-    return render(request, "home.html", {"uname": uname})
+    # if not uname:
+    #     return redirect("/login")
+    return render(request, 'home.html', {"uname": uname})
