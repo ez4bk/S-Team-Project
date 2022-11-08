@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FamiOwlChildSelection</class>
- <widget class="QMainWindow" name="FamiOwlChildSelection">
+ <class>FamiOwlChildNew</class>
+ <widget class="QMainWindow" name="FamiOwlChildNew">
   <property name="geometry">
    <rect>
     <x>0</x>

@@ -1,5 +1,4 @@
 from PyQt6 import QtCore, QtWidgets, QtGui
-from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QMainWindow
 
 from config.client_info import config
@@ -62,12 +61,12 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         except:
             pass
 
-    def effect_shadow_style(self, widget):
-        effect_shadow = QtWidgets.QGraphicsDropShadowEffect(self)
-        effect_shadow.setOffset(12, 12)  # 偏移
-        effect_shadow.setBlurRadius(128)  # 阴影半径
-        effect_shadow.setColor(QColor(155, 230, 237, 150))  # 阴影颜色
-        widget.setGraphicsEffect(effect_shadow)
+    # def effect_shadow_style(self, widget):
+    #     effect_shadow = QtWidgets.QGraphicsDropShadowEffect(self)
+    #     effect_shadow.setOffset(12, 12)  # 偏移
+    #     effect_shadow.setBlurRadius(128)  # 阴影半径
+    #     effect_shadow.setColor(QColor(155, 230, 237, 150))  # 阴影颜色
+    #     widget.setGraphicsEffect(effect_shadow)
 
     def __create_game_widgets(self):
         for i in range(5):

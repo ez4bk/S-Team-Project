@@ -9,11 +9,11 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
-class Ui_FamiOwlChildSelection(object):
-    def setupUi(self, FamiOwlChildSelection):
-        FamiOwlChildSelection.setObjectName("FamiOwlChildSelection")
-        FamiOwlChildSelection.resize(900, 600)
-        FamiOwlChildSelection.setStyleSheet("QScrollBar:horizontal{\n"
+class Ui_FamiOwlChildNew(object):
+    def setupUi(self, FamiOwlChildNew):
+        FamiOwlChildNew.setObjectName("FamiOwlChildNew")
+        FamiOwlChildNew.resize(900, 600)
+        FamiOwlChildNew.setStyleSheet("QScrollBar:horizontal{\n"
 "    height:8px;\n"
 "    background:rgba(0,0,0,0%);\n"
 "border-radius:4px;\n"
@@ -87,7 +87,7 @@ class Ui_FamiOwlChildSelection(object):
 "    border-radius:4px;\n"
 "}\n"
 "")
-        self.centralwidget = QtWidgets.QWidget(FamiOwlChildSelection)
+        self.centralwidget = QtWidgets.QWidget(FamiOwlChildNew)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
@@ -144,13 +144,13 @@ class Ui_FamiOwlChildSelection(object):
 "border-radius:20px;")
         self.add_profile_button.setObjectName("add_profile_button")
         self.horizontalLayout_8.addWidget(self.central_frame)
-        FamiOwlChildSelection.setCentralWidget(self.centralwidget)
+        FamiOwlChildNew.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(FamiOwlChildSelection)
-        QtCore.QMetaObject.connectSlotsByName(FamiOwlChildSelection)
+        self.retranslateUi(FamiOwlChildNew)
+        QtCore.QMetaObject.connectSlotsByName(FamiOwlChildNew)
 
-    def retranslateUi(self, FamiOwlChildSelection):
+    def retranslateUi(self, FamiOwlChildNew):
         _translate = QtCore.QCoreApplication.translate
-        FamiOwlChildSelection.setWindowTitle(_translate("FamiOwlChildSelection", "FamiOwl Client"))
-        self.child_name_line.setPlaceholderText(_translate("FamiOwlChildSelection", "Name"))
-        self.add_profile_button.setText(_translate("FamiOwlChildSelection", "Add Profile"))
+        FamiOwlChildNew.setWindowTitle(_translate("FamiOwlChildNew", "FamiOwl Client"))
+        self.child_name_line.setPlaceholderText(_translate("FamiOwlChildNew", "Name"))
+        self.add_profile_button.setText(_translate("FamiOwlChildNew", "Add Profile"))
