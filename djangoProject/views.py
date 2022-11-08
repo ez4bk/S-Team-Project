@@ -1,4 +1,3 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse, redirect
 from djangoProject.models import User
 from djangoProject.aes_pass import *
