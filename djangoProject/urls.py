@@ -56,7 +56,7 @@ import pymysql
 
 # 注册页面
 # def register(request):
-#     return render(request, 'register.html')
+#     return render(request, 'register_old.html')
 # def register(request):
 #      """
 #  3            用户注册
@@ -97,7 +97,7 @@ import pymysql
 #          res.set_cookie("name", uname)
 #          request.session["username"] = uname
 #          return res
-#      return render(request, "register.html")
+#      return render(request, "register_old.html")
 
 # def logout(request):
 #     # try:

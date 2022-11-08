@@ -27,10 +27,10 @@ def register(request):
         user_id = request.POST.get('user_id')
         uname = request.POST.get('username')  # 获取post数据
         pwd = request.POST.get('password')
-        print(uname, pwd)
+        #print(uname, pwd)
         if not all([user_id, uname, pwd]):  # 判空
-            messages.warning(request,'Please enter the required information')
-            return redirect('/')
+            messages.info(request, 'Please enter your email/username/password')
+            return redirect('register')
         # User.objects.create(username=uname, password=pwd)  # 创建
         # res = redirect("/page")
         # request.session["username"] = uname
@@ -40,7 +40,8 @@ def register(request):
         except Exception as e:
             return HttpResponse("Failed to search from database")
         if users:
-            return HttpResponse("Duplicate username")
+            messages.warning(request,'Username already exists')
+            return redirect('register')
         try:
             User.objects.create(user_name=uname, password=aes_pass.encrypt_main(pwd), user_id=user_id)
         except Exception as e:
