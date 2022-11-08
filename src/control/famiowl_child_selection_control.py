@@ -3,16 +3,14 @@ from PyQt6.QtCore import QSize
 from PyQt6.QtWidgets import QMainWindow
 
 from config.client_info import config, write_to_json
-from config.sql_query.account_query import kids_select
-from lib.base_lib.sql.sql_utils import SqlUtils
+from config.front_end.front_end_var import to_add_new_child
+from config.front_end.icon_path import add_child_icon
 from lib.pyqt_lib.message_box import message_info_box
-
 from src.famiowl_child_selection_window import Ui_FamiOwlChildSelection
 
-sql_utils = SqlUtils()
 
 class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, kids=None):
         super(FamiOwlChildSelectionWindow, self).__init__(parent)
         self.parent = parent
         self.setupUi(self)
@@ -25,68 +23,66 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
         self.setWindowFlag(QtCore.Qt.WindowType.WindowStaysOnTopHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
 
-        kids = self.__kids_query()
-        # list_id = [sub[0] for sub in kids] # list of kids' id of this parent
-        list_name = [sub[1] for sub in kids] # list of kids' name of this parent
-        list_icon = [sub[3] for sub in kids] # list of kids' icon of this parent
+        self.kids = kids
 
         self.__pop_up_position()
-        self.__define_profile_buttons(list_name,list_icon)
-
-    def __kids_query(self):
-        try:
-            # store this parent's kids' info into a list
-            info = sql_utils.sql_exec(kids_select.format(config['parent_id']))
-            return info
-        except Exception as e:
-            message_info_box(self, e)
-        return None
+        self.__define_profile_buttons()
 
     def __pop_up_position(self):
         if self.pos_x != 0 and self.pos_y != 0:
             self.move(self.pos_x, self.pos_y)
 
-    def __define_profile_buttons(self,list_name,list_icon):
-        if (len(list_name) >= 1):
-            self.child_profile_0.clicked.connect(lambda: self.__save_child_select(list_name[0],list_icon[0]))
-            self.child_name_0.setText(list_name[0])
-            icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap("src/resource/profile_icons/" + list_icon[0] + ".png"),
-                           QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
-            self.child_profile_0.setIcon(icon)
-            self.child_profile_0.setIconSize(QSize(100, 100))
-        if (len(list_name) >= 2):
-            self.child_profile_1.clicked.connect(lambda: self.__save_child_select(list_name[1],list_icon[1]))
-            self.child_name_1.setText(list_name[1])
-            icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap("src/resource/profile_icons/" + list_icon[1] + ".png"),
-                           QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
-            self.child_profile_1.setIcon(icon)
-            self.child_profile_1.setIconSize(QSize(100, 100))
-        if (len(list_name) >= 3):
-            self.child_profile_2.clicked.connect(lambda: self.__save_child_select(list_name[2],list_icon[2]))
-            self.child_name_2.setText(list_name[2])
-            icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap("src/resource/profile_icons/" + list_icon[2] + ".png"),
-                           QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
-            self.child_profile_2.setIcon(icon)
-            self.child_profile_2.setIconSize(QSize(100, 100))
-        if (len(list_name) >= 4):
-            self.child_profile_3.clicked.connect(lambda: self.__save_child_select(list_name[3],list_icon[3]))
-            self.child_name_3.setText(list_name[3])
-            icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap("src/resource/profile_icons/" + list_icon[3] + ".png"),
-                           QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
-            self.child_profile_3.setIcon(icon)
-            self.child_profile_3.setIconSize(QSize(100, 100))
+    def __define_profile_buttons(self):
+        profile_list = [self.child_profile_0, self.child_profile_1, self.child_profile_2, self.child_profile_3]
+        profile_name_list = [self.child_name_0, self.child_name_1, self.child_name_2, self.child_name_3]
 
+        for i in range(4):
+            try:
+                print(i)
+                profile_name_list[i].setText(self.kids[i][1])
+                icon = QtGui.QIcon()
+                icon.addPixmap(QtGui.QPixmap("src/resource/profile_icons/" + self.kids[i][3] + ".png"),
+                               QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
+                profile_list[i].setIcon(icon)
+                profile_list[i].setIconSize(QSize(100, 100))
+            except IndexError:
+                profile_name_list[i].setText('Add New')
+                icon = QtGui.QIcon()
+                icon.addPixmap(QtGui.QPixmap(add_child_icon), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
+                profile_list[i].setIcon(icon)
+                profile_list[i].setIconSize(QSize(100, 100))
+                profile_list[i].setObjectName(to_add_new_child)
+        self.__define_buttons()
 
-    def __save_child_select(self, profile,index):
+    def __define_buttons(self):
+        if self.child_profile_0.objectName() != to_add_new_child:
+            self.child_profile_0.clicked.connect(lambda: self.__save_child_select(self.child_name_0.text()))
+        else:
+            self.child_profile_0.clicked.connect(lambda: self.__add_new_child())
+
+        if self.child_profile_1.objectName() != to_add_new_child:
+            self.child_profile_1.clicked.connect(lambda: self.__save_child_select(self.child_name_1.text()))
+        else:
+            self.child_profile_1.clicked.connect(lambda: self.__add_new_child())
+
+        if self.child_profile_2.objectName() != to_add_new_child:
+            self.child_profile_2.clicked.connect(lambda: self.__save_child_select(self.child_name_2.text()))
+        else:
+            self.child_profile_2.clicked.connect(lambda: self.__add_new_child())
+
+        if self.child_profile_3.objectName() != to_add_new_child:
+            self.child_profile_3.clicked.connect(lambda: self.__save_child_select(self.child_name_3.text()))
+        else:
+            self.child_profile_3.clicked.connect(lambda: self.__add_new_child())
+
+    def __save_child_select(self, profile):
         config['current_child'] = profile
-        config['profile_icon'] = index
         write_to_json()
         self.parent.setWindowTitle(self.parent.windowTitle() + " - " + profile)
         self.close()
+
+    def __add_new_child(self):
+        message_info_box(self, 'not yet implemented')
 
     def mouseDoubleClickEvent(self, event):
         self.hide()

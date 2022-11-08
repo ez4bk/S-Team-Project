@@ -4,8 +4,13 @@ from PyQt6.QtWidgets import QMainWindow
 
 from config.client_info import config
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
+from config.sql_query.account_query import kids_select
+from lib.base_lib.sql.sql_utils import SqlUtils
+from lib.pyqt_lib.message_box import message_info_box
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
+
+sql_utils = SqlUtils()
 
 
 class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
@@ -15,6 +20,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.child_selection_window = None
         self.start_x = None
         self.start_y = None
+
+        self.kids = self.__kids_query()
 
         self.parent_name_label.setText(config['parent_name'])
 
@@ -33,6 +40,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
         if config['current_child'] is None:
             self.__to_child_selection_window()
+        else:
+            self.__switch_child()
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.MouseButton.LeftButton:
@@ -136,7 +145,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                                )
 
     def __to_child_selection_window(self):
-        self.child_selection_window = FamiOwlChildSelectionWindow(self)
+        self.child_selection_window = FamiOwlChildSelectionWindow(self, self.kids)
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
         else:
@@ -231,7 +240,23 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __switch_child(self):
         self.child_name_label.setText(config['current_child'])
-        a = "src/resource/profile_icons/" + config['profile_icon'] + ".png"
-        self.profile_image_widget.setStyleSheet("border-radius:32px;"
-                                                "background-color: rgb(223, 223, 223);"
-                                                "image: url(%s);" % a)
+        profile = None
+        for kid in self.kids:
+            if kid[1] == config['current_child']:
+                profile = kid[3]
+        try:
+            a = "src/resource/profile_icons/" + profile + ".png"
+            self.profile_image_widget.setStyleSheet("border-radius:32px;"
+                                                    "background-color: rgb(223, 223, 223);"
+                                                    "image: url(%s);" % a)
+        except Exception as e:
+            assert True, e.__str__()
+
+    def __kids_query(self):
+        try:
+            # store this parent's kids' info into a list
+            info = sql_utils.sql_exec(kids_select.format(config['parent_id']))
+            return info
+        except Exception as e:
+            message_info_box(self, e)
+        return None

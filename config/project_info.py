@@ -12,6 +12,3 @@ else:
 ROOT_DIR = root_dir
 LOG_DIR = os.path.join(ROOT_DIR, 'log')
 DOWNLOAD_DIR = os.path.join(ROOT_DIR, 'download')
-
-# if __name__ == '__main__':
-#     pass
