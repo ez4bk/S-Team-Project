@@ -26,7 +26,7 @@ def register(request):
         user_id = request.POST.get('user_id')
         uname = request.POST.get('username')  # 获取post数据
         pwd = request.POST.get('password')
-        #print(uname, pwd)
+        # print(uname, pwd)
         if not all([user_id, uname, pwd]):  # 判空
             messages.info(request, 'Please enter your email/username/password')
             return redirect('register')
@@ -39,7 +39,7 @@ def register(request):
         except Exception as e:
             return HttpResponse("Failed to search from database")
         if users:
-            messages.warning(request,'Username already exists')
+            messages.warning(request, 'Username already exists')
             return redirect('register')
         try:
             User.objects.create(user_name=uname, password=aes_pass.encrypt_main(pwd), user_id=user_id)
@@ -99,12 +99,12 @@ def sign(request):
                 messages.warning(request, 'Wrong password')
                 return redirect('/')
         else:
-            messages.warning(request,'Username not found')
+            messages.warning(request, 'Username not found')
             redirect('/')
-            #print("用户名不存在")
-            #uname = request.session.get("user_id", None)
-            #uuname = request.COOKIES.get("id", None)
-            #print(uname)
+            # print("用户名不存在")
+            # uname = request.session.get("user_id", None)
+            # uuname = request.COOKIES.get("id", None)
+            # print(uname)
             # if uname:
             #     return redirect("/")
             # elif uuname:
@@ -113,10 +113,13 @@ def sign(request):
 
 
 def logout(request):
+    res = redirect("/")
+    res.delete_cookie('id')
     request.session.delete()
-    messages.success(request, 'You are logged out')
-    return redirect("/")
+    return res
 
+def my_children(request):
+    return render(request,'my_children.html')
 
 def page(request):
     """
@@ -127,7 +130,9 @@ def page(request):
 46     :return:
 47     """
     uname = request.session.get("user_id")
-    #print(uname)
-    # if not uname:
-    #     return redirect("/login")
-    return render(request, 'home.html', {"uname": uname})
+    # print(uname)
+    if not uname:
+        messages.info(request, 'You are a guest, please login/sign up')
+        return render(request,'guest_home.html')
+    messages.info(request, 'Welcome to FamiOwl, ' + str(uname))
+    return render(request, 'user_home.html')

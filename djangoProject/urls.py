@@ -1,4 +1,3 @@
-
 """Django01 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -22,28 +21,27 @@ from djangoProject.views import *
 
 import pymysql
 
-
 # 登录页面
 # def login(request):
 #     # 指定要访问的页面，render的功能：讲请求的页面结果提交给客户端
 #     return render(request, 'login_old.html')
-    # if request.method == 'POST':
-    #     form = LoginForm(request.POST)
-    #
-    #     if form.is_valid():
-    #         username = form.cleaned_data['username']
-    #         password = form.cleaned_data['password']
-    #         user = User.objects.filter(username__exact=username, password__exact=password)
-    #         if user:
-    #             # 将username写入session，存入服务器
-    #             request.session['username'] = username
-    #             return HttpResponseRedirect('/index/')
-    #         else:
-    #             return HttpResponseRedirect('/login/')
-    # else:
-    #     form = LoginForm()
-    #
-    # return render(request, 'login_old.html', {'form': form})
+# if request.method == 'POST':
+#     form = LoginForm(request.POST)
+#
+#     if form.is_valid():
+#         username = form.cleaned_data['username']
+#         password = form.cleaned_data['password']
+#         user = User.objects.filter(username__exact=username, password__exact=password)
+#         if user:
+#             # 将username写入session，存入服务器
+#             request.session['username'] = username
+#             return HttpResponseRedirect('/index/')
+#         else:
+#             return HttpResponseRedirect('/login/')
+# else:
+#     form = LoginForm()
+#
+# return render(request, 'login_old.html', {'form': form})
 
 
 # def index(request):
@@ -51,8 +49,8 @@ import pymysql
 #     # username = request.session.get('username', '')
 #     # if not username:
 #     #     return HttpResponseRedirect('/login/')
-#     # return render(request, 'index.html', {'username': username})
-#     return render(request, 'home.html')
+#     # return render(request, 'index_old.html', {'username': username})
+#     return render(request, 'user_home.html')
 
 # 注册页面
 # def register(request):
@@ -141,7 +139,7 @@ import pymysql
 #         db.commit()
 #         cursor.close()
 #         db.close()
-#         return render(request, 'home.html')
+#         return render(request, 'user_home.html')
 #     else:
 #
 #         cursor.close()
@@ -179,7 +177,7 @@ import pymysql
 #     username = request.COOKIES.get('username', '')
 #     if not username:
 #         return HttpResponseRedirect('/login/')
-#     return render(request, 'index.html', {'username': username})
+#     return render(request, 'index_old.html', {'username': username})
 # urlpatterns = [
 #     path('admin/', admin.site.urls),  # 系统默认创建的
 #     path('login/', login, name = 'login'),  # 用于打开登录页面
@@ -190,12 +188,11 @@ import pymysql
 # ]
 urlpatterns = [
     path('admin/', admin.site.urls),  # 系统默认创建的
-    path('register/', register,  name = 'register'),  # 用于打开注册页面
-    path('login/', sign, name = 'signin'),  # 用于打开登录页面
-    path('logout/', logout, name = 'logout'),
+    path('register/', register, name='register'),  # 用于打开注册页面
+    path('login/', sign, name='signin'),  # 用于打开登录页面
+    path('logout/', logout, name='logout'),
+    path('my_children/', my_children, name='my_children'),
     # path('register/save', save),  # 输入用户名密码后交给后台save函数处理
     # path('login/query', query),  # 输入用户名密码后交给后台query函数处理
-    path('', page, name = 'home')
+    path('', page, name='home')
 ]
-
-

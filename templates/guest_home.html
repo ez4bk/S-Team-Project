@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block navbar %}
+    {% load static %}
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'signin' %}">
+                    <button type="button" class="btn btn-primary">Log in</button>
+                </a>
+            </li>
+
+            <li class="nav-right">
+                <a href="{% url 'register' %}">
+                    <button type="button" class="btn btn-primary">Sign Up</button>
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
