@@ -84,7 +84,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
             config['parent_id'] = self.__userid
             write_to_json()
         except TypeError as e:
-            message_info_box(self, e)
+            message_info_box(self, "123")
 
         if self.__userid == '' or self.__pwd == '':
             message_info_box(self, "Empty User ID or Password!")
