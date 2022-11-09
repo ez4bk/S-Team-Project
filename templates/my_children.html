@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block white %}
-    children1
-    children2
-    children3
-    children4
-    {% endblock %}
+    <body>
+    {% for kid in kids %}
+        <li>{{kid.kids_name}} -> Timelimit: {{kid.time_limit}}</li>
+    {% endfor %}
+    </body>
+{% endblock %}

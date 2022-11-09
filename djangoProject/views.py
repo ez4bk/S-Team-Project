@@ -124,12 +124,12 @@ def my_children(request):
     # kids = Children.objects.filter(parent_id=user_id)
     try:
         kids = Children.objects.filter(parent_id=user_id)
-        for kid in kids:
-            print(kid.time_limit)
+        # for kid in kids:
+        #     print(kid.time_limit)
     except Exception as e:
         return HttpResponse("Failed to connect to database")
 
-    return render(request, 'my_children.html')
+    return render(request, 'my_children.html', {'kids':kids})
 
 
 def page(request):
