@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from djangoProject.models import User
+from djangoProject.models import *
 from djangoProject.aes_pass import *
 from django.contrib import messages
 
@@ -118,8 +118,11 @@ def logout(request):
     request.session.delete()
     return res
 
+
 def my_children(request):
-    return render(request,'my_children.html')
+    user_name = request.session.get("user_id")
+    return render(request, 'my_children.html')
+
 
 def page(request):
     """
@@ -133,6 +136,6 @@ def page(request):
     # print(uname)
     if not uname:
         messages.info(request, 'You are a guest, please login/sign up')
-        return render(request,'guest_home.html')
+        return render(request, 'guest_home.html')
     messages.info(request, 'Welcome to FamiOwl, ' + str(uname))
     return render(request, 'user_home.html')
