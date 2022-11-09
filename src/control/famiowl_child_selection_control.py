@@ -84,7 +84,7 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
         self.parent.setWindowTitle(self.parent.windowTitle() + " - " + profile)
         self.close()
 
-    def __add_new_child(self, msg):
+    def __add_new_child(self, msg=''):
         message_info_box(self, str(msg) + 'not yet implemented')
 
     def mouseDoubleClickEvent(self, event):
