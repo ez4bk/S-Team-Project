@@ -8,6 +8,7 @@ class FamiOwlChildNew(QMainWindow, Ui_FamiOwlChildNew):
     def __init__(self, parent=None):
         super(FamiOwlChildNew, self).__init__(parent)
         self.setupUi(self)
+        self.parent = parent
         self.pos_x = self.parent.pos().x()
         self.pos_y = self.parent.pos().y()
         self.start_x = None
@@ -42,4 +43,3 @@ class FamiOwlChildNew(QMainWindow, Ui_FamiOwlChildNew):
             self.parent.move(self.x() + dis_x, self.y() + dis_y)
         except:
             pass
-
