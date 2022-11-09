@@ -9,5 +9,4 @@ def message_info_box(parent, msg_str):
     :param msg_str: message text
     :return: Null
     """
-    print(parent)
     QMessageBox.information(parent, 'FamiOwl Information', msg_str)
