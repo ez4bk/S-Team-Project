@@ -45,7 +45,7 @@ def register(request):
             User.objects.create(user_name=uname, password=aes_pass.encrypt_main(pwd), user_id=user_id)
         except Exception as e:
             return HttpResponse("Failed to write to database")
-        res = redirect("/")
+        res = redirect("register")
         res.set_cookie("id", user_id)
         request.session["user_id"] = user_id
         return res
@@ -74,7 +74,7 @@ def sign(request):
         password = request.POST.get('password')
         if not all([user_id, password]):  # 判空
             messages.info(request, 'Please enter your username/password')
-            return redirect('/')
+            return redirect('signin')
         # 密码
         try:
             users = User.objects.filter(user_id=user_id)
@@ -97,10 +97,10 @@ def sign(request):
                 return res
             else:
                 messages.warning(request, 'Wrong password')
-                return redirect('/')
+                return redirect('signin')
         else:
             messages.warning(request, 'Username not found')
-            redirect('/')
+            redirect('signin')
             # print("用户名不存在")
             # uname = request.session.get("user_id", None)
             # uuname = request.COOKIES.get("id", None)
@@ -120,7 +120,15 @@ def logout(request):
 
 
 def my_children(request):
-    user_name = request.session.get("user_id")
+    user_id = request.session.get("user_id")
+    # kids = Children.objects.filter(parent_id=user_id)
+    try:
+        kids = Children.objects.filter(parent_id=user_id)
+        for kid in kids:
+            print(kid.time_limit)
+    except Exception as e:
+        return HttpResponse("Failed to connect to database")
+
     return render(request, 'my_children.html')
 
 
