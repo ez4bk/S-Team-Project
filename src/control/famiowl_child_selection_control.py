@@ -38,13 +38,13 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
 
         for i in range(4):
             try:
-                print(i)
                 profile_name_list[i].setText(self.kids[i][1])
                 icon = QtGui.QIcon()
                 icon.addPixmap(QtGui.QPixmap("src/resource/profile_icons/" + self.kids[i][3] + ".png"),
                                QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
                 profile_list[i].setIcon(icon)
                 profile_list[i].setIconSize(QSize(100, 100))
+                # profile_list[i].clicked.connect(lambda num=i: self.__save_child_select(profile_name_list[num].text()))
             except IndexError:
                 profile_name_list[i].setText('Add New')
                 icon = QtGui.QIcon()
@@ -52,6 +52,8 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
                 profile_list[i].setIcon(icon)
                 profile_list[i].setIconSize(QSize(100, 100))
                 profile_list[i].setObjectName(to_add_new_child)
+                # profile_list[i].clicked.connect(lambda num=i: self.__add_new_child(num))
+
         self.__define_buttons()
 
     def __define_buttons(self):
@@ -76,13 +78,14 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
             self.child_profile_3.clicked.connect(lambda: self.__add_new_child())
 
     def __save_child_select(self, profile):
+        # print(profile)
         config['current_child'] = profile
         write_to_json()
         self.parent.setWindowTitle(self.parent.windowTitle() + " - " + profile)
         self.close()
 
-    def __add_new_child(self):
-        message_info_box(self, 'not yet implemented')
+    def __add_new_child(self, msg):
+        message_info_box(self, str(msg) + 'not yet implemented')
 
     def mouseDoubleClickEvent(self, event):
         self.hide()

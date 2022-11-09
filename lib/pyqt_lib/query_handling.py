@@ -42,17 +42,18 @@ class QueryHandling(QObject):
         user_id = self.kwargs['user_id']
         user_name = self.kwargs['user_name']
         pwd = self.kwargs['pwd']
+        ui = self.kwargs['ui']
         try:
             res = sql_utils.sql_exec(parent_id_check.format(user_id), 1)[0][0]
         except Exception as e:
-            message_info_box(self, e.__str__())
+            message_info_box(None, e.__str__())
         if res == 1:
-            message_info_box(self, "E-mail already registered!")
+            message_info_box(None, "E-mail already registered!")
             self.finished.emit()
         else:
             try:
                 signup_query = parent_signup.format(user_id, user_name, pwd)
                 sql_utils.sql_exec(signup_query, 0)
             except Exception as e:
-                message_info_box(self, e.__str__())
+                message_info_box(ui, e.__str__())
             self.finished.emit()

@@ -90,7 +90,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
             message_info_box(self, "Empty User ID or Password!")
 
         self.thread = QThread()
-        self.query = QueryHandling()
+        self.query = QueryHandling(ui=self)
         self.query.moveToThread(self.thread)
         self.thread.started.connect(self.query.handle_signin_query)
         self.query.finished.connect(self.thread.quit)

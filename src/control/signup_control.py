@@ -26,6 +26,7 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
         self.start_x = None
         self.start_y = None
 
+        self.msg = 'abc'
         self.__userid = ''
         self.__username = ''
         self.__pwd = ''
@@ -91,7 +92,7 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
 
         self.thread = QThread()
         self.query = QueryHandling(user_id=self.__userid, user_name=self.__username,
-                                   pwd=self.__pwd)
+                                   pwd=self.__pwd, ui=self)
         self.query.moveToThread(self.thread)
         self.thread.started.connect(self.query.handle_signup_query)
         self.query.finished.connect(self.thread.quit)
@@ -109,6 +110,7 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
         self.thread.finished.connect(lambda: self.signup_pwd_line.setEnabled(True))
         self.thread.finished.connect(lambda: self.signup_username_line.setEnabled(True))
         self.thread.finished.connect(lambda: message_info_box(self, "You have signed up successfully!"))
+        self.thread.finished.connect(lambda: print(self.msg))
         self.thread.finished.connect(lambda: self.hide())
         self.thread.finished.connect(lambda: self.parent.show())
 
