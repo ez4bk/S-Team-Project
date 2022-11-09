@@ -2,7 +2,11 @@
 {% block white %}
     <body>
     {% for kid in kids %}
+        <p>
         <li>{{kid.kids_name}} -> Timelimit: {{kid.time_limit}}</li>
+        <input id="time_limit" type="text" placeholder="Enter new time limit" name="user_id">
+        <button id="login-btn" type="submit">Set</button>
+        </p>
     {% endfor %}
     </body>
 {% endblock %}
