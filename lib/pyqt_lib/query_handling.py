@@ -67,6 +67,7 @@ class QueryHandling(QObject):
             assert False, e
         assert res is not None, "No games available!"
         games = []
+
         try:
             for a in res:
                 game = StoreGame(a[0], a[1], a[2], a[3], a[4], a[5])

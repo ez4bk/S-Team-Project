@@ -134,17 +134,35 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         elif flag == 1:
             self.thread = create_thread(self.worker, self.worker.handle_show_top_game_query)
         self.thread.start()
+        self.menu_listwidget.setEnabled(False)
         self.thread.finished.connect(lambda: self.__create_game_widgets(flag))
+        self.thread.finished.connect(lambda: self.menu_listwidget.setEnabled(True))
 
     # library contains games sold by the platform
     # WIP this function currently initialize a list of 10 dummy games and display it
     # Complete function: fetch a list of top games from database and display it
     def __create_game_widgets(self, flag=0):
+        layout = None
+        game_list = []
         if flag == 0:
             game_list = self.inventory_games
+            layout = self.verticalLayout_13
         elif flag == 1:
             game_list = self.top_games
+            layout = self.verticalLayout_14
 
+        for i in reversed(range(layout.count())):
+            widget = layout.takeAt(i).widget()
+            if widget is not None:
+                widget.destroy()
+
+        if len(game_list) == 0:
+            no_game_label = QtWidgets.QLabel()
+            no_game_label.setText('No Games Available')
+            no_game_label.setStyleSheet('background-color:transparent;'
+                                        'color: black;')
+            no_game_label.setObjectName("no_game_label")
+            layout.addWidget(no_game_label)
         for i in range(len(game_list)):
             game_card = QtWidgets.QWidget()
             game_card.setMinimumSize(QtCore.QSize(0, 121))
@@ -204,10 +222,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_card_layout.addLayout(game_info_layout)
             game_card_layout.setStretch(0, 1)
 
-            if flag == 0:
-                self.verticalLayout_13.addWidget(game_card)
-            elif flag == 1:
-                self.verticalLayout_14.addWidget(game_card)
+            layout.addWidget(game_card)
 
     def __sync_profile(self):
         self.windowTitleChanged.connect(lambda: self.__switch_child())
