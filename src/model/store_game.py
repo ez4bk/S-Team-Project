@@ -21,7 +21,7 @@ class StoreGame(Game):
         try:
             self.worker = QueryHandling(game_id=self.game_id)
 
-            self.thread = create_thread(self.worker, self.worker.add_to_inventory_query)
+            self.thread = create_thread(self.worker, self.worker.handle_add_to_inventory_query)
             self.thread.start()
 
             self.thread.finished.connect(lambda: message_info_box(self, "The game has been successfully added to the inventory!"))
@@ -32,6 +32,7 @@ class StoreGame(Game):
         return 0
 
     def download(self):
+
         return 0
 
     def rate(self):

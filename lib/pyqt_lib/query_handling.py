@@ -77,7 +77,7 @@ class QueryHandling(QObject):
             assert False, "Game initialization failed!"
         self.finished.emit()
 
-    def add_to_inventory_query(self):
+    def handle_add_to_inventory_query(self):
         game_id = self.kwargs['game_id']
         parent_id = config['parent_id']
         try:
