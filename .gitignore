@@ -17,3 +17,4 @@ venv
 .idea/*
 download
 download/*
+config.json
