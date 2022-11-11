@@ -86,7 +86,6 @@ class QueryHandling(QObject):
             assert False, e
         if res == 1:
             assert False, "Game already in the inventory!"
-            self.finished.emit()
         else:
             try:
                 sql_utils.sql_exec(add_to_inventory.format(parent_id, game_id), 0)
