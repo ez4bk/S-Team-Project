@@ -23,6 +23,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.kids = self.__kids_query()
         config['child_num'] = len(self.kids)
         write_to_json()
+        self.top_games = None
+        self.inventory_games = None
 
         self.parent_name_label.setText(config['parent_name'])
 
@@ -151,6 +153,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
         else:
+            # self.child_selection_window.
             self.child_selection_window.show()
 
     def __define_switch_child_button(self):
@@ -177,17 +180,15 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     # library contains games sold by the platform
     # WIP this function currently initialize a list of 10 dummy games and display it
     # Complete function: fetch a list of top games from database and display it
-    def __create_library_widget(self):
-        sample_library_list = [["0", "sample game 0", "dummy image", "sample game description"],
-                               ["1", "sample game 1", "dummy image 1", "sample game description 1"],
-                               ["2", "sample game 2", "dummy image 2", "sample game description 2"],
-                               ["3", "sample game 3", "dummy image 3", "sample game description 3"],
-                               ["4", "sample game 4", "dummy image 4", "sample game description 4"],
-                               ["5", "sample game 5", "dummy image 5", "sample game description 5"],
-                               ["6", "sample game 6", "dummy image 6", "sample game description 6"],
-                               ["7", "sample game 7", "dummy image 7", "sample game description 7"],
-                               ["8", "sample game 8", "dummy image 8", "sample game description 8"],
-                               ["9", "sample game 9", "dummy image 9", "sample game description 9"]]
+    def __create_game_widgets(self, flag=0):
+        """
+
+        :param flag: 0 for inventory, 1 for store
+        :return:
+        """
+        # if flag == 0:
+        #     game_list = self.
+        sample_library_list = self.top_games
         for i in range(len(sample_library_list)):
             game_card = QtWidgets.QWidget()
             game_card.setMinimumSize(QtCore.QSize(0, 121))
