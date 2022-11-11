@@ -5,19 +5,21 @@ from PyQt6.QtWidgets import QMainWindow
 from config.client_info import config, write_to_json
 from config.front_end.front_end_var import to_add_new_child
 from config.front_end.icon_path import add_child_icon
-from lib.pyqt_lib.message_box import message_info_box
 from src.famiowl_child_selection_window import Ui_FamiOwlChildSelection
+from src.control.famiowl_child_new_control import FamiOwlChildNew
 
 
 class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
-    def __init__(self, parent=None, kids=None):
+    def __init__(self, parent=None,kids = None):
         super(FamiOwlChildSelectionWindow, self).__init__(parent)
         self.parent = parent
         self.setupUi(self)
         self.pos_x = self.parent.pos().x()
+        self.pos_x = self.parent.pos().x()
         self.pos_y = self.parent.pos().y()
         self.start_x = None
         self.start_y = None
+        self.addnew_window = None
 
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setWindowFlag(QtCore.Qt.WindowType.WindowStaysOnTopHint)
@@ -84,8 +86,17 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
         self.parent.setWindowTitle(self.parent.windowTitle() + " - " + profile)
         self.close()
 
-    def __add_new_child(self, msg=''):
-        message_info_box(self, str(msg) + 'not yet implemented')
+    def __add_new_child(self):
+        self.__goto_AddNewChild_window()
+        # message_info_box(self, str(msg) + 'not yet implemented')
+
+    def __goto_AddNewChild_window(self):
+        self.addnew_window = FamiOwlChildNew(self)
+        if self.addnew_window.isVisible():
+            self.addnew_window.hide()
+        else:
+            self.hide()
+            self.addnew_window.show()
 
     def mouseDoubleClickEvent(self, event):
         self.hide()

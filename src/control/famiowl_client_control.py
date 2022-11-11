@@ -1,7 +1,7 @@
 from PyQt6 import QtCore, QtWidgets, QtGui
 from PyQt6.QtWidgets import QMainWindow
 
-from config.client_info import config
+from config.client_info import config, write_to_json
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
 from config.sql_query.account_query import kids_select
 from lib.base_lib.sql.sql_utils import SqlUtils
@@ -21,6 +21,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.start_y = None
 
         self.kids = self.__kids_query()
+        config['child_num'] = len(self.kids)
+        write_to_json()
 
         self.parent_name_label.setText(config['parent_name'])
 
@@ -144,11 +146,11 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                                )
 
     def __to_child_selection_window(self):
-        self.child_selection_window = FamiOwlChildSelectionWindow(self, self.kids)
+        self.kids = self.__kids_query()
+        self.child_selection_window = FamiOwlChildSelectionWindow(self,self.kids)
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
         else:
-            # self.child_selection_window.
             self.child_selection_window.show()
 
     def __define_switch_child_button(self):
