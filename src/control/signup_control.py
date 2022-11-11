@@ -100,6 +100,7 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
             self.signup_email_line.setEnabled(False)
             self.signup_pwd_line.setEnabled(False)
             self.signup_username_line.setEnabled(False)
+
             self.thread.finished.connect(lambda: self.signup_button.setEnabled(True))
             self.thread.finished.connect(lambda: self.signup_email_line.setEnabled(True))
             self.thread.finished.connect(lambda: self.signup_pwd_line.setEnabled(True))
