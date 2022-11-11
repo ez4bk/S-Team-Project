@@ -117,6 +117,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
                     config['signin_state'] = True
                     write_to_json()
                     self.__to_famiowl_client()
+
                 else:
                     message_info_box(self, "Password incorrect!")
             except Exception as e:

@@ -10,3 +10,15 @@ class Game:
 
     def __str__(self):
         return ""
+
+    def return_game_id(self):
+        return str(self.__game_id)
+
+    def return_game_name(self):
+        return str(self.__game_name)
+
+    def return_cover_img(self):
+        return str(self.__cover_img)
+
+    def return_game_descr(self):
+        return str(self.__game_description)

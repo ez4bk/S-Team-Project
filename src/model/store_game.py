@@ -1,8 +1,8 @@
 from src.model.game import Game
 
 
-class LibraryGame(Game):
-    def __init__(self, game_id, game_name, path, cover_img, game_description, sales):
+class StoreGame(Game):
+    def __init__(self, game_id, game_name, cover_img, path, game_description, sales):
         super().__init__(game_id, game_name, cover_img, game_description)
         self.__path = path
         self.__sales = sales
@@ -25,3 +25,20 @@ class LibraryGame(Game):
 
     def __str__(self):
         return ""
+
+    def return_path(self):
+        return str(self.__path)
+
+    def return_sales(self):
+        return str(self.__sales)
+
+    def return_rate(self):
+        return str(self.__rate)
+
+    def return_filesize(self):
+        return str(self.__filesize)
+
+
+if __name__ == '__main__':
+    a = StoreGame('1', 'abc', 'img', 'path', 'des', 'sales')
+    print(a.return_game_id())

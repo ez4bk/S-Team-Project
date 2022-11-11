@@ -1,11 +1,13 @@
-from PyQt6 import QtCore, QtWidgets, QtGui
+from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
 from config.client_info import config
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
 from config.sql_query.account_query import kids_select
 from lib.base_lib.sql.sql_utils import SqlUtils
+from lib.pyqt_lib.create_thread import create_thread
 from lib.pyqt_lib.message_box import message_info_box
+from lib.pyqt_lib.query_handling import QueryHandling
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
 
@@ -19,30 +21,34 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.child_selection_window = None
         self.start_x = None
         self.start_y = None
+        self.worker = None
+        self.thread = None
 
         self.kids = self.__kids_query()
-        self.top_games = None
-        self.inventory_games = None
+        self.top_games = []
+        self.inventory_games = []
 
         self.parent_name_label.setText(config['parent_name'])
 
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
         self.active_game_line.setAttribute(QtCore.Qt.WidgetAttribute.WA_MacShowFocusRect, 0)
-        self.__create_game_widgets()
+
+        # self.__create_game_widgets()
         # self.__create_library_widget()
         self.__define_icons()
         self.__define_menu_listwidget()
         self.__define_switch_child_button()
         self.__sync_profile()
+        self.__get_game_query(0)
 
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
         self.stackedWidget.setCurrentWidget(self.game_page)
 
-        if config['current_child'] is None:
-            self.__to_child_selection_window()
-        else:
-            self.__switch_child()
+        # if config['current_child'] is None:
+        #     self.__to_child_selection_window()
+        # else:
+        #     self.__switch_child()
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.MouseButton.LeftButton:
@@ -101,8 +107,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         item = self.menu_listwidget.currentItem()
         widget_to_go = item.text()
         if widget_to_go == 'Games':
+            self.__get_game_query(0)
             self.stackedWidget.setCurrentWidget(self.game_page)
         elif widget_to_go == 'Library':
+            self.__get_game_query(1)
             self.stackedWidget.setCurrentWidget(self.library_page)
         elif widget_to_go == 'Settings':
             self.stackedWidget.setCurrentWidget(self.setting_page)
@@ -112,19 +120,29 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             # write_to_json()
             exit()
 
+    def __get_game_query(self, flag=0):
+        """
+        :param flag: 0 for inventory, 1 for store
+        :return:
+        """
+        self.worker = QueryHandling(ui=self)
+        if flag == 0:
+            self.thread = create_thread(self.worker, self.worker.handle_show_top_game_query)
+        elif flag == 1:
+            self.thread = create_thread(self.worker, self.worker.handle_show_top_game_query)
+        self.thread.start()
+        self.thread.finished.connect(lambda: self.__create_game_widgets(flag))
+
     # library contains games sold by the platform
     # WIP this function currently initialize a list of 10 dummy games and display it
     # Complete function: fetch a list of top games from database and display it
     def __create_game_widgets(self, flag=0):
-        """
+        if flag == 0:
+            game_list = self.inventory_games
+        elif flag == 1:
+            game_list = self.top_games
 
-        :param flag: 0 for inventory, 1 for store
-        :return:
-        """
-        # if flag == 0:
-        #     game_list = self.
-        sample_library_list = self.top_games
-        for i in range(len(sample_library_list)):
+        for i in range(len(game_list)):
             game_card = QtWidgets.QWidget()
             game_card.setMinimumSize(QtCore.QSize(0, 121))
             game_card.setMaximumSize(QtCore.QSize(16777215, 121))
@@ -155,7 +173,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_name_label.setFont(font)
             game_name_label.setStyleSheet("color: rgb(22, 54, 53)")
             game_name_label.setObjectName("game_name_label_%s" % i)
-            game_name_label.setText("Game name: " + sample_library_list[i][1])  # set game name
+            game_name_label.setText("Game name: " + game_list[i].return_game_name())  # set game name
             game_info_layout.addWidget(game_name_label)
             game_info_label = QtWidgets.QLabel(game_card)
             font = QtGui.QFont()
@@ -163,7 +181,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_info_label.setFont(font)
             game_info_label.setStyleSheet("color: rgb(22, 54, 53)")
             game_info_label.setObjectName("game_info_label_%s" % i)
-            game_info_label.setText("Game Info: " + sample_library_list[i][3])  # set game description
+            game_info_label.setText("Game Info: " + game_list[i].return_game_descr())  # set game description
             game_info_layout.addWidget(game_info_label)
             time_limit_bar = QtWidgets.QProgressBar(game_card)
             time_limit_bar.setStyleSheet("QProgressBar::chunk {\n"
@@ -183,7 +201,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_card_layout.addLayout(game_info_layout)
             game_card_layout.setStretch(0, 1)
 
-            self.verticalLayout_14.addWidget(game_card)
+            if flag == 0:
+                self.verticalLayout_13.addWidget(game_card)
+            elif flag == 1:
+                self.verticalLayout_14.addWidget(game_card)
 
     def __sync_profile(self):
         self.windowTitleChanged.connect(lambda: self.__switch_child())
@@ -205,8 +226,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __kids_query(self):
         try:
             # store this parent's kids' info into a list
-            info = sql_utils.sql_exec(kids_select.format(config['parent_id']))
+            info = sql_utils.sql_exec(kids_select.format(config['parent_id']))[0]
             return info
         except Exception as e:
-            message_info_box(self, e)
+            message_info_box(self, e + "sss")
         return None
