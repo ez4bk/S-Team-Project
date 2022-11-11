@@ -2,7 +2,7 @@ from PyQt6.QtCore import QObject, pyqtSignal
 
 from config.client_info import config, write_to_json
 from config.sql_query.account_query import parent_signin, parent_id_check, parent_signup
-from config.sql_query.client_query import show_top_game
+from config.sql_query.client_query import show_top_game, add_to_inventory, exist_game_check
 from lib.base_lib.sql.sql_utils import SqlUtils
 
 sql_utils = SqlUtils()
@@ -67,4 +67,21 @@ class QueryHandling(QObject):
             assert False, e
         if res is not None:
             top_games = res
+            self.finished.emit()
+
+    def add_to_inventory_query(self):
+        game_id = self.kwargs['game_id']
+        parent_id = config['parent_id']
+        try:
+            res = sql_utils.sql_exec(exist_game_check.format(parent_id, game_id), 1)[0][0]
+        except Exception as e:
+            assert False, e
+        if res == 1:
+            assert False, "Game already in the inventory!"
+            self.finished.emit()
+        else:
+            try:
+                sql_utils.sql_exec(add_to_inventory.format(parent_id, game_id), 0)
+            except Exception as e:
+                assert False, e
             self.finished.emit()
