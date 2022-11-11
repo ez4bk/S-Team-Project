@@ -4,7 +4,6 @@ from config.client_info import config, write_to_json
 from config.sql_query.account_query import parent_signin, parent_id_check, parent_signup
 from config.sql_query.client_query import show_top_game, add_to_inventory, exist_game_check
 from lib.base_lib.sql.sql_utils import SqlUtils
-from src.model.store_game import StoreGame
 
 sql_utils = SqlUtils()
 
@@ -60,8 +59,8 @@ class QueryHandling(QObject):
             self.finished.emit()
 
     def handle_show_top_game_query(self):
+        from src.model.store_game import StoreGame
         res = None
-        top_games = self.kwargs['ui']
         try:
             res = sql_utils.sql_exec(show_top_game.format(10), 1)
         except Exception as e:
@@ -72,7 +71,7 @@ class QueryHandling(QObject):
             for a in res:
                 game = StoreGame(a[0], a[1], a[2], a[3], a[4], a[5])
                 games.append(game)
-            top_games = games
+            self.kwargs['ui'].top_games = games
         except Exception:
             assert False, "Game initialization failed!"
         self.finished.emit()

@@ -1,7 +1,8 @@
-from src.model.game import Game
 from lib.pyqt_lib.create_thread import create_thread
-from lib.pyqt_lib.query_handling import QueryHandling
 from lib.pyqt_lib.message_box import message_info_box
+from lib.pyqt_lib.query_handling import QueryHandling
+from src.model.game import Game
+
 
 class StoreGame(Game):
     def __init__(self, game_id, game_name, cover_img, path, game_description, sales):
@@ -24,7 +25,8 @@ class StoreGame(Game):
             self.thread = create_thread(self.worker, self.worker.handle_add_to_inventory_query)
             self.thread.start()
 
-            self.thread.finished.connect(lambda: message_info_box(self, "The game has been successfully added to the inventory!"))
+            self.thread.finished.connect(
+                lambda: message_info_box(self, "The game has been successfully added to the inventory!"))
 
         except AssertionError as e:
             message_info_box(self, e)
@@ -32,7 +34,6 @@ class StoreGame(Game):
         return 0
 
     def download(self):
-
         return 0
 
     def rate(self):

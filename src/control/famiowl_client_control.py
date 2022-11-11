@@ -29,8 +29,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.inventory_games = []
         config['child_num'] = len(self.kids)
         write_to_json()
-        self.top_games = None
-        self.inventory_games = None
+        self.top_games = []
+        self.inventory_games = []
 
         self.parent_name_label.setText(config['parent_name'])
 
@@ -42,7 +42,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__define_menu_listwidget()
         self.__define_switch_child_button()
         self.__sync_profile()
-        self.__get_game_query(0)
+        # self.__get_game_query(1)
 
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
         self.stackedWidget.setCurrentWidget(self.game_page)
@@ -93,7 +93,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __to_child_selection_window(self):
         self.kids = self.__kids_query()
-        self.child_selection_window = FamiOwlChildSelectionWindow(self,self.kids)
+        self.child_selection_window = FamiOwlChildSelectionWindow(self, self.kids)
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
         else:
