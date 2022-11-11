@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
 {% block white %}
     <body>
-    <form method="post">
     <h2>Time Limit</h2>
-    {% csrf_token %}
     {% for kid in kids %}
         <p>
         <li>{{kid.kids_name}} -> Timelimit: {{kid.time_limit}}</li>
-        <input id="time_limit" type="text" placeholder="Enter new time limit" name="time_limit">
-        <button id="login-btn" type="submit">Set</button>
+        <form method="post">
+        {% csrf_token %}
+        <input id=kid.kids_name type="text" name={{kid.kids_name}} placeholder="Enter new time limit">
+        <button id="set-btn" type="submit">Set</button>
+        </form>
         </p>
     {% endfor %}
-    </form>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
 
 {#    {% for kid in kids %}#}
 {#        <p>#}

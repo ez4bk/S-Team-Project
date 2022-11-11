@@ -122,28 +122,45 @@ def logout(request):
 
 def my_children(request):
     user_id = request.session.get("user_id")
-    new_time_limit = request.POST.get('time_limit')
-    # kids = Children.objects.filter(parent_id=user_id)
-    try:
-        kids = Children.objects.filter(parent_id=user_id)
-    except Exception as e:
-        return HttpResponse("Failed to connect to database")
+    kids = Children.objects.filter(parent_id=user_id)
+    if kids.count() == 0:
+        messages.warning(request, 'Please sign up for your kids')
+        return render(request, 'my_children.html')
 
-    if kids.count():
-        # temp = Children.objects.get(parent_id=user_id)
+    if request.method == 'POST':
         for kid in kids:
-            temp = Children.objects.get(parent_id=user_id,kids_name = kid.kids_name)
-
-            temp.time_limit = new_time_limit
-            temp.save()
-        # Children.objects.filter(parent_id=user_id).update(time_limit=new_time_limit)
+            if kid.kids_name in request.POST:
+                new_time_limit = request.POST.get(kid.kids_name)
+                Children.objects.filter(parent_id=user_id, kids_name=kid.kids_name).update(time_limit=new_time_limit)
+        kids = Children.objects.filter(parent_id=user_id)
+        return render(request, 'my_children.html', {'kids': kids})
     else:
-        try:
-            User.objects.create(parent_id=user_id, time_limit=new_time_limit)
-        except Exception as e:
-            return HttpResponse("Failed to write to database")
+        return render(request, 'my_children.html', {'kids': kids})
 
-    return render(request, 'my_children.html', {'kids':kids})
+
+    # user_id = request.session.get("user_id")
+    # new_time_limit = request.POST.get('time_limit')
+    # # kids = Children.objects.filter(parent_id=user_id)
+    # try:
+    #     kids = Children.objects.filter(parent_id=user_id)
+    # except Exception as e:
+    #     return HttpResponse("Failed to connect to database")
+    #
+    # if kids.count():
+    #     # temp = Children.objects.get(parent_id=user_id)
+    #     for kid in kids:
+    #         temp = Children.objects.get(parent_id=user_id,kids_name = kid.kids_name)
+    #
+    #         temp.time_limit = new_time_limit
+    #         temp.save()
+    #     # Children.objects.filter(parent_id=user_id).update(time_limit=new_time_limit)
+    # else:
+    #     try:
+    #         User.objects.create(parent_id=user_id, time_limit=new_time_limit)
+    #     except Exception as e:
+    #         return HttpResponse("Failed to write to database")
+    #
+    # return render(request, 'my_children.html', {'kids':kids})
 
 # def set_time_limit(request):
 #     user_id = request.session.get("user_id")
