@@ -1,7 +1,7 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QMainWindow
 
-from config.client_info import config
+from config.client_info import config, write_to_json
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
 from config.sql_query.account_query import kids_select
 from lib.base_lib.sql.sql_utils import SqlUtils
@@ -27,6 +27,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.kids = self.__kids_query()
         self.top_games = []
         self.inventory_games = []
+        config['child_num'] = len(self.kids)
+        write_to_json()
+        self.top_games = None
+        self.inventory_games = None
 
         self.parent_name_label.setText(config['parent_name'])
 
@@ -34,8 +38,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
         self.active_game_line.setAttribute(QtCore.Qt.WidgetAttribute.WA_MacShowFocusRect, 0)
 
-        # self.__create_game_widgets()
-        # self.__create_library_widget()
         self.__define_icons()
         self.__define_menu_listwidget()
         self.__define_switch_child_button()
@@ -45,10 +47,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
         self.stackedWidget.setCurrentWidget(self.game_page)
 
-        # if config['current_child'] is None:
-        #     self.__to_child_selection_window()
-        # else:
-        #     self.__switch_child()
+        if config['current_child'] is None:
+            self.__to_child_selection_window()
+        else:
+            self.__switch_child()
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.MouseButton.LeftButton:
@@ -90,7 +92,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                                )
 
     def __to_child_selection_window(self):
-        self.child_selection_window = FamiOwlChildSelectionWindow(self, self.kids)
+        self.kids = self.__kids_query()
+        self.child_selection_window = FamiOwlChildSelectionWindow(self,self.kids)
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
         else:
@@ -226,7 +229,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __kids_query(self):
         try:
             # store this parent's kids' info into a list
-            info = sql_utils.sql_exec(kids_select.format(config['parent_id']))[0]
+            info = sql_utils.sql_exec(kids_select.format(config['parent_id']))
             return info
         except Exception as e:
             message_info_box(self, e + "sss")

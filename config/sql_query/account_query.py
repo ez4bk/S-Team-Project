@@ -7,6 +7,8 @@ parent_signup = 'insert into parents(user_id, user_name, password) values("{0}",
 
 # show kids user have where parent_id = input id
 kids_select = 'select * from kids where parent_id = "{0}";'
+# add a new child account with selected icon, name, and default time limit
+add_kid = 'insert into kids (kids_name,parent_id,icon_image,time_limit) values ("{0}","{1}","{2}","{3}");'
 
 # show games user own where parent_id = input id
 show_parent_inventory = 'select * from game_inventory where parent_id = "{0}";'
