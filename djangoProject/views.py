@@ -131,7 +131,11 @@ def my_children(request):
         for kid in kids:
             if kid.kids_name in request.POST:
                 new_time_limit = request.POST.get(kid.kids_name)
-                Children.objects.filter(parent_id=user_id, kids_name=kid.kids_name).update(time_limit=new_time_limit)
+                try:
+                    Children.objects.filter(parent_id=user_id, kids_name=kid.kids_name).update(time_limit=new_time_limit)
+                except Exception as e:
+                    messages.info(request, 'Please input number')
+                    return render(request, 'my_children.html')
         kids = Children.objects.filter(parent_id=user_id)
         return render(request, 'my_children.html', {'kids': kids})
     else:
