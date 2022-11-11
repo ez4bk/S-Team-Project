@@ -4,7 +4,7 @@
     <h2>Time Limit</h2>
     {% for kid in kids %}
         <p>
-        <li>{{kid.kids_name}} -> Timelimit: {{kid.time_limit}}</li>
+        <li>{{kid.kids_name}} -> Timelimit: {{kid.time_limit}} minutes</li>
         <form method="post">
         {% csrf_token %}
         <input id=kid.kids_name type="text" name={{kid.kids_name}} placeholder="Enter new time limit">
