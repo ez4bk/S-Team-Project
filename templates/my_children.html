@@ -2,9 +2,15 @@
 {% block white %}
     <body>
     <h2>Time Limit</h2>
+{#    {% if messages %}#}
+{#    {% for message in messages %}#}
+{#            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>#}
+{#    {% endfor %}#}
+{#    {% endif %}#}
     {% for kid in kids %}
         <p>
         <li>{{kid.kids_name}} -> Timelimit: {{kid.time_limit}} minutes</li>
+
         <form method="post">
         {% csrf_token %}
         <input id=kid.kids_name type="text" name={{kid.kids_name}} placeholder="Enter new time limit">
@@ -12,11 +18,11 @@
         </form>
         </p>
     {% endfor %}
-    {% if messages %}
-    {% for message in messages %}
-        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
-    {% endfor %}
-    {% endif %}
+{#    {% if messages %}#}
+{#    {% for message in messages %}#}
+{#        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>#}
+{#    {% endfor %}#}
+{#    {% endif %}#}
 
 {#    {% for kid in kids %}#}
 {#        <p>#}

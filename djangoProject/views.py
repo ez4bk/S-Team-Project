@@ -134,8 +134,8 @@ def my_children(request):
                 try:
                     Children.objects.filter(parent_id=user_id, kids_name=kid.kids_name).update(time_limit=new_time_limit)
                 except Exception as e:
-                    messages.info(request, 'Please input number')
-                    return render(request, 'my_children.html')
+                    messages.info(request, 'Please input a valid number')
+                    return render(request, 'my_children.html',{'kids': kids})
         kids = Children.objects.filter(parent_id=user_id)
         return render(request, 'my_children.html', {'kids': kids})
     else:
