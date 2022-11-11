@@ -1,13 +1,13 @@
 import re
 
 from PyQt6 import QtCore, QtGui
-from PyQt6.QtCore import QThread
 from PyQt6.QtWidgets import QMainWindow, QLineEdit
 
 from config.front_end.icon_path import child_img
 from config.front_end.stylesheet import signup_button_ss, signup_button_disabled_ss
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
+from lib.pyqt_lib.create_thread import create_thread
 from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import QueryHandling
 from src.signup_window import Ui_Signup_Window
@@ -90,29 +90,26 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
 
         self.__pwd = aes_cipher.encrypt_main(self.__pwd)
 
-        self.thread = QThread()
-        self.query = QueryHandling(user_id=self.__userid, user_name=self.__username,
-                                   pwd=self.__pwd, ui=self)
-        self.query.moveToThread(self.thread)
-        self.thread.started.connect(self.query.handle_signup_query)
-        self.query.finished.connect(self.thread.quit)
-        self.query.finished.connect(self.query.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
+        try:
+            self.worker = QueryHandling(user_id=self.__userid, user_name=self.__username,
+                                        pwd=self.__pwd, ui=self)
+            self.thread = create_thread(self.worker, self.worker.handle_signup_query)
+            self.thread.start()
 
-        self.thread.start()
-
-        self.signup_button.setEnabled(False)
-        self.signup_email_line.setEnabled(False)
-        self.signup_pwd_line.setEnabled(False)
-        self.signup_username_line.setEnabled(False)
-        self.thread.finished.connect(lambda: self.signup_button.setEnabled(True))
-        self.thread.finished.connect(lambda: self.signup_email_line.setEnabled(True))
-        self.thread.finished.connect(lambda: self.signup_pwd_line.setEnabled(True))
-        self.thread.finished.connect(lambda: self.signup_username_line.setEnabled(True))
-        self.thread.finished.connect(lambda: message_info_box(self, "You have signed up successfully!"))
-        self.thread.finished.connect(lambda: print(self.msg))
-        self.thread.finished.connect(lambda: self.hide())
-        self.thread.finished.connect(lambda: self.parent.show())
+            self.signup_button.setEnabled(False)
+            self.signup_email_line.setEnabled(False)
+            self.signup_pwd_line.setEnabled(False)
+            self.signup_username_line.setEnabled(False)
+            self.thread.finished.connect(lambda: self.signup_button.setEnabled(True))
+            self.thread.finished.connect(lambda: self.signup_email_line.setEnabled(True))
+            self.thread.finished.connect(lambda: self.signup_pwd_line.setEnabled(True))
+            self.thread.finished.connect(lambda: self.signup_username_line.setEnabled(True))
+            self.thread.finished.connect(lambda: message_info_box(self, "You have signed up successfully!"))
+            self.thread.finished.connect(lambda: print(self.msg))
+            self.thread.finished.connect(lambda: self.hide())
+            self.thread.finished.connect(lambda: self.parent.show())
+        except AssertionError as e:
+            message_info_box(self, e)
 
     def __define_email_line(self):
         self.signup_email_line.textChanged.connect(lambda: self.__validate_email())

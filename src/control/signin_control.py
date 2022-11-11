@@ -1,7 +1,6 @@
 import sys
 
 from PyQt6 import QtCore, QtGui
-from PyQt6.QtCore import QThread
 from PyQt6.QtGui import QMovie
 from PyQt6.QtWidgets import QMainWindow, QLineEdit
 
@@ -9,6 +8,7 @@ from config.client_info import config, write_to_json
 from config.front_end.icon_path import owl_gif, title_img, signin_icon
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
+from lib.pyqt_lib.create_thread import create_thread
 from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import QueryHandling
 from src.control.famiowl_client_control import FamiOwlClientWindow
@@ -89,14 +89,14 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         if self.__userid == '' or self.__pwd == '':
             message_info_box(self, "Empty User ID or Password!")
 
-        self.thread = QThread()
-        self.query = QueryHandling(ui=self)
-        self.query.moveToThread(self.thread)
-        self.thread.started.connect(self.query.handle_signin_query)
-        self.query.finished.connect(self.thread.quit)
-        self.query.finished.connect(self.query.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
-
+        # self.thread = QThread()
+        self.worker = QueryHandling(ui=self)
+        # self.query.moveToThread(self.thread)
+        # self.thread.started.connect(self.query.handle_signin_query)
+        # self.query.finished.connect(self.thread.quit)
+        # self.query.finished.connect(self.query.deleteLater)
+        # self.thread.finished.connect(self.thread.deleteLater)
+        self.thread = create_thread(self.worker, self.worker.handle_signin_query)
         self.thread.start()
 
         self.signin_button.setEnabled(False)

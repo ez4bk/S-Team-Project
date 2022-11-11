@@ -2,8 +2,8 @@ from PyQt6.QtCore import QObject, pyqtSignal
 
 from config.client_info import config, write_to_json
 from config.sql_query.account_query import parent_signin, parent_id_check, parent_signup
+from config.sql_query.client_query import show_top_game
 from lib.base_lib.sql.sql_utils import SqlUtils
-from lib.pyqt_lib.message_box import message_info_box
 
 sql_utils = SqlUtils()
 
@@ -20,7 +20,7 @@ class QueryHandling(QObject):
         try:
             res = sql_utils.sql_exec(parent_id_check.format(config['parent_id']), 1)[0][0]
         except Exception as e:
-            message_info_box(self, e.__str__())
+            assert False, e
         if res == 0:
             config['parent_id'] = None
             write_to_json()
@@ -29,7 +29,7 @@ class QueryHandling(QObject):
             try:
                 res = sql_utils.sql_exec(parent_signin.format(config['parent_id']), 1)[0]
             except Exception as e:
-                message_info_box(self, e.__str__())
+                assert False, e
 
             if res is not None:
                 config['parent_name'] = res[0]
@@ -46,14 +46,25 @@ class QueryHandling(QObject):
         try:
             res = sql_utils.sql_exec(parent_id_check.format(user_id), 1)[0][0]
         except Exception as e:
-            message_info_box(None, e.__str__())
+            assert False, e
         if res == 1:
-            message_info_box(None, "E-mail already registered!")
+            assert False, "E-mail already registered!"
             self.finished.emit()
         else:
             try:
                 signup_query = parent_signup.format(user_id, user_name, pwd)
                 sql_utils.sql_exec(signup_query, 0)
             except Exception as e:
-                message_info_box(ui, e.__str__())
+                assert False, e
+            self.finished.emit()
+
+    def handle_show_top_game_query(self):
+        res = None
+        top_games = self.kwargs['ui']
+        try:
+            res = sql_utils.sql_exec(show_top_game.format(10), 1)[0]
+        except Exception as e:
+            assert False, e
+        if res is not None:
+            top_games = res
             self.finished.emit()
