@@ -109,10 +109,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __menu_select(self):
         item = self.menu_listwidget.currentItem()
         widget_to_go = item.text()
-        if widget_to_go == 'Games':
+        if widget_to_go == 'Inventory':
             self.__get_game_query(0)
             self.stackedWidget.setCurrentWidget(self.game_page)
-        elif widget_to_go == 'Library':
+        elif widget_to_go == 'Store':
             self.__get_game_query(1)
             self.stackedWidget.setCurrentWidget(self.library_page)
         elif widget_to_go == 'Settings':

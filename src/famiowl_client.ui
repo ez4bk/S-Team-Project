@@ -267,7 +267,7 @@ border-left: 2px solid rgb(90, 216, 212)
             </property>
             <item>
              <property name="text">
-              <string>Games</string>
+              <string>Inventory</string>
              </property>
              <property name="icon">
               <iconset resource="resource/resources.qrc">
@@ -276,7 +276,7 @@ border-left: 2px solid rgb(90, 216, 212)
             </item>
             <item>
              <property name="text">
-              <string>Library</string>
+              <string>Store</string>
              </property>
              <property name="icon">
               <iconset resource="resource/resources.qrc">
