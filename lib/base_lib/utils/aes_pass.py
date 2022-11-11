@@ -1,7 +1,7 @@
 import base64
 import random
 
-from Crypto.Cipher import AES
+from Cryptodome.Cipher import AES
 
 
 class AESCipher:
