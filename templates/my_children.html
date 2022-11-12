@@ -1,38 +1,21 @@
 {% extends 'base.html' %}
+{% block navbar %}
+    {% load static %}
+    <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+{% endblock %}
 {% block white %}
     <body>
-    <form>
-    <input type="button" value="Home" onclick="history.back()">
-    </form>
     <h2>Time Limit</h2>
-{#    {% if messages %}#}
-{#    {% for message in messages %}#}
-{#            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>#}
-{#    {% endfor %}#}
-{#    {% endif %}#}
     {% for kid in kids %}
         <p>
-        <li>{{kid.kids_name}} -> Timelimit: {{kid.time_limit}} minutes</li>
+        <li>{{ kid.kids_name }} -> Timelimit: {{ kid.time_limit }} minutes</li>
 
         <form method="post">
-        {% csrf_token %}
-        <input id=kid.kids_name type="text" name={{kid.kids_name}} placeholder="Enter new time limit">
-        <button id="set-btn" type="submit">Set</button>
+            {% csrf_token %}
+            <input id=kid.kids_name type="text" placeholder="Enter new time limit" name={{ kid.kids_name }}>
+            <button id="set-btn" type="submit">Set</button>
         </form>
         </p>
     {% endfor %}
-{#    {% if messages %}#}
-{#    {% for message in messages %}#}
-{#        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>#}
-{#    {% endfor %}#}
-{#    {% endif %}#}
-
-{#    {% for kid in kids %}#}
-{#        <p>#}
-{#        <li>{{kid.kids_name}} -> Timelimit: {{kid.time_limit}}</li>#}
-{#        <input id="time_limit" type="text" placeholder="Enter new time limit" name="time_limit">#}
-{#        <button id="login-btn" type="submit">Set</button>#}
-{#        </p>#}
-{#    {% endfor %}#}
     </body>
 {% endblock %}

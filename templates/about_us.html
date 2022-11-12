@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block navbar %}
+    {% load static %}
+    <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+{% endblock %}
+{% block white %}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
+    </head>
+    <img src="{% static 'img/logo.png' %}" alt="" style="width:50%;">
+    <body>
+    <h2>about us</h2>
+    <p><b>Project FamiOwl parent client</b></p>
+    <p>
+        It is kids' nature to play games, but parents often find it difficult to control the amount of time their kids
+        spend on playing. While playing is a way for children to learn stuff quickly while enjoying, it is also a fact
+        that playing too much video games would result in addiction, poor eyesight, and loss of attention.
+    </p>
+    <p>
+        We noticed that parents are often busy with their jobs, and that they barely have time to control their kids'
+        time
+        on games. We believe that it is neither a good choice to let their kids play the whole day or don't play at all.
+        Thus, we want to build a software that governs the amount of time kids spend on video games. In this way, kids
+        would have the opportunity to play games as they want, and parents could leave their children playing games
+        without
+        any concerns.
+    </p>
+    <p>
+        Our product, FamiOwl is a game distribution platform integrated with a monitoring tool that solves the problem
+        above. FamiOwl would count the amount of time kids spent on games, and prevent kids from playing too long in
+        front
+        of the computer. It would have its own published games that are validated for kids only. Users could also add
+        their
+        own games to the software, and FamiOwl would monitor activities to games from both sources. Parents could
+        control
+        the behavior of FamiOwl and set rules to each game individually via a web page. They can see which game their
+        kids are playing, how much time their kids have spent on it, and close the game remotely if necessary.
+    </p>
+    <h2>The Team</h2>
+    <li>Xinyu Meng xm73@rutgers.edu</li>
+    <li>Qichao Lin ql180@rutgers.edu</li>
+    <li>Chengyu Liang cl1286@rutgers.edu</li>
+    <li>Yuchen Wei yw780@rutgers.edu</li>
+    <li>Wendi Huang wh319@rutgers.edu</li>
+    <p>
+        We are students from Software Engineering class at Rutgers, CS431 Fall 2022 with professor Lily Chang. We are
+        inspirational, creative, and dedicated to produce the best software to customers.
+    </p>
+    </body>
+{% endblock %}

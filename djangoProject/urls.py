@@ -192,6 +192,8 @@ urlpatterns = [
     path('login/', sign, name='signin'),  # 用于打开登录页面
     path('logout/', logout, name='logout'),
     path('my_children/', my_children, name='my_children'),
+    path('my_profile/', my_profile, name='my_profile'),
+    path('about_us/', about_us, name='about_us'),
     # path('register/save', save),  # 输入用户名密码后交给后台save函数处理
     # path('login/query', query),  # 输入用户名密码后交给后台query函数处理
     path('', page, name='home')

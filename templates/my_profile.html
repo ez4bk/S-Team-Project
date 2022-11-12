@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block navbar %}
+    {% load static %}
+    <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+{% endblock %}
+{% block white %}
+    <body>
+    <h2>my profile</h2>
+    <li>user name : {{ user.user_name }}</li>
+    <li>user id : {{ user.user_id }}</li>
+    </body>
+{% endblock %}

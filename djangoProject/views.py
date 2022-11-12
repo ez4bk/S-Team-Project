@@ -90,7 +90,6 @@ def sign(request):
             #     取数据  last() 也可以
             # print(type(user.password))
             # print(type(aes_pass.decrypt(user.password)))
-            print()
             if password == aes_pass.decrypt_main(user.password):
                 res = redirect("/")
                 res.set_cookie("id", user_id)
@@ -141,30 +140,20 @@ def my_children(request):
     else:
         return render(request, 'my_children.html', {'kids': kids})
 
+def my_profile(request):
+    user_id = request.session.get("user_id")
+    try:
+        users = User.objects.filter(user_id=user_id)
+    except Exception as e:
+        return HttpResponse("Failed to connect to database")
+    if users.count():
+        user = users.first()
+        return render(request, 'my_profile.html', {'user': user})
+    else:
+        return HttpResponse('Could not get user information')
 
-    # user_id = request.session.get("user_id")
-    # new_time_limit = request.POST.get('time_limit')
-    # # kids = Children.objects.filter(parent_id=user_id)
-    # try:
-    #     kids = Children.objects.filter(parent_id=user_id)
-    # except Exception as e:
-    #     return HttpResponse("Failed to connect to database")
-    #
-    # if kids.count():
-    #     # temp = Children.objects.get(parent_id=user_id)
-    #     for kid in kids:
-    #         temp = Children.objects.get(parent_id=user_id,kids_name = kid.kids_name)
-    #
-    #         temp.time_limit = new_time_limit
-    #         temp.save()
-    #     # Children.objects.filter(parent_id=user_id).update(time_limit=new_time_limit)
-    # else:
-    #     try:
-    #         User.objects.create(parent_id=user_id, time_limit=new_time_limit)
-    #     except Exception as e:
-    #         return HttpResponse("Failed to write to database")
-    #
-    # return render(request, 'my_children.html', {'kids':kids})
+def about_us(request):
+    return render(request, 'about_us.html')
 
 # def set_time_limit(request):
 #     user_id = request.session.get("user_id")
