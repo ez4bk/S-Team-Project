@@ -1,3 +1,9 @@
+from config.sql_query.client_query import show_inventory_game
+from lib.base_lib.sql.sql_utils import SqlUtils
+
+sql_utils = SqlUtils()
+
+
 class Parent:
 
     def __init__(self, parent_id, parent_name, parent_profile='', children=None):
@@ -5,6 +11,23 @@ class Parent:
         self.__parent_name = parent_name
         self.__parent_profile = parent_profile
         self.__children = children
+        self.__game = None
+
+    def __get_inventory(self):
+        pass
+
+    def __get_inventory_query(self):
+        res = None
+        try:
+            res = sql_utils.sql_exec(show_inventory_game.format(self.__parent_id), 1)
+        except:
+            return "Fetch game inventory failed!"
+
+        if res is None:
+            return "Fetch game inventory failed!"
+
+        if res == 0:
+            return 0
 
     def add_child(self):
         pass

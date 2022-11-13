@@ -140,7 +140,9 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         layout = None
         game_list = []
         if flag == 0:
-            game_list = self.inventory_games
+            # TODO: inventory
+            game_list = self.top_games
+            # game_list = self.inventory_games
             layout = self.verticalLayout_13
         elif flag == 1:
             game_list = self.top_games
@@ -243,7 +245,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         try:
             res = sql_utils.sql_exec(show_top_game.format(10), 1)
         except Exception as e:
-            return 'Fetch game stroe failed!'
+            return 'Fetch game store failed!'
         if res is None:
             return "No games available!"
 
@@ -286,6 +288,25 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             return True
         except Exception as e:
             return 'Fetch children info failed!'
+
+    def __get_inventory_game_query(self, flag=0):
+        res = None
+        games = []
+        try:
+            res = sql_utils.sql_exec(show_top_game.format(10), 1)
+        except Exception as e:
+            return 'Fetch game store failed!'
+        if res is None:
+            return "No games available!"
+
+        try:
+            for a in res:
+                game = StoreGame(a[0], a[1], a[2], a[3], a[4], a[5])
+                games.append(game)
+            self.top_games = games
+            return flag
+        except Exception:
+            return "Game initialization failed!"
 
     def __game_thread_result(self, result):
         if result == 0 or result == 1:

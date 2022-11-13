@@ -2,11 +2,10 @@ from src.model.game import Game
 
 
 class InventoryGame(Game):
-    def __init__(self, game_name, game_id):
-        super().__init__(game_name, game_id)
-        self.local_path = ""
-        self.time_limit = ""
-        self.time_record = ""
+    def __init__(self, game, parent_id, local_path=''):
+        super().__init__(game.return_game_id(), game.return_game_name())
+        self.__parent_id = parent_id
+        self.__local_path = local_path
 
     def run(self):
         return 0
