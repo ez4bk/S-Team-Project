@@ -1,9 +1,9 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtCore import pyqtSlot
 from PyQt6.QtWidgets import QMainWindow
 
-from config.client_info import config, write_to_json
+from config.client_info import config
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
-from config.sql_query.account_query import kids_select
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.pyqt_lib.create_thread import create_thread
 from lib.pyqt_lib.message_box import message_info_box
@@ -15,7 +15,7 @@ sql_utils = SqlUtils()
 
 
 class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, parent_obj=None):
         super(FamiOwlClientWindow, self).__init__(parent)
         self.setupUi(self)
         self.child_selection_window = None
@@ -24,11 +24,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.worker = None
         self.thread = None
 
-        self.kids = self.__kids_query()
+        self.parent_obj = parent_obj
+        self.kids = []
         self.top_games = []
         self.inventory_games = []
-        config['child_num'] = len(self.kids)
-        write_to_json()
         self.top_games = []
         self.inventory_games = []
 
@@ -43,6 +42,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__define_switch_child_button()
         self.__sync_profile()
         # self.__get_game_query(1)
+        self.__get_kids_query()
 
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
         self.stackedWidget.setCurrentWidget(self.game_page)
@@ -92,7 +92,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                                )
 
     def __to_child_selection_window(self):
-        self.kids = self.__kids_query()
+        print(self.kids)
         self.child_selection_window = FamiOwlChildSelectionWindow(self, self.kids)
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
@@ -231,8 +231,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.child_name_label.setText(config['current_child'])
         profile = None
         for kid in self.kids:
-            if kid[1] == config['current_child']:
-                profile = kid[3]
+            if kid.return_child_name() == config['current_child']:
+                profile = kid.return_profile()
         try:
             a = "src/resource/profile_icons/" + profile + ".png"
             self.profile_image_widget.setStyleSheet("border-radius:32px;"
@@ -241,11 +241,18 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         except Exception as e:
             assert True, e.__str__()
 
-    def __kids_query(self):
+    def __get_kids_query(self):
         try:
-            # store this parent's kids' info into a list
-            info = sql_utils.sql_exec(kids_select.format(config['parent_id']))
-            return info
+            self.worker = QueryHandling(ui=self)
+            self.thread = create_thread(self.worker, self.worker.handle_kids_profile)
+            self.thread.start()
+            self.setEnabled(False)
+            self.worker.error.connect(self.__error_msg_slot)
+            self.worker.error.connect(lambda: self.setEnabled(True))
+            self.worker.finished.connect(lambda: self.setEnabled(True))
         except Exception as e:
-            message_info_box(self, e + "sss")
-        return None
+            message_info_box(self, "sss")
+
+    @pyqtSlot(str)
+    def __error_msg_slot(self, msg):
+        message_info_box(self, msg)

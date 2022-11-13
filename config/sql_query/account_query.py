@@ -1,6 +1,6 @@
 # match input username and password to db
 # return 1 when success, return 0 when password does not match or user does not exist
-parent_signin = 'select user_name, password from parents where user_id = "{0}";'
+parent_signin = 'select user_name, password, icon_image from parents where user_id = "{0}";'
 
 parent_id_check = 'select exists(select * from parents where user_id = "{0}") as result;'
 parent_signup = 'insert into parents(user_id, user_name, password) values("{0}", "{1}", "{2}");'

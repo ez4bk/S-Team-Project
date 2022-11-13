@@ -1,6 +1,7 @@
 import re
 
 from PyQt6 import QtCore, QtGui
+from PyQt6.QtCore import pyqtSlot
 from PyQt6.QtWidgets import QMainWindow, QLineEdit
 
 from config.front_end.icon_path import child_img
@@ -26,7 +27,6 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
         self.start_x = None
         self.start_y = None
 
-        self.msg = 'abc'
         self.__userid = ''
         self.__username = ''
         self.__pwd = ''
@@ -101,14 +101,12 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
             self.signup_pwd_line.setEnabled(False)
             self.signup_username_line.setEnabled(False)
 
-            self.thread.finished.connect(lambda: self.signup_button.setEnabled(True))
-            self.thread.finished.connect(lambda: self.signup_email_line.setEnabled(True))
-            self.thread.finished.connect(lambda: self.signup_pwd_line.setEnabled(True))
-            self.thread.finished.connect(lambda: self.signup_username_line.setEnabled(True))
-            self.thread.finished.connect(lambda: message_info_box(self, "You have signed up successfully!"))
-            self.thread.finished.connect(lambda: print(self.msg))
-            self.thread.finished.connect(lambda: self.hide())
-            self.thread.finished.connect(lambda: self.parent.show())
+            self.worker.error.connect(lambda: self.signup_button.setEnabled(True))
+            self.worker.error.connect(lambda: self.signup_email_line.setEnabled(True))
+            self.worker.error.connect(lambda: self.signup_pwd_line.setEnabled(True))
+            self.worker.error.connect(lambda: self.signup_username_line.setEnabled(True))
+            self.worker.error.connect(self.__error_msg_slot)
+            self.thread.finished.connect(lambda: self.__signup_success())
         except AssertionError as e:
             message_info_box(self, e)
 
@@ -125,3 +123,11 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
             self.signup_button.setEnabled(True)
             self.signup_button.setStyleSheet(signup_button_ss)
             self.signup_button.setToolTip("")
+
+    def __signup_success(self):
+        self.hide()
+        self.parent.show()
+
+    @pyqtSlot(str)
+    def __error_msg_slot(self, msg):
+        message_info_box(self, msg)

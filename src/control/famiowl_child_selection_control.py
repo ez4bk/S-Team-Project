@@ -5,12 +5,12 @@ from PyQt6.QtWidgets import QMainWindow
 from config.client_info import config, write_to_json
 from config.front_end.front_end_var import to_add_new_child
 from config.front_end.icon_path import add_child_icon
-from src.famiowl_child_selection_window import Ui_FamiOwlChildSelection
 from src.control.famiowl_child_new_control import FamiOwlChildNew
+from src.famiowl_child_selection_window import Ui_FamiOwlChildSelection
 
 
 class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
-    def __init__(self, parent=None,kids = None):
+    def __init__(self, parent=None, kids=None):
         super(FamiOwlChildSelectionWindow, self).__init__(parent)
         self.parent = parent
         self.setupUi(self)
@@ -21,11 +21,11 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
         self.start_y = None
         self.addnew_window = None
 
+        self.kids = kids
+
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setWindowFlag(QtCore.Qt.WindowType.WindowStaysOnTopHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
-
-        self.kids = kids
 
         self.__pop_up_position()
         self.__define_profile_buttons()
@@ -40,9 +40,9 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
 
         for i in range(4):
             try:
-                profile_name_list[i].setText(self.kids[i][1])
+                profile_name_list[i].setText(self.kids[i].return_child_name())
                 icon = QtGui.QIcon()
-                icon.addPixmap(QtGui.QPixmap("src/resource/profile_icons/" + self.kids[i][3] + ".png"),
+                icon.addPixmap(QtGui.QPixmap("src/resource/profile_icons/" + self.kids[i].return_profile() + ".png"),
                                QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
                 profile_list[i].setIcon(icon)
                 profile_list[i].setIconSize(QSize(100, 100))
