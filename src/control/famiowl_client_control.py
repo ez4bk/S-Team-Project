@@ -1,15 +1,18 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtCore import pyqtSlot
+from PyQt6.QtCore import QThreadPool
 from PyQt6.QtWidgets import QMainWindow
 
-from config.client_info import config
+from config.client_info import config, write_to_json
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
+from config.sql_query.account_query import kids_select
+from config.sql_query.client_query import show_top_game
 from lib.base_lib.sql.sql_utils import SqlUtils
-from lib.pyqt_lib.create_thread import create_thread
 from lib.pyqt_lib.message_box import message_info_box
-from lib.pyqt_lib.query_handling import QueryHandling
+from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
+from src.model.child import Child
+from src.model.store_game import StoreGame
 
 sql_utils = SqlUtils()
 
@@ -21,17 +24,14 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.child_selection_window = None
         self.start_x = None
         self.start_y = None
-        self.worker = None
-        self.thread = None
+        self.threadpool = QThreadPool()
 
         self.parent_obj = parent_obj
         self.kids = []
         self.top_games = []
         self.inventory_games = []
-        self.top_games = []
-        self.inventory_games = []
 
-        self.parent_name_label.setText(config['parent_name'])
+        self.parent_name_label.setText(parent_obj.return_parent_name())
 
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
@@ -41,8 +41,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__define_menu_listwidget()
         self.__define_switch_child_button()
         self.__sync_profile()
-        # self.__get_game_query(1)
-        self.__get_kids_query()
+        self.__get_game(0)
+        self.__get_kids()
+        while len(self.kids) == 0:
+            pass
 
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
         self.stackedWidget.setCurrentWidget(self.game_page)
@@ -71,13 +73,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         except:
             pass
 
-    # def effect_shadow_style(self, widget):
-    #     effect_shadow = QtWidgets.QGraphicsDropShadowEffect(self)
-    #     effect_shadow.setOffset(12, 12)  # 偏移
-    #     effect_shadow.setBlurRadius(128)  # 阴影半径
-    #     effect_shadow.setColor(QColor(155, 230, 237, 150))  # 阴影颜色
-    #     widget.setGraphicsEffect(effect_shadow)
-
     def __define_icons(self):
         for i in range(4):
             item = self.menu_listwidget.item(i)
@@ -92,7 +87,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                                )
 
     def __to_child_selection_window(self):
-        print(self.kids)
+        while self.kids is None:
+            pass
         self.child_selection_window = FamiOwlChildSelectionWindow(self, self.kids)
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
@@ -110,37 +106,36 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         item = self.menu_listwidget.currentItem()
         widget_to_go = item.text()
         if widget_to_go == 'Inventory':
-            self.__get_game_query(0)
+            self.__get_game(0)
             self.stackedWidget.setCurrentWidget(self.game_page)
         elif widget_to_go == 'Store':
-            self.__get_game_query(1)
+            self.__get_game(1)
             self.stackedWidget.setCurrentWidget(self.library_page)
         elif widget_to_go == 'Settings':
             self.stackedWidget.setCurrentWidget(self.setting_page)
         elif widget_to_go == 'Exit':
             # TODO: Separate sign-out and exit
-            # config['signin_state'] = False
-            # write_to_json()
+            config['signin_state'] = False
+            write_to_json()
             exit()
 
-    def __get_game_query(self, flag=0):
+    def __get_game(self, flag=0):
         """
         :param flag: 0 for inventory, 1 for store
-        :return:
         """
-        self.worker = QueryHandling(ui=self)
-        if flag == 0:
-            self.thread = create_thread(self.worker, self.worker.handle_show_top_game_query)
-        elif flag == 1:
-            self.thread = create_thread(self.worker, self.worker.handle_show_top_game_query)
-        self.thread.start()
-        self.menu_listwidget.setEnabled(False)
-        self.thread.finished.connect(lambda: self.__create_game_widgets(flag))
-        self.thread.finished.connect(lambda: self.menu_listwidget.setEnabled(True))
+        worker = None
+        try:
+            if flag == 0:
+                worker = Worker(self.__get_top_game_query, flag=flag)
+            elif flag == 1:
+                worker = Worker(self.__get_top_game_query, flag=flag)
+            worker.signals.result.connect(self.__game_thread_result)
+            worker.signals.finished.connect(self.__game_thread_complete)
+            self.threadpool.start(worker)
+            self.menu_listwidget.setEnabled(False)
+        except:
+            pass
 
-    # library contains games sold by the platform
-    # WIP this function currently initialize a list of 10 dummy games and display it
-    # Complete function: fetch a list of top games from database and display it
     def __create_game_widgets(self, flag=0):
         layout = None
         game_list = []
@@ -163,6 +158,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                         'color: black;')
             no_game_label.setObjectName("no_game_label")
             layout.addWidget(no_game_label)
+
         for i in range(len(game_list)):
             game_card = QtWidgets.QWidget()
             game_card.setMinimumSize(QtCore.QSize(0, 121))
@@ -241,18 +237,70 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         except Exception as e:
             assert True, e.__str__()
 
-    def __get_kids_query(self):
+    def __get_top_game_query(self, flag=0):
+        res = None
+        games = []
         try:
-            self.worker = QueryHandling(ui=self)
-            self.thread = create_thread(self.worker, self.worker.handle_kids_profile)
-            self.thread.start()
-            self.setEnabled(False)
-            self.worker.error.connect(self.__error_msg_slot)
-            self.worker.error.connect(lambda: self.setEnabled(True))
-            self.worker.finished.connect(lambda: self.setEnabled(True))
+            res = sql_utils.sql_exec(show_top_game.format(10), 1)
         except Exception as e:
-            message_info_box(self, "sss")
+            return 'Fetch game stroe failed!'
+        if res is None:
+            return "No games available!"
 
-    @pyqtSlot(str)
-    def __error_msg_slot(self, msg):
-        message_info_box(self, msg)
+        try:
+            for a in res:
+                game = StoreGame(a[0], a[1], a[2], a[3], a[4], a[5])
+                games.append(game)
+            self.top_games = games
+            return flag
+        except Exception:
+            return "Game initialization failed!"
+
+    def __get_kids(self):
+        try:
+            worker = Worker(self.__get_kids_query)
+            worker.signals.result.connect(self.__kids_thread_result)
+            worker.signals.finished.connect(self.__kids_thread_complete)
+            self.threadpool.start(worker)
+            self.setEnabled(False)
+        except:
+            pass
+
+    def __get_kids_query(self):
+        res = None
+        children = []
+        try:
+            res = sql_utils.sql_exec(kids_select.format(config['parent_id']))
+        except Exception as e:
+            return "Could not fetch kids info"
+
+        if res is None:
+            return "Could not fetch kids info"
+
+        try:
+            for a in res:
+                child = Child(a[0], a[1], self.parent_obj, a[3], a[4])
+                children.append(child)
+            self.kids = children
+            self.parent_obj.init_children(self.kids)
+            return True
+        except Exception as e:
+            return 'Fetch children info failed!'
+
+    def __game_thread_result(self, result):
+        if result == 0 or result == 1:
+            self.__create_game_widgets(result)
+        else:
+            message_info_box(self, str(result))
+
+    def __game_thread_complete(self):
+        self.menu_listwidget.setEnabled(True)
+
+    def __kids_thread_result(self, result):
+        if result is True:
+            pass
+        else:
+            message_info_box(self, result)
+
+    def __kids_thread_complete(self):
+        self.setEnabled(True)

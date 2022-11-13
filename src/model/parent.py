@@ -1,6 +1,6 @@
 class Parent:
 
-    def __init__(self, parent_id, parent_name, parent_profile, children):
+    def __init__(self, parent_id, parent_name, parent_profile='', children=None):
         self.__parent_id = parent_id
         self.__parent_name = parent_name
         self.__parent_profile = parent_profile
@@ -12,6 +12,9 @@ class Parent:
     def change_name(self, name):
         self.parent_name = name
         # TODO: change name query
+
+    def init_children(self, children=None):
+        self.__children = children
 
     def return_parent_id(self):
         return self.return_parent_id

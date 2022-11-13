@@ -80,7 +80,6 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
             self.child_profile_3.clicked.connect(lambda: self.__add_new_child())
 
     def __save_child_select(self, profile):
-        # print(profile)
         config['current_child'] = profile
         write_to_json()
         self.parent.setWindowTitle(self.parent.windowTitle() + " - " + profile)
@@ -88,18 +87,16 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
 
     def __add_new_child(self):
         self.__goto_AddNewChild_window()
-        # message_info_box(self, str(msg) + 'not yet implemented')
 
     def __goto_AddNewChild_window(self):
         self.addnew_window = FamiOwlChildNew(self)
         if self.addnew_window.isVisible():
             self.addnew_window.hide()
         else:
-            self.hide()
             self.addnew_window.show()
 
     def mouseDoubleClickEvent(self, event):
-        self.hide()
+        self.close()
         self.parent.show()
 
     def mousePressEvent(self, event):

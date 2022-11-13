@@ -1,6 +1,5 @@
 from lib.pyqt_lib.create_thread import create_thread
 from lib.pyqt_lib.message_box import message_info_box
-from lib.pyqt_lib.query_handling import QueryHandling
 from src.model.game import Game
 
 

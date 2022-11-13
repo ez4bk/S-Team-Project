@@ -1,16 +1,16 @@
 import re
 
 from PyQt6 import QtCore, QtGui
-from PyQt6.QtCore import pyqtSlot
+from PyQt6.QtCore import QThreadPool
 from PyQt6.QtWidgets import QMainWindow, QLineEdit
 
 from config.front_end.icon_path import child_img
 from config.front_end.stylesheet import signup_button_ss, signup_button_disabled_ss
+from config.sql_query.account_query import parent_id_check, parent_signup
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
-from lib.pyqt_lib.create_thread import create_thread
 from lib.pyqt_lib.message_box import message_info_box
-from lib.pyqt_lib.query_handling import QueryHandling
+from lib.pyqt_lib.query_handling import Worker
 from src.signup_window import Ui_Signup_Window
 
 sql_utils = SqlUtils()
@@ -26,6 +26,7 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
         self.pos_y = self.parent.pos().y()
         self.start_x = None
         self.start_y = None
+        self.threadpool = QThreadPool()
 
         self.__userid = ''
         self.__username = ''
@@ -91,24 +92,17 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
         self.__pwd = aes_cipher.encrypt_main(self.__pwd)
 
         try:
-            self.worker = QueryHandling(user_id=self.__userid, user_name=self.__username,
-                                        pwd=self.__pwd, ui=self)
-            self.thread = create_thread(self.worker, self.worker.handle_signup_query)
-            self.thread.start()
+            worker = Worker(self.__signup_query)
+            worker.signals.result.connect(self)
+            worker.signals.finished.connect(self)
+            self.threadpool.start(worker)
 
             self.signup_button.setEnabled(False)
             self.signup_email_line.setEnabled(False)
             self.signup_pwd_line.setEnabled(False)
             self.signup_username_line.setEnabled(False)
-
-            self.worker.error.connect(lambda: self.signup_button.setEnabled(True))
-            self.worker.error.connect(lambda: self.signup_email_line.setEnabled(True))
-            self.worker.error.connect(lambda: self.signup_pwd_line.setEnabled(True))
-            self.worker.error.connect(lambda: self.signup_username_line.setEnabled(True))
-            self.worker.error.connect(self.__error_msg_slot)
-            self.thread.finished.connect(lambda: self.__signup_success())
-        except AssertionError as e:
-            message_info_box(self, e)
+        except:
+            pass
 
     def __define_email_line(self):
         self.signup_email_line.textChanged.connect(lambda: self.__validate_email())
@@ -128,6 +122,30 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
         self.hide()
         self.parent.show()
 
-    @pyqtSlot(str)
-    def __error_msg_slot(self, msg):
-        message_info_box(self, msg)
+    def __signup_query(self):
+        res = None
+        try:
+            res = sql_utils.sql_exec(parent_id_check.format(self.__userid), 1)[0][0]
+        except Exception as e:
+            return 'Fetch database failed!'
+        if res == 1:
+            return "E-mail already registered!"
+        else:
+            try:
+                signup_query = parent_signup.format(self.__userid, self.__username, self.__pwd)
+                sql_utils.sql_exec(signup_query, 0)
+                return True
+            except Exception as e:
+                return 'Sign up failed!'
+
+    def __thread_result(self, result):
+        if result is True:
+            self.__signup_success()
+        else:
+            message_info_box(self, str(result))
+
+    def __thread_complete(self):
+        self.signup_button.setEnabled(True)
+        self.signup_email_line.setEnabled(True)
+        self.signup_pwd_line.setEnabled(True)
+        self.signup_username_line.setEnabled(True)
