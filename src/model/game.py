@@ -5,9 +5,9 @@ class Game:
         self.__cover_img = cover_img
         self.__game_description = game_description
 
-    def run(self):
-        return 0
-    
+    def run_game(self):
+        pass
+
     def return_game_id(self):
         return str(self.__game_id)
 

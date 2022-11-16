@@ -93,20 +93,20 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
 
         if self.__userid == '' or self.__pwd == '':
             message_info_box(self, "Empty User ID or Password!")
+        else:
+            try:
+                worker = Worker(self.__signin_query, id_input=self.__userid, pwd_input=self.__pwd)
+                worker.signals.result.connect(self.__thread_result)
+                worker.signals.finished.connect(self.__thread_complete)
+                self.threadpool.start(worker)
 
-        try:
-            worker = Worker(self.__signin_query, id_input=self.__userid, pwd_input=self.__pwd)
-            worker.signals.result.connect(self.__thread_result)
-            worker.signals.finished.connect(self.__thread_complete)
-            self.threadpool.start(worker)
-
-            self.signin_button.setEnabled(False)
-            self.userid_line.setEnabled(False)
-            self.pwd_line.setEnabled(False)
-            self.signup_button.setEnabled(False)
-            self.forget_pwd_button.setEnabled(False)
-        except Exception as e:
-            message_info_box(self, e)
+                self.signin_button.setEnabled(False)
+                self.userid_line.setEnabled(False)
+                self.pwd_line.setEnabled(False)
+                self.signup_button.setEnabled(False)
+                self.forget_pwd_button.setEnabled(False)
+            except Exception as e:
+                message_info_box(self, e)
 
     def __define_signup_button(self):
         self.signup_button.clicked.connect(lambda: self.__to_signup_window())
@@ -132,7 +132,6 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
 
         if res is None:
             return "Fetch parent info failed!"
-
         elif res == 0:
             return "User does not exist"
 

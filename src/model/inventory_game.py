@@ -6,8 +6,8 @@ class InventoryGame(Game):
         super().__init__(game.return_game_id(), game.return_game_name())
         self.__fami_parent = fami_parent
         self.__local_path = local_path
-        
-    def run(self):
+
+    def run_game(self):
         return 0
 
     def stop(self):

@@ -11,7 +11,7 @@ from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
-from src.model.fami_kid import Child
+from src.model.fami_kid import FamiKid
 from src.model.store_game import StoreGame
 
 sql_utils = SqlUtils()
@@ -87,7 +87,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                                )
 
     def __to_child_selection_window(self):
-        self.kids = self.fami_parent.get_children()
+        self.__get_kids()
         # while self.kids is None:
         #     pass
         self.child_selection_window = FamiOwlChildSelectionWindow(self, self.kids)
@@ -127,7 +127,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         worker = None
         try:
             if flag == 0:
-                worker = Worker(self.__get_top_game_query, flag=flag)
+                worker = Worker(self.__get_inventory_game_query, flag=flag)
             elif flag == 1:
                 worker = Worker(self.__get_top_game_query, flag=flag)
             worker.signals.result.connect(self.__game_thread_result)
@@ -141,7 +141,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         layout = None
         game_list = []
         if flag == 0:
-            # TODO: inventory
             game_list = self.top_games
             # game_list = self.inventory_games
             layout = self.verticalLayout_13
@@ -178,12 +177,11 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_card_layout.setContentsMargins(24, 24, 24, 24)
             game_card_layout.setSpacing(24)
             game_card_layout.setObjectName("game_card_layout_%s" % i)
-            game_profile_widget = QtWidgets.QPushButton(game_card)
-            game_profile_widget.setMaximumSize(QtCore.QSize(100, 16777215))
-            game_profile_widget.setStyleSheet("image: url(:/svg/img/button_png/image.jpg);")
-            game_profile_widget.setObjectName("game_profile_widget_%s" % i)
-            game_profile_widget.clicked.connect(lambda: self.open_game())
-            game_card_layout.addWidget(game_profile_widget)
+            game_profile_button = QtWidgets.QPushButton(game_card)
+            game_profile_button.setMinimumSize(QtCore.QSize(100, 100))
+            game_profile_button.setStyleSheet("image: url(src/resource/img/img/image.png);")
+            game_profile_button.setObjectName("game_profile_widget_%s" % i)
+            game_card_layout.addWidget(game_profile_button)
             game_info_layout = QtWidgets.QVBoxLayout()
             game_info_layout.setSpacing(2)
             game_info_layout.setObjectName("game_info_layout_%s" % i)
@@ -194,7 +192,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_name_label.setFont(font)
             game_name_label.setStyleSheet("color: rgb(22, 54, 53)")
             game_name_label.setObjectName("game_name_label_%s" % i)
-            game_name_label.setText("Game name: " + game_list[i].return_game_name())  # set game name
+            game_name_label.setText(game_list[i].return_game_name())  # set game name
             game_info_layout.addWidget(game_name_label)
             game_info_label = QtWidgets.QLabel(game_card)
             font = QtGui.QFont()
@@ -221,6 +219,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_info_layout.addWidget(time_limit_bar)
             game_card_layout.addLayout(game_info_layout)
             game_card_layout.setStretch(0, 1)
+            game_profile_button.clicked.connect(lambda _, name=game_name_label.text(): self.open_game(name, flag))
 
             layout.addWidget(game_card)
 
@@ -231,7 +230,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.child_name_label.setText(config['current_child'])
         profile = None
         for kid in self.kids:
-            if kid.return_child_name() == config['current_child']:
+            if kid.return_kid_name() == config['current_child']:
                 profile = kid.return_profile()
         try:
             a = "src/resource/profile_icons/" + profile + ".png"
@@ -283,10 +282,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
         try:
             for a in res:
-                child = Child(a[0], a[1], self.fami_parent, a[3], a[4])
-                children.append(child)
+                kid = FamiKid(a[0], a[1], self.fami_parent, a[3], a[4])
+                children.append(kid)
             self.kids = children
-            self.fami_parent.set_children(children)
+            self.fami_parent.set_kids(children)
             return True
         except Exception as e:
             return 'Fetch children info failed!'
@@ -312,6 +311,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __game_thread_result(self, result):
         if result == 0 or result == 1:
+            self.fami_parent.set_inventory(self.inventory_games)
             self.__create_game_widgets(result)
         else:
             message_info_box(self, str(result))
@@ -328,10 +328,16 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __kids_thread_complete(self):
         self.setEnabled(True)
 
-    def open_game(self):
-        import os
+    def open_game(self, game_name, flag):
 
-        try:
-            os.system('''python bullet_dodger/run_bullet_dodger.py'''.replace('\n', '&'))
-        except Exception as E:
-            print("u r fine.")
+        # try:
+        #     os.system('''python bullet_dodger/run_bullet_dodger.py'''.replace('\n', '&'))
+        # except Exception as E:
+        #     print("u r fine.")
+        if flag == 0:
+            games = self.inventory_games
+        elif flag == 1:
+            games = self.top_games
+        for game in games:
+            if game.return_game_name() == game_name:
+                game.run_game()

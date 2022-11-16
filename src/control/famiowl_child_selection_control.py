@@ -40,7 +40,7 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
 
         for i in range(4):
             try:
-                profile_name_list[i].setText(self.kids[i].return_child_name())
+                profile_name_list[i].setText(self.kids[i].return_kid_name())
                 icon = QtGui.QIcon()
                 icon.addPixmap(QtGui.QPixmap("src/resource/profile_icons/" + self.kids[i].return_profile() + ".png"),
                                QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
