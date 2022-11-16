@@ -43,3 +43,6 @@ class FamiParent:
 
     def return_kids(self):
         return self.__kids
+
+    def return_inventory(self):
+        return self.__inventory

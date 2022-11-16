@@ -14,8 +14,14 @@ class StoreGame(Game):
         self.download()
         return 0
 
-    def add_to_inventory(self, fami_parent, ):
-        return 0
+    def add_to_inventory(self, fami_parent):
+        inventory = fami_parent.return_inventory()
+        for game in inventory:
+            if game.return_game_id() == self.return_game_id():
+                return "Game already in inventory"
+            else:
+                fami_parent.add_to_inventory(self)
+        return fami_parent
 
     def download(self):
         return 0
