@@ -1,5 +1,10 @@
 from src.model.game import Game
+from lib.base_lib.sql.sql_utils import SqlUtils
+from lib.base_lib.ssh.ssh_utils import SshUtils
+from config.sql_query.game_query import get_download_dir_path
 
+sql_utils = SqlUtils()
+ssh_utils = SshUtils()
 
 class StoreGame(Game):
     def __init__(self, game_id, game_name, cover_img, path, game_description, sales):
@@ -24,6 +29,9 @@ class StoreGame(Game):
         return fami_parent
 
     def download(self):
+        name = self.return_game_name()+".py"
+        download_dir_path = sql_utils.sql_exec(get_download_dir_path.format(self.return_game_id(), 1)[0][0])
+        ssh_utils.download_from_ssh(download_dir_path, name)
         return 0
 
     def rate(self):
