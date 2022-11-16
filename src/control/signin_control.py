@@ -14,7 +14,7 @@ from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_client_control import FamiOwlClientWindow
 from src.control.signup_control import SignupWindow
-from src.model.parent import Parent
+from src.model.fami_parent import FamiParent
 from src.signin_window import Ui_Signin_Window
 
 aes_cipher = AESCipher()
@@ -120,7 +120,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
             self.signup_window.show()
 
     def __to_famiowl_client(self):
-        self.famiowl_client = FamiOwlClientWindow(parent_obj=self.__parent_obj)
+        self.famiowl_client = FamiOwlClientWindow(fami_parent=self.__parent_obj)
         self.famiowl_client.show()
         self.close()
 
@@ -144,7 +144,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         if not self.__verify_pwd(pwd_input, res[1]):
             return "Password Incorrect!"
         else:
-            parent = Parent(self.__userid, res[0])
+            parent = FamiParent(self.__userid, res[0])
             self.__parent_obj = parent
             config['parent_id'] = id_input
             config['parent_name'] = res[0]

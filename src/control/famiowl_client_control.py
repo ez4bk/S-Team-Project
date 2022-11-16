@@ -11,14 +11,14 @@ from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
-from src.model.child import Child
+from src.model.fami_kid import Child
 from src.model.store_game import StoreGame
 
 sql_utils = SqlUtils()
 
 
 class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
-    def __init__(self, parent=None, parent_obj=None):
+    def __init__(self, parent=None, fami_parent=None):
         super(FamiOwlClientWindow, self).__init__(parent)
         self.setupUi(self)
         self.child_selection_window = None
@@ -26,12 +26,12 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.start_y = None
         self.threadpool = QThreadPool()
 
-        self.parent_obj = parent_obj
+        self.fami_parent = fami_parent
         self.kids = []
         self.top_games = []
         self.inventory_games = []
 
-        self.parent_name_label.setText(parent_obj.return_parent_name())
+        self.parent_name_label.setText(fami_parent.return_parent_name())
 
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
@@ -87,8 +87,9 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                                )
 
     def __to_child_selection_window(self):
-        while self.kids is None:
-            pass
+        self.kids = self.fami_parent.get_children()
+        # while self.kids is None:
+        #     pass
         self.child_selection_window = FamiOwlChildSelectionWindow(self, self.kids)
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
@@ -177,10 +178,11 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_card_layout.setContentsMargins(24, 24, 24, 24)
             game_card_layout.setSpacing(24)
             game_card_layout.setObjectName("game_card_layout_%s" % i)
-            game_profile_widget = QtWidgets.QWidget(game_card)
+            game_profile_widget = QtWidgets.QPushButton(game_card)
             game_profile_widget.setMaximumSize(QtCore.QSize(100, 16777215))
             game_profile_widget.setStyleSheet("image: url(:/svg/img/button_png/image.jpg);")
             game_profile_widget.setObjectName("game_profile_widget_%s" % i)
+            game_profile_widget.clicked.connect(lambda: self.open_game())
             game_card_layout.addWidget(game_profile_widget)
             game_info_layout = QtWidgets.QVBoxLayout()
             game_info_layout.setSpacing(2)
@@ -281,10 +283,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
         try:
             for a in res:
-                child = Child(a[0], a[1], self.parent_obj, a[3], a[4])
+                child = Child(a[0], a[1], self.fami_parent, a[3], a[4])
                 children.append(child)
             self.kids = children
-            self.parent_obj.init_children(self.kids)
+            self.fami_parent.set_children(children)
             return True
         except Exception as e:
             return 'Fetch children info failed!'
@@ -325,3 +327,11 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __kids_thread_complete(self):
         self.setEnabled(True)
+
+    def open_game(self):
+        import os
+
+        try:
+            os.system('''python bullet_dodger/run_bullet_dodger.py'''.replace('\n', '&'))
+        except Exception as E:
+            print("u r fine.")

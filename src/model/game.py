@@ -7,10 +7,7 @@ class Game:
 
     def run(self):
         return 0
-
-    def __str__(self):
-        return ""
-
+    
     def return_game_id(self):
         return str(self.__game_id)
 
