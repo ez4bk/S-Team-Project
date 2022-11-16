@@ -5,6 +5,7 @@ class Children(models.Model):
     kids_name = models.CharField(max_length=128, db_column='kids_name')
     time_limit = models.IntegerField(max_length=11, db_column='time_limit')
     parent_id = models.CharField(max_length=320, db_column='parent_id')
+    icon_image = models.CharField(max_length=128, db_column='icon_image')
 
     class Meta:
         db_table = 'kids'

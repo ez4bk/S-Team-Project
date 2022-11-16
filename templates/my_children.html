@@ -7,9 +7,9 @@
     <body>
     <h2>Time Limit</h2>
     {% for kid in kids %}
+        <img src="{% static 'img/profile_icons/'|add:kid.icon_image|add:'.png' %}" alt="">
         <p>
         <li>{{ kid.kids_name }} -> Timelimit: {{ kid.time_limit }} minutes</li>
-
         <form method="post">
             {% csrf_token %}
             <input id=kid.kids_name type="text" placeholder="Enter new time limit" name={{ kid.kids_name }}>
