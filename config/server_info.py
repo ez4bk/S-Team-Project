@@ -19,6 +19,3 @@ mysql_server_config = {
 SSH_USER = 'yw780'
 SSH_PWD = 'Wyc1qaz2wsx~'
 SSH_PORT = 22
-
-if __name__ == '__main__':
-    pass

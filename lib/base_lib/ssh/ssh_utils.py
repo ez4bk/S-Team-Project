@@ -5,7 +5,7 @@ import traceback
 
 import paramiko
 
-from config.project_info import DOWNLOAD_DIR
+from config.project_info import DOWNLOAD_DIR, VM_SRC_DIR
 from config.server_info import SERVER_IP
 from lib.base_lib.mylog.mylog import log, log_e
 from lib.base_lib.ssh.shell_cmd_interface import ShellCmdInterface
@@ -95,6 +95,9 @@ class SshUtils(ShellCmdInterface):
         self._close_ssh()
 
     def download_from_ssh(self, vm_dir_path, file_name, local_dir=DOWNLOAD_DIR):
+        self._get_ssh()
+        if self._ssh_client is None:
+            raise Exception("ssh can not connect server " + str(self._ip))
         for i in range(3):
             try:
                 scp = paramiko.Transport(self._ip, self._ssh_info.port)
@@ -113,6 +116,7 @@ class SshUtils(ShellCmdInterface):
 if __name__ == "__main__":
     # from lib.commonlib.base_lib.ssh.ssh_utils import SSHUtils
     ssh_util = SshUtils()
-    result_cmd = ssh_util.exec_command('ifconfig')
+    path = os.path.join(VM_SRC_DIR, 'snake.py')
+    ssh_util.download_from_ssh(path, 'game.py')
     # ssh_util.check_ssh()
     # print(result)
