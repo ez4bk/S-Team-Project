@@ -6,6 +6,7 @@ from config.sql_query.game_query import get_ratings
 sql_utils = SqlUtils()
 sftp_utils = SftpUtils()
 
+
 class StoreGame(Game):
     def __init__(self, game_id, game_name, cover_img, path, game_description, sales):
         super().__init__(game_id, game_name, cover_img, game_description)
@@ -30,13 +31,12 @@ class StoreGame(Game):
         return fami_parent
 
     def download(self):
-        name = self.return_game_name()+".py"
+        name = self.return_game_name() + ".py"
         download_dir_path = self.return_path()
         sftp_utils.sftp_download(download_dir_path, name)
 
-
     def rate(self):
-        res = SqlUtils.sql_exec()
+        res = SqlUtils.sql_exec(get_ratings.format(self.return_game_id(), 1))[0]
         return res
 
     def __str__(self):
