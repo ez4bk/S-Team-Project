@@ -4,6 +4,7 @@ import traceback
 
 import paramiko
 
+from config.project_info import DOWNLOAD_DIR
 from lib.base_lib.mylog.mylog import _commonlib_log, _commonlib_log_e
 from lib.base_lib.sftp_utils.ftp_info import FtpInfo
 
@@ -21,7 +22,7 @@ class SftpUtils(object):
 
     """
 
-    def __init__(self, ftp_info):
+    def __init__(self, ftp_info=FtpInfo):
         self.__ftp_info = ftp_info
 
     def sftp_upload(self, local_file, remote_file):
@@ -67,7 +68,7 @@ class SftpUtils(object):
     def sftp_download(self, remote_file, local_file):
         """
         从sftp服务端下载文件到本地。需要注意的是，当local_file中的文件夹不存在是，将会下载失败，需要调用自行创建本地文件夹。
-        同时，local_file为要上传到服务端的文件名，不是文件夹路径。如：sftp_upload("/ftp/backup/abc.txt","D:\\backup\\abc.txt")
+        同时，local_file为要下载到本地的文件名，不是文件夹路径。如：sftp_upload("/ftp/backup/abc.txt","D:\\backup\\abc.txt")
 
         :param remote_file: 要下载的远程文件名称
         :param local_file:  本地保存的文件名称
@@ -75,6 +76,7 @@ class SftpUtils(object):
         :return:    返回下载结果
         """
         for a in range(3):
+            local_path = os.path.join(DOWNLOAD_DIR, local_file)
             flag = self.__sftp_download(self.__ftp_info, remote_file, local_file)
             if flag:
                 return True
@@ -170,8 +172,8 @@ class SftpUtils(object):
 
 
 if __name__ == '__main__':
-    tmp_ftp_info = FtpInfo("172.28.100.133", 9622, "root", "MDE5MZTJjZTY1")
-    aa = SftpUtils(tmp_ftp_info)
+    # tmp_ftp_info = FtpInfo("172.28.100.133", 9622, "root", "MDE5MZTJjZTY1")
+    aa = SftpUtils()
     tmp_result = aa.sftp_upload("D:\\aa.txt", "/opt/aa.txt")
     print(tmp_result)
     # aa.mkdirs(tmp_ftp_info, "/opt/aaa/bbb")

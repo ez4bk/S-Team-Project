@@ -1,4 +1,5 @@
 # coding=utf-8
+from config.server_info import SSH_PORT, SERVER_IP, SSH_USER, SSH_PWD
 
 
 class FtpInfo(object):
@@ -11,8 +12,8 @@ class FtpInfo(object):
     * user_pwd      普通用户密码
     """
 
-    def __init__(self, ip, port, user_name, user_password):
+    def __init__(self, ip=SERVER_IP, port=SSH_PORT, user_name=SSH_USER, user_pwd=SSH_PWD):
         self.ip = ip
         self.port = port
         self.user_name = user_name
-        self.user_password = user_password
+        self.user_password = user_pwd

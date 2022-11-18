@@ -12,5 +12,9 @@ else:
 ROOT_DIR = root_dir
 LOG_DIR = os.path.join(ROOT_DIR, 'log')
 DOWNLOAD_DIR = os.path.join(ROOT_DIR, 'download')
+try:
+    os.mkdir(DOWNLOAD_DIR)
+except OSError as e:
+    pass
 
 VM_SRC_DIR = "/home/famiowl_files"
