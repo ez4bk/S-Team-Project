@@ -112,7 +112,7 @@ def set_log_level(log_level):
     else:
         level = logging.INFO
     global user_logger
-    print("set mylog level " + str(level))
+    # print("set mylog level " + str(level))
     user_logger.setLevel(level)
 
 

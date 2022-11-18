@@ -26,11 +26,9 @@ class StoreGame(Game):
 
     def add_to_inventory(self, fami_parent, local_path):
         inventory = fami_parent.return_inventory()
-        print(inventory)
         if inventory is not []:
             for game in inventory:
                 if game.return_game_id() == self.return_game_id():
-                    print(game.return_game_id())
                     return fami_parent
         inventory_game = InventoryGame(self, fami_parent, local_path)
         fami_parent.add_to_inventory(inventory_game)
