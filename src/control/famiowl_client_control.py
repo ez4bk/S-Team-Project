@@ -154,7 +154,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         for i in reversed(range(layout.count())):
             widget = layout.takeAt(i).widget()
             if widget is not None:
-                widget.destroy()
+                widget.setParent(None)
 
         if len(game_list) == 0:
             no_game_label = QtWidgets.QLabel()
