@@ -1,10 +1,10 @@
 from src.model.game import Game
 from lib.base_lib.sql.sql_utils import SqlUtils
-from lib.base_lib.ssh.ssh_utils import SshUtils
-from config.sql_query.game_query import get_download_dir_path
+from lib.base_lib.sftp_utils.sftp_utils import SftpUtils
+from config.sql_query.game_query import get_ratings
 
 sql_utils = SqlUtils()
-ssh_utils = SshUtils()
+sftp_utils = SftpUtils()
 
 class StoreGame(Game):
     def __init__(self, game_id, game_name, cover_img, path, game_description, sales):
@@ -31,12 +31,13 @@ class StoreGame(Game):
 
     def download(self):
         name = self.return_game_name()+".py"
-        download_dir_path = sql_utils.sql_exec(get_download_dir_path.format(self.return_game_id(), 1)[0][0])
-        ssh_utils.download_from_ssh(download_dir_path, name)
-        return 0
+        download_dir_path = self.return_path()
+        sftp_utils.sftp_download(download_dir_path, name)
+
 
     def rate(self):
-        return 0
+        res = SqlUtils.sql_exec()
+        return res
 
     def __str__(self):
         return ""
