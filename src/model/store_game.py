@@ -1,7 +1,10 @@
-from src.model.game import Game
-from lib.base_lib.sql.sql_utils import SqlUtils
+import os
+import subprocess
+
+from config.project_info import DOWNLOAD_DIR, VM_SRC_DIR
 from lib.base_lib.sftp_utils.sftp_utils import SftpUtils
-from config.sql_query.game_query import get_ratings
+from lib.base_lib.sql.sql_utils import SqlUtils
+from src.model.game import Game
 
 sql_utils = SqlUtils()
 sftp_utils = SftpUtils()
@@ -16,9 +19,12 @@ class StoreGame(Game):
         self.__filesize = ""
 
     def run_game(self, fami_parent):
-        self.add_to_inventory(fami_parent)
-        # self.download()
-        print("running game id: %s" % self.return_game_id())
+        # self.add_to_inventory(fami_parent)
+        self.download()
+        path = os.path.join(DOWNLOAD_DIR, self.return_game_name())
+        completed_process = subprocess.run(["python3", path + '.py'])
+        print(completed_process.returncode)
+        # completed_process.returncode
 
     def add_to_inventory(self, fami_parent):
         inventory = fami_parent.return_inventory()
@@ -56,5 +62,5 @@ class StoreGame(Game):
 
 
 if __name__ == '__main__':
-    a = StoreGame('1', 'abc', 'img', 'path', 'des', 'sales')
-    print(a.run_game())
+    a = StoreGame('1', 'Snake', 'img', VM_SRC_DIR + '/snake.py', 'desc', 'sales')
+    print(a.run_game(None))
