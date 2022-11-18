@@ -5,7 +5,10 @@ class Game:
         self.__cover_img = cover_img
         self.__game_description = game_description
 
-    def run_game(self):
+    def run_game(self, fami_parent):
+        pass
+
+    def download(self):
         pass
 
     def return_game_id(self):

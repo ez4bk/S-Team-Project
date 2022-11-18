@@ -7,7 +7,7 @@ class InventoryGame(Game):
         self.__fami_parent = fami_parent
         self.__local_path = local_path
 
-    def run_game(self):
+    def run_game(self, fami_parent):
         return 0
 
     def stop(self):

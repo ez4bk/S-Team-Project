@@ -107,7 +107,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         item = self.menu_listwidget.currentItem()
         widget_to_go = item.text()
         if widget_to_go == 'Inventory':
-            self.__get_game(0)
+            self.__get_game_local()
             self.stackedWidget.setCurrentWidget(self.game_page)
         elif widget_to_go == 'Store':
             self.__get_game(1)
@@ -136,6 +136,9 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             self.menu_listwidget.setEnabled(False)
         except:
             pass
+
+    def __get_game_local(self):
+        self.inventory_games = self.fami_parent.return_inventory()
 
     def __create_game_widgets(self, flag=0):
         layout = None
@@ -243,6 +246,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __get_top_game_query(self, flag=0):
         res = None
         games = []
+
         try:
             res = sql_utils.sql_exec(show_top_game.format(10), 1)
         except Exception as e:
@@ -304,7 +308,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             for a in res:
                 game = StoreGame(a[0], a[1], a[2], a[3], a[4], a[5])
                 games.append(game)
-            self.top_games = games
+            self.inventory_games = games
             return flag
         except Exception:
             return "Game initialization failed!"
@@ -328,16 +332,17 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __kids_thread_complete(self):
         self.setEnabled(True)
 
-    def open_game(self, game_name, flag):
+    def open_game(self, game_name, flag=0):
 
         # try:
         #     os.system('''python bullet_dodger/run_bullet_dodger.py'''.replace('\n', '&'))
         # except Exception as E:
         #     print("u r fine.")
+        game = None
         if flag == 0:
             games = self.inventory_games
         elif flag == 1:
             games = self.top_games
         for game in games:
             if game.return_game_name() == game_name:
-                game.run_game()
+                self.fami_parent = game.run_game(self.fami_parent)

@@ -9,8 +9,8 @@ class StoreGame(Game):
         self.__rate = ""
         self.__filesize = ""
 
-    def run_game(self):
-        # self.add_to_inventory()
+    def run_game(self, fami_parent):
+        self.add_to_inventory(fami_parent)
         # self.download()
         print("running game id: %s" % self.return_game_id())
 
@@ -18,6 +18,7 @@ class StoreGame(Game):
         inventory = fami_parent.return_inventory()
         for game in inventory:
             if game.return_game_id() == self.return_game_id():
+                print(fami_parent.return_inventory())
                 raise "Game already in inventory"
             else:
                 fami_parent.add_to_inventory(self)
