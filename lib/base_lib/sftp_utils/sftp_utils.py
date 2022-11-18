@@ -4,7 +4,7 @@ import traceback
 
 import paramiko
 
-from config.project_info import DOWNLOAD_DIR
+from config.project_info import DOWNLOAD_DIR, VM_SRC_DIR
 from lib.base_lib.mylog.mylog import _commonlib_log, _commonlib_log_e
 from lib.base_lib.sftp_utils.ftp_info import FtpInfo
 
@@ -22,7 +22,7 @@ class SftpUtils(object):
 
     """
 
-    def __init__(self, ftp_info=FtpInfo):
+    def __init__(self, ftp_info=FtpInfo()):
         self.__ftp_info = ftp_info
 
     def sftp_upload(self, local_file, remote_file):
@@ -36,6 +36,7 @@ class SftpUtils(object):
         :return: 返回上传的结果，类型为bool
         """
         for a in range(3):
+            remote_path = VM_SRC_DIR + '/' + remote_path
             flag = self.__sftp_upload(self.__ftp_info, local_file, remote_file)
             if flag:
                 return True
@@ -77,7 +78,7 @@ class SftpUtils(object):
         """
         for a in range(3):
             local_path = os.path.join(DOWNLOAD_DIR, local_file)
-            flag = self.__sftp_download(self.__ftp_info, remote_file, local_file)
+            flag = self.__sftp_download(self.__ftp_info, remote_file, local_path)
             if flag:
                 return True
         return False
@@ -174,6 +175,6 @@ class SftpUtils(object):
 if __name__ == '__main__':
     # tmp_ftp_info = FtpInfo("172.28.100.133", 9622, "root", "MDE5MZTJjZTY1")
     aa = SftpUtils()
-    tmp_result = aa.sftp_upload("D:\\aa.txt", "/opt/aa.txt")
+    tmp_result = aa.sftp_download(VM_SRC_DIR + "/snake.py", 'sftp_game.py')
     print(tmp_result)
     # aa.mkdirs(tmp_ftp_info, "/opt/aaa/bbb")
