@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QMainWindow
 from config.client_info import config, write_to_json
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
 from config.sql_query.account_query import kids_select
-from config.sql_query.client_query import show_top_game
+from config.sql_query.client_query import show_top_game, show_inventory_game
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
@@ -139,13 +139,13 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __get_game_local(self):
         self.inventory_games = self.fami_parent.return_inventory()
+        self.__create_game_widgets(0)
 
     def __create_game_widgets(self, flag=0):
         layout = None
         game_list = []
         if flag == 0:
-            game_list = self.top_games
-            # game_list = self.inventory_games
+            game_list = self.inventory_games
             layout = self.verticalLayout_13
         elif flag == 1:
             game_list = self.top_games
@@ -182,6 +182,11 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_card_layout.setObjectName("game_card_layout_%s" % i)
             game_profile_button = QtWidgets.QPushButton(game_card)
             game_profile_button.setMinimumSize(QtCore.QSize(100, 100))
+            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum,
+                                               QtWidgets.QSizePolicy.Policy.Maximum)
+            sizePolicy.setHorizontalStretch(0)
+            sizePolicy.setVerticalStretch(0)
+            game_profile_button.setSizePolicy(sizePolicy)
             game_profile_button.setStyleSheet("image: url(src/resource/img/img/image.png);")
             game_profile_button.setObjectName("game_profile_widget_%s" % i)
             game_card_layout.addWidget(game_profile_button)
@@ -222,7 +227,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_info_layout.addWidget(time_limit_bar)
             game_card_layout.addLayout(game_info_layout)
             game_card_layout.setStretch(0, 1)
-            game_profile_button.clicked.connect(lambda _, name=game_name_label.text(): self.open_game(name, flag))
+            game_profile_button.clicked.connect(lambda _, f=flag, name=game_name_label.text(): self.open_game(name, f))
 
             layout.addWidget(game_card)
 
@@ -298,7 +303,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         res = None
         games = []
         try:
-            res = sql_utils.sql_exec(show_top_game.format(10), 1)
+            res = sql_utils.sql_exec(show_inventory_game.format(self.fami_parent.return_parent_id()))
         except Exception as e:
             return 'Fetch game store failed!'
         if res is None:
@@ -333,16 +338,14 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.setEnabled(True)
 
     def open_game(self, game_name, flag=0):
-
-        # try:
-        #     os.system('''python bullet_dodger/run_bullet_dodger.py'''.replace('\n', '&'))
-        # except Exception as E:
-        #     print("u r fine.")
-        game = None
+        games = None
         if flag == 0:
             games = self.inventory_games
         elif flag == 1:
             games = self.top_games
         for game in games:
             if game.return_game_name() == game_name:
-                self.fami_parent = game.run_game(self.fami_parent)
+                try:
+                    self.fami_parent = game.run_game(self.fami_parent)
+                except:
+                    pass
