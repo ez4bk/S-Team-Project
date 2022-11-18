@@ -12,3 +12,4 @@ add_kid = 'insert into kids (kids_name,parent_id,icon_image,time_limit) values (
 
 # show games user own where parent_id = input id
 show_parent_inventory = 'select * from game_inventory where parent_id = "{0}";'
+

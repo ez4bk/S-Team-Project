@@ -10,3 +10,6 @@ time_record_check = 'select exists(select * from kid_playtime where kid_id = "{0
 
 # insert new time
 time_record_update = 'update kid_playtime set playtime = playtime + "{0}" where kid_id = "{1}" and game_id ="{2}";'
+
+# get kid id base on parent id and kid name
+get_kid_id = 'select kid_id from kids where kids_name="{0}" and parent_id="{1}";'

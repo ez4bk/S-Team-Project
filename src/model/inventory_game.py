@@ -5,7 +5,9 @@ from config.project_info import DOWNLOAD_DIR
 from src.model.game import Game
 
 from lib.base_lib.sql.sql_utils import SqlUtils
-from config.sql_query.game_query import time_record_update,time_record_check
+from config.sql_query.game_query import time_record_update, time_record_check, get_kid_id
+
+from config.client_info import config
 
 sql_utils = SqlUtils()
 
@@ -38,9 +40,15 @@ class InventoryGame(Game):
         return 0
 
 # Wendi: get kid id from parents table, use kid id to find
-    def accumulate_playtime(self):
-#       kid_id = sql_utils.sql_exec
-#        record_exist = sql_utils.sql_exec(time_record_check.format(kid_id, self.return_game_id()),1)[1][1]
-        return 0
+# time_played: the time this kid spent on this game this time opening the game
+    def accumulate_playtime(self, time_played):
+        kid_name = config.get['current_child']
+        parent_id = config.get['parent_id']
+        game_id = self.return_game_id()
+        kid_id = sql_utils.sql_exec(get_kid_id.format(kid_name, parent_id), 1)[1][1]
+        record_exist = sql_utils.sql_exec(time_record_check.format(kid_id, game_id), 1)[1][1]
+        if record_exist:
+            sql_utils.sql_exec(time_record_update.format(kid_id, game_id, time_played), 0)
+
     def __str__(self):
         return ""
