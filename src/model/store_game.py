@@ -1,10 +1,11 @@
 import os.path
 
 from config.project_info import VM_SRC_DIR, DOWNLOAD_DIR
+from config.sql_query.game_query import get_ratings
 from lib.base_lib.sftp_utils.sftp_utils import SftpUtils
 from lib.base_lib.sql.sql_utils import SqlUtils
 from src.model.game import Game
-from config.sql_query.game_query import get_ratings
+from src.model.inventory_game import InventoryGame
 
 sql_utils = SqlUtils()
 sftp_utils = SftpUtils()
