@@ -1,7 +1,6 @@
-import os
-import subprocess
+import os.path
 
-from config.project_info import DOWNLOAD_DIR, VM_SRC_DIR
+from config.project_info import VM_SRC_DIR, DOWNLOAD_DIR
 from lib.base_lib.sftp_utils.sftp_utils import SftpUtils
 from lib.base_lib.sql.sql_utils import SqlUtils
 from src.model.game import Game
@@ -20,27 +19,27 @@ class StoreGame(Game):
         self.__filesize = ""
 
     def run_game(self, fami_parent):
-        # self.add_to_inventory(fami_parent)
-        self.download()
-        path = os.path.join(DOWNLOAD_DIR, self.return_game_name())
-        completed_process = subprocess.run(["python3", path + '.py'])
-        print(completed_process.returncode)
-        # completed_process.returncode
+        path = self.download()
+        fami_parent = self.add_to_inventory(fami_parent, path)
+        return fami_parent
 
-    def add_to_inventory(self, fami_parent):
+    def add_to_inventory(self, fami_parent, local_path):
         inventory = fami_parent.return_inventory()
-        for game in inventory:
-            if game.return_game_id() == self.return_game_id():
-                print(fami_parent.return_inventory())
-                raise "Game already in inventory"
-            else:
-                fami_parent.add_to_inventory(self)
+        print(inventory)
+        if inventory is not []:
+            for game in inventory:
+                if game.return_game_id() == self.return_game_id():
+                    print(game.return_game_id())
+                    return fami_parent
+        inventory_game = InventoryGame(self, fami_parent, local_path)
+        fami_parent.add_to_inventory(inventory_game)
         return fami_parent
 
     def download(self):
         name = self.return_game_name() + ".py"
         download_dir_path = self.return_path()
         sftp_utils.sftp_download(download_dir_path, name)
+        return os.path.join(DOWNLOAD_DIR, name)
 
     def rate(self):
         res = SqlUtils.sql_exec(get_ratings.format(self.return_game_id(), 1))[0]
