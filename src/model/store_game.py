@@ -5,6 +5,7 @@ from config.project_info import DOWNLOAD_DIR, VM_SRC_DIR
 from lib.base_lib.sftp_utils.sftp_utils import SftpUtils
 from lib.base_lib.sql.sql_utils import SqlUtils
 from src.model.game import Game
+from config.sql_query.game_query import get_ratings
 
 sql_utils = SqlUtils()
 sftp_utils = SftpUtils()
