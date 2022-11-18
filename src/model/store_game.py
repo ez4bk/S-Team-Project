@@ -4,7 +4,7 @@ from config.project_info import VM_SRC_DIR, DOWNLOAD_DIR
 from lib.base_lib.sftp_utils.sftp_utils import SftpUtils
 from lib.base_lib.sql.sql_utils import SqlUtils
 from src.model.game import Game
-from src.model.inventory_game import InventoryGame
+from config.sql_query.game_query import get_ratings
 
 sql_utils = SqlUtils()
 sftp_utils = SftpUtils()
@@ -42,7 +42,7 @@ class StoreGame(Game):
         return os.path.join(DOWNLOAD_DIR, name)
 
     def rate(self):
-        res = SqlUtils.sql_exec()
+        res = SqlUtils.sql_exec(get_ratings.format(self.return_game_id(), 1))[0]
         return res
 
     def __str__(self):
