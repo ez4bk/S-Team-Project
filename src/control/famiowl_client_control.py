@@ -7,7 +7,6 @@ from config.front_end.icon_path import list_widget_icons, switch_child_icon
 from config.sql_query.account_query import kids_select
 from config.sql_query.client_query import show_top_game, show_inventory_game
 from lib.base_lib.sql.sql_utils import SqlUtils
-from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
@@ -41,10 +40,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__define_menu_listwidget()
         self.__define_switch_child_button()
         self.__sync_profile()
-        self.__get_game(0)
         self.__get_kids()
-        while len(self.kids) == 0:
-            pass
+        self.__get_game(0)
 
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
         self.stackedWidget.setCurrentWidget(self.game_page)
@@ -86,10 +83,15 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                                "background-color: transparent;"
                                                )
 
-    def __to_child_selection_window(self):
-        self.__get_kids()
+    def __to_child_selection_window(self, button_flag=False):
+        if button_flag:
+            self.__get_kids(button_flag)
+        else:
+            self.__to_child_selection_window_show()
         # while self.kids is None:
         #     pass
+
+    def __to_child_selection_window_show(self):
         self.child_selection_window = FamiOwlChildSelectionWindow(self, self.kids)
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
@@ -98,7 +100,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             self.child_selection_window.show()
 
     def __define_switch_child_button(self):
-        self.switch_child_button.clicked.connect(lambda: self.__to_child_selection_window())
+        self.switch_child_button.clicked.connect(lambda: self.__to_child_selection_window(True))
 
     def __define_menu_listwidget(self):
         self.menu_listwidget.itemClicked.connect(lambda: self.__menu_select())
@@ -235,11 +237,14 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.windowTitleChanged.connect(lambda: self.__switch_child())
 
     def __switch_child(self):
+        self.threadpool.waitForDone(-1)
         self.child_name_label.setText(config['current_child'])
         profile = None
         for kid in self.kids:
+            print(kid.return_kid_name())
             if kid.return_kid_name() == config['current_child']:
                 profile = kid.return_profile()
+                print(profile)
         try:
             a = "src/resource/profile_icons/" + profile + ".png"
             self.profile_image_widget.setStyleSheet("border-radius:32px;"
@@ -268,9 +273,9 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         except Exception:
             return "Game initialization failed!"
 
-    def __get_kids(self):
+    def __get_kids(self, button_flag=False):
         try:
-            worker = Worker(self.__get_kids_query)
+            worker = Worker(self.__get_kids_query, button_flag=button_flag)
             worker.signals.result.connect(self.__kids_thread_result)
             worker.signals.finished.connect(self.__kids_thread_complete)
             self.threadpool.start(worker)
@@ -278,7 +283,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         except:
             pass
 
-    def __get_kids_query(self):
+    def __get_kids_query(self, button_flag):
         res = None
         children = []
         try:
@@ -286,8 +291,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         except Exception as e:
             return "Could not fetch kids info"
 
-        if res is None:
-            return "Could not fetch kids info"
+        if res is None or res == []:
+            self.kids = children
+            self.fami_parent.set_kids(children)
+            return button_flag
 
         try:
             for a in res:
@@ -295,7 +302,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                 children.append(kid)
             self.kids = children
             self.fami_parent.set_kids(children)
-            return True
+            return button_flag
         except Exception as e:
             return 'Fetch children info failed!'
 
@@ -306,33 +313,41 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             res = sql_utils.sql_exec(show_inventory_game.format(self.fami_parent.return_parent_id()))
         except Exception as e:
             return 'Fetch game store failed!'
-        if res is None:
-            return "No games available!"
+        if res is None or res == []:
+            self.inventory_games = games
+            self.fami_parent.set_inventory(games)
+            return flag
 
         try:
             for a in res:
                 game = StoreGame(a[0], a[1], a[2], a[3], a[4], a[5])
                 games.append(game)
             self.inventory_games = games
+            self.fami_parent.set_inventory(games)
             return flag
         except Exception:
             return "Game initialization failed!"
 
     def __game_thread_result(self, result):
-        if result == 0 or result == 1:
+        if result is not None:
             self.fami_parent.set_inventory(self.inventory_games)
             self.__create_game_widgets(result)
         else:
-            message_info_box(self, str(result))
+            # message_info_box(self, str(result))
+            print(str(result))
 
     def __game_thread_complete(self):
         self.menu_listwidget.setEnabled(True)
 
     def __kids_thread_result(self, result):
-        if result is True:
-            pass
+        if result is not str:
+            if not result:
+                pass
+            else:
+                self.__to_child_selection_window_show()
         else:
-            message_info_box(self, result)
+            print(str(result))
+            # message_info_box(self, str(result))
 
     def __kids_thread_complete(self):
         self.setEnabled(True)

@@ -93,8 +93,8 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
 
         try:
             worker = Worker(self.__signup_query)
-            worker.signals.result.connect(self)
-            worker.signals.finished.connect(self)
+            worker.signals.result.connect(self.__thread_result)
+            worker.signals.finished.connect(self.__thread_complete)
             self.threadpool.start(worker)
 
             self.signup_button.setEnabled(False)
@@ -119,6 +119,7 @@ class SignupWindow(QMainWindow, Ui_Signup_Window):
             self.signup_button.setToolTip("")
 
     def __signup_success(self):
+        message_info_box(self, "Successfully signed up!")
         self.hide()
         self.parent.show()
 

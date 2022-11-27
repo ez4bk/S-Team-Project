@@ -13,6 +13,9 @@ class FamiParent:
         self.__game = None
         self.__inventory = inventory
 
+    def sync_database(self):
+        pass
+
     def set_kids(self, kids):
         self.__kids = kids
 
@@ -33,7 +36,7 @@ class FamiParent:
         # TODO: change name query
 
     def return_parent_id(self):
-        return self.return_parent_id
+        return str(self.__parent_id)
 
     def return_parent_name(self):
         return str(self.__parent_name)
