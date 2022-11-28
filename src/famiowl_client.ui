@@ -489,6 +489,9 @@ background-color: transparent;</string>
               </item>
               <item>
                <widget class="QLCDNumber" name="game_timer">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
                 <property name="digitCount">
                  <number>8</number>
                 </property>

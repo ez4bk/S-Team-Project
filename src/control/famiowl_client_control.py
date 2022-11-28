@@ -45,6 +45,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
         self.search_game_line.setAttribute(QtCore.Qt.WidgetAttribute.WA_MacShowFocusRect, 0)
+        # self.game_timer.
 
         self.__define_icons()
         self.__define_menu_listwidget()

@@ -303,6 +303,7 @@ class Ui_FamiOwl(object):
         self.search_game_line.setObjectName("search_game_line")
         self.active_game_layout.addWidget(self.search_game_line)
         self.game_timer = QtWidgets.QLCDNumber(self.active_game_frame)
+        self.game_timer.setStyleSheet("")
         self.game_timer.setDigitCount(8)
         self.game_timer.setObjectName("game_timer")
         self.active_game_layout.addWidget(self.game_timer)
