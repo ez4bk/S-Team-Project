@@ -2,11 +2,54 @@
 {% block navbar %}
     {% load static %}
     <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'my_children' %}">My Children</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'my_profile' %}">My Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'about_us' %}">About Us</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'logout' %}">
+                    <button type="button" class="btn btn-primary">Log Out</button>
+                </a>
+            </li>
+        </ul>
+    </div>
 {% endblock %}
+
 {% block white %}
     <body>
-    <h2>my profile</h2>
-    <li>user name : {{ user.user_name }}</li>
-    <li>user id : {{ user.user_id }}</li>
+{#    <h2>my profile</h2>#}
+{#    <li>user name : {{ user.user_name }}</li>#}
+{#    <li>user id : {{ user.user_id }}</li>#}
+{#    <body>#}
+{#    <div style="height:auto; background-image:linear-gradient(to right, rgba(26, 188, 156, 1) 0%, rgba(142, 68, 173, 1) 100%);">#}
+{#    <div style="min-height: 585px;" class="profile-wrapper container">#}
+	<div id="center">
+		<div style="text-align:center"><br>
+			<img class="user-photo" src="{% static 'img/user_profile_default.png' %}" alt="profile" width="10%" height="auto"><br>
+		</div>
+		<div style="text-align:center"><br>
+			<h1>{{ user.user_name }}</h1><br><!-- Name -->
+			<h2>{{ user.user_id }}</h2><br><!-- Email -->
+			<h3>
+{#				<div class="edit-profile">#}
+{#					<a type="button" class="btn" href="{% url 'authentication:update' %}" role="button">Edit Prifile </a>#}
+{#					<a type="button" class="btn" href="{% url 'authentication:logout' %}" role="button">Log out </a>#}
+{#				</div>#}
+{#				<div class="shop-now-button"><br>#}
+{#					<a type="button" class="btn" href="{% url 'main:ai_solutions' 1 %}" role="button">Continue Shopping <i class="fas fa-chevron-right"></i></a>#}
+{#				</div>#}
+			</h3>
+		</div>
+	</div>
+    </div><br>
+{#  </body>#}
     </body>
 {% endblock %}
