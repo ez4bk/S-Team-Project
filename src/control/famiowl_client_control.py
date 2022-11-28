@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QMainWindow
 from config.client_info import config, write_to_json
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
 from config.sql_query.account_query import kids_select
-from config.sql_query.client_query import show_top_game, show_inventory_game
+from config.sql_query.client_query import show_top_game, show_inventory_game, search_game
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
@@ -51,7 +51,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__start_game_timer()
 
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
-        self.stackedWidget.setCurrentWidget(self.game_page)
+        self.stackedWidget.setCurrentWidget(self.inventory_page)
 
         if config['current_child'] is None:
             self.__to_child_selection_window()
@@ -140,6 +140,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             elif flag == 1:
                 worker = Worker(self.__get_top_game_query, flag=flag)
             elif flag == 2:
+                self.stackedWidget.setCurrentWidget(self.search_page)
                 worker = Worker(self.__get_search_game_query, flag=flag)
             worker.signals.result.connect(self.__game_thread_result)
             worker.signals.finished.connect(self.__game_thread_complete)
@@ -164,6 +165,9 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         elif flag == 2:
             game_list = self.search_games
             layout = self.search_list_layout
+
+        print(self.inventory_games)
+        print(self.search_games)
 
         for i in reversed(range(layout.count())):
             widget = layout.takeAt(i).widget()
@@ -224,21 +228,23 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_info_label.setObjectName("game_info_label_%s" % i)
             game_info_label.setText("Game Info: " + game_list[i].return_game_descr())  # set game description
             game_info_layout.addWidget(game_info_label)
-            time_limit_bar = QtWidgets.QProgressBar(game_card)
-            time_limit_bar.setStyleSheet("QProgressBar::chunk {\n"
-                                         "        border-top-left-radius:8px;\n"
-                                         "border-bottom-left-radius:8px;\n"
-                                         "    background-color: rgb(103, 216, 217)\n"
-                                         "}\n"
-                                         "QProgressBar{\n"
-                                         "border-radius:8px;\n"
-                                         "background-color: rgb(223, 223, 223);\n"
-                                         "}\n"
-                                         "")
-            time_limit_bar.setProperty("value", 60)
-            time_limit_bar.setTextVisible(False)
-            time_limit_bar.setObjectName("time_limit_bar_%s" % i)
-            game_info_layout.addWidget(time_limit_bar)
+            if flag == 0 or game_list[i] in self.inventory_games:
+                print(">>>>>>>>>")
+                time_limit_bar = QtWidgets.QProgressBar(game_card)
+                time_limit_bar.setStyleSheet("QProgressBar::chunk {\n"
+                                             "        border-top-left-radius:8px;\n"
+                                             "border-bottom-left-radius:8px;\n"
+                                             "    background-color: rgb(103, 216, 217)\n"
+                                             "}\n"
+                                             "QProgressBar{\n"
+                                             "border-radius:8px;\n"
+                                             "background-color: rgb(223, 223, 223);\n"
+                                             "}\n"
+                                             "")
+                time_limit_bar.setProperty("value", 60)
+                time_limit_bar.setTextVisible(False)
+                time_limit_bar.setObjectName("time_limit_bar_%s" % i)
+                game_info_layout.addWidget(time_limit_bar)
             game_card_layout.addLayout(game_info_layout)
             game_card_layout.setStretch(0, 1)
             game_profile_button.clicked.connect(
@@ -369,29 +375,32 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         for game in games:
             if game.return_game_name() == game_name:
                 try:
+                    if (flag != 0) and (game not in self.inventory_games):
+                        self.inventory_games.append(game)
                     self.fami_parent = game.run_game(self.fami_parent)
                 except:
                     pass
 
     def __define_search_game_enter(self):
-        self.stackedWidget.setCurrentWidget(self.search_page)
-        self.search_game_line.enterEvent(lambda: self.__get_game(2))
+
+        self.search_game_line.returnPressed.connect(lambda: self.__get_game(2))
 
     def __get_search_game_query(self, flag=0):
 
         res = None
         games = []
         try:
-            res = sql_utils.sql_exec(show_inventory_game.format(self.search_game_line.text()))
+            res = sql_utils.sql_exec(search_game.format(self.search_game_line.text()))
         except Exception as e:
             return 'Search game store failed!'
         if res is None or res == []:
             return "No game matches your search."
         try:
             for a in res:
-                game = StoreGame(a[0], a[1], a[2], a[3], a[4], a[5])
-                games.append(game)
-            self.top_games = games
+                for game in self.top_games:
+                    if int(a[0]) == int(game.return_game_id()):
+                        games.append(game)
+            self.search_games = games
             return flag
         except Exception:
             return "Search game failed!"

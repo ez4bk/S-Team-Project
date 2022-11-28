@@ -9,3 +9,5 @@ exist_game_check = 'select exists(select * from game_inventory where parent_id =
 add_to_inventory = 'insert into game_inventory(parent_id, game_id) values ("{0}",{1});'
 
 show_inventory_game = 'select * from game_inventory where parent_id = "{0}"'
+
+search_game = 'select * from game_store where game_name like "%{0}%";'
