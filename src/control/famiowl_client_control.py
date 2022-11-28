@@ -7,6 +7,7 @@ from config.front_end.icon_path import list_widget_icons, switch_child_icon
 from config.sql_query.account_query import kids_select
 from config.sql_query.client_query import show_top_game, show_inventory_game
 from lib.base_lib.sql.sql_utils import SqlUtils
+from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
@@ -14,6 +15,13 @@ from src.model.fami_kid import FamiKid
 from src.model.store_game import StoreGame
 
 sql_utils = SqlUtils()
+
+
+def secs_to_minsec(secs: int):
+    mins = secs // 60
+    secs = secs % 60
+    minsec = f'{mins:02}:{secs:02}'
+    return minsec
 
 
 class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
@@ -24,17 +32,19 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.start_x = None
         self.start_y = None
         self.threadpool = QThreadPool()
+        self.myTimer = QtCore.QTimer(self)
 
         self.fami_parent = fami_parent
         self.kids = []
         self.top_games = []
         self.inventory_games = []
+        self.time_left_int = 600
 
         self.parent_name_label.setText(fami_parent.return_parent_name())
 
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.active_game_line.setAttribute(QtCore.Qt.WidgetAttribute.WA_MacShowFocusRect, 0)
+        self.search_game_line.setAttribute(QtCore.Qt.WidgetAttribute.WA_MacShowFocusRect, 0)
 
         self.__define_icons()
         self.__define_menu_listwidget()
@@ -42,6 +52,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__sync_profile()
         self.__get_kids()
         self.__get_game(0)
+        self.update_gui()
+        self.startMyTimer()
 
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
         self.stackedWidget.setCurrentWidget(self.game_page)
@@ -241,10 +253,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.child_name_label.setText(config['current_child'])
         profile = None
         for kid in self.kids:
-            print(kid.return_kid_name())
             if kid.return_kid_name() == config['current_child']:
                 profile = kid.return_profile()
-                print(profile)
         try:
             a = "src/resource/profile_icons/" + profile + ".png"
             self.profile_image_widget.setStyleSheet("border-radius:32px;"
@@ -333,8 +343,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             self.fami_parent.set_inventory(self.inventory_games)
             self.__create_game_widgets(result)
         else:
-            # message_info_box(self, str(result))
-            print(str(result))
+            message_info_box(self, str(result))
 
     def __game_thread_complete(self):
         self.menu_listwidget.setEnabled(True)
@@ -346,8 +355,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             else:
                 self.__to_child_selection_window_show()
         else:
-            print(str(result))
-            # message_info_box(self, str(result))
+            message_info_box(self, str(result))
 
     def __kids_thread_complete(self):
         self.setEnabled(True)
@@ -364,3 +372,20 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                     self.fami_parent = game.run_game(self.fami_parent)
                 except:
                     pass
+
+    def startMyTimer(self):
+        self.time_left_int = 600
+        self.myTimer.timeout.connect(self.timerTimeout)
+        self.myTimer.start(1000)
+
+    def timerTimeout(self):
+        self.time_left_int -= 1
+
+        if self.time_left_int == 0:
+            self.time_left_int = 600
+
+        self.update_gui()
+
+    def update_gui(self):
+        minsec = secs_to_minsec(self.time_left_int)
+        self.game_timer.display(minsec)

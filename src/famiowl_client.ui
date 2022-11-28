@@ -435,7 +435,7 @@ background-color: transparent;</string>
              <number>24</number>
             </property>
             <item>
-             <widget class="QLabel" name="active_game_title_label">
+             <widget class="QLabel" name="famiowl_title_label">
               <property name="font">
                <font>
                 <pointsize>18</pointsize>
@@ -446,14 +446,14 @@ background-color: transparent;</string>
                <string notr="true">color: rgb(22, 54, 53)</string>
               </property>
               <property name="text">
-               <string>Active Games</string>
+               <string>FamiOwl</string>
               </property>
              </widget>
             </item>
             <item>
              <layout class="QHBoxLayout" name="active_game_layout">
               <item>
-               <widget class="QLineEdit" name="active_game_line">
+               <widget class="QLineEdit" name="search_game_line">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -471,13 +471,26 @@ background-color: transparent;</string>
                  <string/>
                 </property>
                 <property name="text">
-                 <string>   Assassin's Creed: Brotherhood</string>
+                 <string/>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                 </property>
                 <property name="readOnly">
+                 <bool>false</bool>
+                </property>
+                <property name="placeholderText">
+                 <string>Search here!</string>
+                </property>
+                <property name="clearButtonEnabled">
                  <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLCDNumber" name="game_timer">
+                <property name="digitCount">
+                 <number>8</number>
                 </property>
                </widget>
               </item>
