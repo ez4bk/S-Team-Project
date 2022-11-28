@@ -90,7 +90,7 @@ QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_8">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <widget class="QFrame" name="central_frame">
       <property name="styleSheet">
@@ -454,9 +454,15 @@ background-color: transparent;</string>
              <layout class="QHBoxLayout" name="active_game_layout">
               <item>
                <widget class="QLineEdit" name="search_game_line">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>0</width>
+                  <width>275</width>
                   <height>32</height>
                  </size>
                 </property>
@@ -488,12 +494,48 @@ background-color: transparent;</string>
                </widget>
               </item>
               <item>
-               <widget class="QLCDNumber" name="game_timer">
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLCDNumber" name="game_timer_lcd">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
                 <property name="styleSheet">
-                 <string notr="true"/>
+                 <string notr="true">background-color: rgb(89, 217, 212);
+border-radius: 14px;
+color: white;</string>
+                </property>
+                <property name="smallDecimalPoint">
+                 <bool>false</bool>
                 </property>
                 <property name="digitCount">
-                 <number>8</number>
+                 <number>5</number>
                 </property>
                </widget>
               </item>
@@ -501,6 +543,9 @@ background-color: transparent;</string>
                <spacer name="horizontalSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Expanding</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -520,8 +565,8 @@ background-color: transparent;</string>
            <property name="currentIndex">
             <number>1</number>
            </property>
-           <widget class="QWidget" name="game_page">
-            <widget class="QScrollArea" name="game_scrollArea">
+           <widget class="QWidget" name="inventory_page">
+            <widget class="QScrollArea" name="inventory_scrollArea">
              <property name="geometry">
               <rect>
                <x>0</x>
@@ -545,7 +590,7 @@ border:none;
              <property name="widgetResizable">
               <bool>true</bool>
              </property>
-             <widget class="QWidget" name="game_scrollAreaWidgetContents">
+             <widget class="QWidget" name="inventory_scrollAreaWidgetContents">
               <property name="geometry">
                <rect>
                 <x>0</x>
@@ -554,7 +599,7 @@ border:none;
                 <height>434</height>
                </rect>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_13">
+              <layout class="QVBoxLayout" name="inventory_list_layout">
                <property name="spacing">
                 <number>24</number>
                </property>
@@ -574,8 +619,8 @@ border:none;
              </widget>
             </widget>
            </widget>
-           <widget class="QWidget" name="library_page">
-            <widget class="QScrollArea" name="library_scrollArea">
+           <widget class="QWidget" name="store_page">
+            <widget class="QScrollArea" name="store_scrollArea">
              <property name="geometry">
               <rect>
                <x>0</x>
@@ -599,7 +644,7 @@ border:none;
              <property name="widgetResizable">
               <bool>true</bool>
              </property>
-             <widget class="QWidget" name="library_scrollAreaWidgetContents">
+             <widget class="QWidget" name="store_scrollAreaWidgetContents">
               <property name="geometry">
                <rect>
                 <x>0</x>
@@ -608,7 +653,7 @@ border:none;
                 <height>434</height>
                </rect>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_14">
+              <layout class="QVBoxLayout" name="store_list_layout">
                <property name="spacing">
                 <number>24</number>
                </property>
@@ -629,6 +674,84 @@ border:none;
             </widget>
            </widget>
            <widget class="QWidget" name="setting_page"/>
+           <widget class="QWidget" name="loading_page">
+            <widget class="QWidget" name="verticalLayoutWidget">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>691</width>
+               <height>461</height>
+              </rect>
+             </property>
+             <layout class="QVBoxLayout" name="loading_layout">
+              <item>
+               <widget class="QLabel" name="loading_label">
+                <property name="text">
+                 <string>Loading...</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="search_page">
+            <widget class="QScrollArea" name="search_scrollArea">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>689</width>
+               <height>434</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QWidget{
+border:none;
+	background-color: rgba(255, 255, 255, 0);
+}</string>
+             </property>
+             <property name="verticalScrollBarPolicy">
+              <enum>Qt::ScrollBarAlwaysOff</enum>
+             </property>
+             <property name="horizontalScrollBarPolicy">
+              <enum>Qt::ScrollBarAlwaysOff</enum>
+             </property>
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="search_scrollAreaWidgetContents">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>689</width>
+                <height>434</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="search_list_layout">
+               <property name="spacing">
+                <number>24</number>
+               </property>
+               <property name="leftMargin">
+                <number>36</number>
+               </property>
+               <property name="topMargin">
+                <number>36</number>
+               </property>
+               <property name="rightMargin">
+                <number>124</number>
+               </property>
+               <property name="bottomMargin">
+                <number>36</number>
+               </property>
+              </layout>
+             </widget>
+            </widget>
+           </widget>
           </widget>
          </item>
         </layout>
