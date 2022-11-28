@@ -373,13 +373,12 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                 except:
                     pass
 
-#       search_game_line.text()
     def search_game_query(self, flag = 0):
 
         res = None
         games = []
         try:
-            res = sql_utils.sql_exec(show_inventory_game.format(search_game_line.text(), 1))[0]
+            res = sql_utils.sql_exec(show_inventory_game.format(search_game_line.text()))
         except Exception as e:
             return 'Search game store failed!'
         if res is None:
