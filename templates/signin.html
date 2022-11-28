@@ -2,8 +2,9 @@
 {% load static %}
 <html lang="en">
 <head>
-    <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Login</title>
     <style>
@@ -26,7 +27,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            /* 相对于现在所处位置的位移变化，x便偏移自己宽度的50%，y偏移自己高度的50% */
+
         }
 
         h2 {
@@ -66,7 +67,7 @@
 
         button:active {
             box-shadow: 0 0 3px rgb(173, 172, 172);
-            /* x偏移  y偏移  模糊值 颜色 */
+
         }
     </style>
 </head>
@@ -75,9 +76,9 @@
     <h2>User Login</h2>
     {% csrf_token %}
     {% if messages %}
-    {% for message in messages %}
-        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
-    {% endfor %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+        {% endfor %}
     {% endif %}
     <input id="user_id" type="text" placeholder="Enter User ID/Email" name="user_id">
     <input id="password" type="password" placeholder="Enter Password" name="password">
@@ -87,35 +88,6 @@
     <button id="login-btn" type="submit">Login</button>
 </form>
 
-{#      <script>#}
-{#          // let 定义一个变量#}
-{#          let username = document.getElementById('user_id')#}
-{#          let password = document.getElementById('password')#}
-{#          let loginBtn = document.getElementById('login-btn')#}
-{#              // js里面不允许出现 -#}
-{##}
-{#          //一般的交互事件#}
-{#          // onclick 点击事件#}
-{#          // onmousemove  鼠标移入事件#}
-{#          // onmouseout  鼠标移出事件#}
-{#          // ondblclick  双击事件#}
-{#          // onfocus  input框获取焦点事件#}
-{#          // onblur  失焦事件#}
-{##}
-{##}
-{#          loginBtn.onclick = function() {#}
-{#             let usernamevalue = username.value#}
-{#             let passwordvalue = password.value#}
-{#                 // console.log(usernamevalue, passwordvalue)#}
-{#                 // 便于检查的时候判断是否成功#}
-{#             if (!usernamevalue) {#}
-{##}
-{#return alert('Please enter a username')#}
-{#                     //return 跳出当前函数，并且返回后面的值#}
-{#             }#}
-{#             console.log(usernamevalue, passwordvalue)#}
-{##}
-{#         }#}
-{#     </script>#}
+
 </body>
 </html>
