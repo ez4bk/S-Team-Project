@@ -6,7 +6,6 @@ from config.client_info import config, write_to_json
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
 from config.sql_query.account_query import kids_select
 from config.sql_query.client_query import show_top_game, show_inventory_game
-from config.sql_query.game_query import search_game_by_name
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
@@ -374,12 +373,12 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                 except:
                     pass
 
-    def search_game_query(self, flag = 0):
+    def search_game_query(self, flag=0):
 
         res = None
         games = []
         try:
-            res = sql_utils.sql_exec(show_inventory_game.format(search_game_line.text()))
+            res = sql_utils.sql_exec(show_inventory_game.format(self.search_game_line.text()))
         except Exception as e:
             return 'Search game store failed!'
         if res is None:
@@ -392,6 +391,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             return flag
         except Exception:
             return "Search game failed!"
+
     def startMyTimer(self):
         self.time_left_int = 600
         self.myTimer.timeout.connect(self.timerTimeout)
