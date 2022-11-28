@@ -1,6 +1,9 @@
 import json
+import os
 
-f = open('config.json')
+from config.project_info import ROOT_DIR
+
+f = open(os.path.join(ROOT_DIR, 'config.json'))
 config = json.load(f)
 
 f.close()
