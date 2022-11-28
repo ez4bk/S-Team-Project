@@ -97,6 +97,9 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
 
     def mouseDoubleClickEvent(self, event):
         self.close()
+        # if self.addnew_window is not None:
+        #     if self.addnew_window.isVisible():
+        #         self.addnew_window.close()
         self.parent.show()
 
     def mousePressEvent(self, event):

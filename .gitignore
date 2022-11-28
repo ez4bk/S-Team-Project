@@ -15,6 +15,7 @@ venv
 .*
 .idea
 .idea/*
+.idea/*.*
 download
 download/*
 config.json

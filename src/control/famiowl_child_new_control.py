@@ -49,6 +49,7 @@ class FamiOwlChildNew(QMainWindow, Ui_FamiOwlChildNew_localicons):
                 add_kid.format(self.newchild_name.text(), str(config['parent_id']), self.iconindex, "120"), 0)
             message_info_box(self, "Child Added.")
             self.close()
+            self.parent.close()
 
     def __fill_in_buttons(self):
         button_list = [self.pushButton_1, self.pushButton_2, self.pushButton_3, self.pushButton_4, self.pushButton_5,
