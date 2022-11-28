@@ -13,3 +13,6 @@ time_record_update = 'update kid_playtime set playtime = playtime + "{0}" where 
 
 # get kid id base on parent id and kid name
 get_kid_id = 'select kid_id from kids where kids_name="{0}" and parent_id="{1}";'
+
+# search game with name
+search_game_by_name = 'select game_id from game_store where game_name like "%{0}%";'
