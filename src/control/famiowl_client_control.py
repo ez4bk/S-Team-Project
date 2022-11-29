@@ -372,14 +372,14 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             games = self.inventory_games
         elif flag == 1:
             games = self.top_games
+        else:
+            pass
         for game in games:
             if game.return_game_name() == game_name:
-                try:
-                    if (flag != 0) and (game not in self.inventory_games):
-                        self.inventory_games.append(game)
-                    self.fami_parent = game.run_game(self.fami_parent)
-                except:
-                    pass
+                #     try:
+                #         if (flag != 0) and (game not in self.inventory_games):
+                #             self.inventory_games.append(game)
+                self.fami_parent = game.run_game(self.fami_parent)
 
     def __define_search_game_enter(self):
 
@@ -415,7 +415,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
         if self.time_left_int == 0:
             self.time_left_int = 600
-        exit()
 
     @staticmethod
     def __secs_to_minsec(secs: int):
