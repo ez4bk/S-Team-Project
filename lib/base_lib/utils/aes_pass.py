@@ -54,16 +54,23 @@ class AESCipher:
 
 
 if __name__ == '__main__':
-    e = AESCipher(key="ADMINPASSWORDKEY")
-    aes_str = e.encrypt_main("123456")
-    print(aes_str)
+
+    list = []
+    for i in range(100):
+        e = AESCipher()
+        aes_str = e.encrypt_main("test")
+        if list == [] or aes_str not in list:
+            list.append(aes_str)
+
+    print(len(list))
+    # print(aes_str)
     # print(e.decrypt_main("MDAwMDAwMDAwMDAwMDAwMD0ua7+uvFbUtY2nmhcpfZ0="))
     # print(e.decrypt_main("JQmzjE1xpe0KqxEATCHBdDGZefY4POsRff6Zq1q8sIQ="))
-    aes_decode = e.decrypt_main(aes_str)
+    # aes_decode = e.decrypt_main("aes_str")
     # aes_decode = e.decrypt_main("X2uM+Ehq9PIU4aopVZSVkBmmvdPezrqrd1TA8jf5Rtw=")
     # aes_decode = e.decrypt_main("22coWECApt5xPUhVP/SZ2GiMEelsmPYHgXjsmtar+ik=")
     # aes_decode = e.decrypt_main("ohfj6bHebB+qdUcH1dcFgXim0FAeWh/nqAEFHI0CjIs=")
     # aes_decode = e.decrypt_main("P4vHehC1PMtxLn736Ds/6aRCSuzI3TFxMTP+QGV5j98=")
     # aes_decode = e.decrypt_main("n6yTadggnwVLgo0G/W9Z5Ttcegy7liAtQaRdAgU0vZk=")
 
-    print(aes_decode)
+    # print(aes_decode)

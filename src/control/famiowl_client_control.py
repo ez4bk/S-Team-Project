@@ -57,6 +57,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             self.__to_child_selection_window()
         else:
             self.__switch_child()
+        # self.__to_child_selection_window()
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.MouseButton.LeftButton:
@@ -257,6 +258,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __switch_child(self):
         self.child_name_label.setText(config['current_child'])
+        self.threadpool.waitForDone(500)
         profile = None
         for kid in self.kids:
             if kid.return_kid_name() == config['current_child']:
@@ -415,6 +417,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
         if self.time_left_int == 0:
             self.time_left_int = 600
+        self.__update_gui()
 
     @staticmethod
     def __secs_to_minsec(secs: int):
