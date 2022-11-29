@@ -7,21 +7,7 @@ aes_pass = AESCipher()
 
 
 def register(request):
-    """
-3            用户注册
-4        本视图需要对get和post请求做分别的处理
-5        post请求
-6            1. 从POST请求中获取数据（username，pwd)
-7            2. 对数据进行判空
-8            3. 判断数据库有没有重复的用户名
-9            4. 写入数据库
-10            5. 写入cookie
-11            6. 跳转个人中心
-12        get请求
-13            返回注册页面
-14        :param request:
-15        :return:
-16        """
+
     if request.method == "POST":
         user_id = request.POST.get('user_id')
         uname = request.POST.get('username')  # 获取post数据

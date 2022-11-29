@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djangoProject',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +80,9 @@ DATABASES = {
         'PASSWORD': 'FamiOwl123',
         'HOST': 'cs431-06.cs.rutgers.edu',
         'PORT': '3306',
+        'TEST': {
+            'NAME': 'FamiOwl_test',
+        }
     }
 }
 
