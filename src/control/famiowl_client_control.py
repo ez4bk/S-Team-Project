@@ -415,8 +415,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
         if self.time_left_int == 0:
             self.time_left_int = 600
-
-        self.__update_gui()
+        exit()
 
     @staticmethod
     def __secs_to_minsec(secs: int):
@@ -428,4 +427,3 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __update_gui(self):
         minsec = self.__secs_to_minsec(self.time_left_int)
         self.game_timer_lcd.display(minsec)
-        exit()

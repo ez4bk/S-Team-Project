@@ -30,9 +30,9 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         self.start_y = None
         self.threadpool = QThreadPool()
 
-        self.__userid = ''
-        self.__pwd = ''
-        self.__parent_obj = None
+        self.__userid = userid
+        self.__pwd = pwd
+        self.__parent_obj = parent_obj
 
         self.famiowl_title_label.setPixmap(QtGui.QPixmap(title_img))
         self.owl_gif_movie = QMovie(owl_gif)

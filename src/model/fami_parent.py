@@ -32,7 +32,7 @@ class FamiParent:
         self.__kids.append(kid)
 
     def change_name(self, name):
-        self.parent_name = name
+        self.__parent_name = name
         # TODO: change name query
 
     def return_parent_id(self):

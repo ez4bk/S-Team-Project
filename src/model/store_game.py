@@ -41,7 +41,7 @@ class StoreGame(Game):
         return os.path.join(DOWNLOAD_DIR, name)
 
     def rate(self):
-        res = SqlUtils.sql_exec(get_ratings.format(self.return_game_id(), 1))[0]
+        res = SqlUtils.sql_exec(get_ratings.format(self.return_game_id()), 1)[0]
         return res
 
     def __str__(self):
