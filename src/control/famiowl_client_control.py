@@ -56,8 +56,15 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         if config['current_child'] is None:
             self.__to_child_selection_window()
         else:
+            self.setupprofileicon()
             self.__switch_child()
         # self.__to_child_selection_window()
+
+    def setupprofileicon(self):
+        a = "src/resource/profile_icons/" + config['profile_icon'] + ".png"
+        self.profile_image_widget.setStyleSheet("border-radius:32px;"
+                                                "background-color: rgb(223, 223, 223);"
+                                                "image: url(%s);" % a)
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.MouseButton.LeftButton:

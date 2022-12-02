@@ -14,7 +14,7 @@ sql_utils = SqlUtils()
 
 
 class FamiOwlChildNew(QMainWindow, Ui_FamiOwlChildNew_localicons):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None,kids=None):
         super(FamiOwlChildNew, self).__init__(parent)
         self.parent = parent
         self.setupUi(self)
@@ -24,6 +24,8 @@ class FamiOwlChildNew(QMainWindow, Ui_FamiOwlChildNew_localicons):
         self.start_y = None
         self.iconindex = "0"
         self.__fill_in_buttons()
+
+        self.kids = kids
 
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setWindowFlag(QtCore.Qt.WindowType.WindowStaysOnTopHint)
@@ -37,12 +39,13 @@ class FamiOwlChildNew(QMainWindow, Ui_FamiOwlChildNew_localicons):
         self.add_newchild_button.clicked.connect(lambda: self.__add_new_child())
 
     def __add_new_child(self):
+        kidnum = len(self.kids)
         if (self.newchild_name.text() == ""):
             message_info_box(self, "Please enter your child`s name.")
 
         elif (self.iconindex == "0"):
             message_info_box(self, "Please select your profile icon.")
-        elif (config['child_num'] > 3):
+        elif (kidnum >= 4):
             message_info_box(self, "You`ve already got 4 child accounts.")
         else:
             sql_utils.sql_exec(
