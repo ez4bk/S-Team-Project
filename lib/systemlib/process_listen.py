@@ -1,7 +1,5 @@
 import psutil
 
-from lib.base_lib import log
-
 
 class ProcessListen(object):
     def __init__(self):

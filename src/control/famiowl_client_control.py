@@ -9,6 +9,7 @@ from config.sql_query.client_query import show_top_game, show_inventory_game, se
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
+from lib.systemlib.process_listen import ProcessListen
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
 from src.model.fami_kid import FamiKid
@@ -18,7 +19,7 @@ sql_utils = SqlUtils()
 
 
 class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
-    def __init__(self, parent=None, fami_parent=None, kids=[], top_games=[], inventory_games=[], search_games=[]):
+    def __init__(self, parent=None, fami_parent=None):
         super(FamiOwlClientWindow, self).__init__(parent)
         self.setupUi(self)
         self.child_selection_window = None
@@ -28,10 +29,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.game_timer = QtCore.QTimer(self)
 
         self.fami_parent = fami_parent
-        self.kids = kids
-        self.top_games = top_games
-        self.inventory_games = inventory_games
-        self.search_games = search_games
+        self.kids = self.fami_parent.return_kids()
+        self.top_games = []
+        self.inventory_games = self.fami_parent.return_inventory()
+        self.search_games = []
         self.time_left_int = 600
 
         self.parent_name_label.setText(fami_parent.return_parent_name())
@@ -47,7 +48,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__sync_profile()
         self.__get_kids()
         self.__get_game(0)
-        self.__update_gui()
         self.__start_game_timer()
 
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
@@ -167,9 +167,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_list = self.search_games
             layout = self.search_list_layout
 
-        print(self.inventory_games)
-        print(self.search_games)
-
         for i in reversed(range(layout.count())):
             widget = layout.takeAt(i).widget()
             if widget is not None:
@@ -230,7 +227,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_info_label.setText("Game Info: " + game_list[i].return_game_descr())  # set game description
             game_info_layout.addWidget(game_info_label)
             if flag == 0 or game_list[i] in self.inventory_games:
-                print(">>>>>>>>>")
                 time_limit_bar = QtWidgets.QProgressBar(game_card)
                 time_limit_bar.setStyleSheet("QProgressBar::chunk {\n"
                                              "        border-top-left-radius:8px;\n"
@@ -370,6 +366,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __open_game(self, game_name, flag=0):
         games = None
+        process_listen = ProcessListen()
+
         if flag == 0:
             games = self.inventory_games
         elif flag == 1:
@@ -381,7 +379,24 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                 #     try:
                 #         if (flag != 0) and (game not in self.inventory_games):
                 #             self.inventory_games.append(game)
-                self.fami_parent = game.run_game(self.fami_parent)
+                if flag == 0:
+                    worker = Worker(self.__run_game_thread, game=game)
+                    worker.signals.result.connect(self.__run_game_thread_result)
+                    worker.signals.finished.connect(self.__run_game_thread_complete)
+                    self.game_timer.start()
+                    self.threadpool.start(worker)
+                else:
+                    self.fami_parent = game.run_game(self.fami_parent)
+
+    def __run_game_thread(self, game):
+        self.fami_parent = game.run_game(self.fami_parent)
+
+    def __run_game_thread_result(self):
+        pass
+
+    def __run_game_thread_complete(self):
+        self.game_timer.stop()
+        print(self.__secs_to_minsec(self.time_left_int))
 
     def __define_search_game_enter(self):
 

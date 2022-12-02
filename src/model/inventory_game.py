@@ -1,13 +1,11 @@
 import os
 import subprocess
 
-from config.project_info import DOWNLOAD_DIR
-from src.model.game import Game
-
-from lib.base_lib.sql.sql_utils import SqlUtils
-from config.sql_query.game_query import time_record_update, time_record_check, get_kid_id
-
 from config.client_info import config
+from config.project_info import DOWNLOAD_DIR
+from config.sql_query.game_query import time_record_update, time_record_check, get_kid_id
+from lib.base_lib.sql.sql_utils import SqlUtils
+from src.model.game import Game
 
 sql_utils = SqlUtils()
 
@@ -24,8 +22,10 @@ class InventoryGame(Game):
 
     def run_game(self, fami_parent):
         path = os.path.join(DOWNLOAD_DIR, self.return_game_name())
+        # print(process_listen.find_process_by_name('snake'))
         try:
             completed_process = subprocess.run(["python3", path + '.py'])
+            # subprocess.call(r'python3 %s.py' % path)
         except:
             pass
         return fami_parent
@@ -39,8 +39,8 @@ class InventoryGame(Game):
     def delete(self):
         return 0
 
-# Wendi: get kid id from parents table, use kid id to find
-# time_played: the time this kid spent on this game this time opening the game
+    # Wendi: get kid id from parents table, use kid id to find
+    # time_played: the time this kid spent on this game this time opening the game
     def accumulate_playtime(self, time_played):
         kid_name = config.get['current_child']
         parent_id = config.get['parent_id']

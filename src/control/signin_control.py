@@ -5,9 +5,8 @@ from PyQt6.QtCore import QThreadPool
 from PyQt6.QtGui import QMovie
 from PyQt6.QtWidgets import QMainWindow, QLineEdit
 
-from config.client_info import config, write_to_json
+from config.client_info import config
 from config.front_end.icon_path import owl_gif, title_img, signin_icon
-from config.sql_query.account_query import parent_id_check, parent_signin
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
 from lib.pyqt_lib.message_box import message_info_box
@@ -125,45 +124,44 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         self.close()
 
     def __signin_query(self, id_input, pwd_input):
-        try:
-            res = sql_utils.sql_exec(parent_id_check.format(id_input), 1)[0][0]
-        except Exception as e:
-            return 'Fetch parent info failed!'
+        self.parent_obj = FamiParent()
+        res = self.parent_obj.get_parent_info_query(id_input, pwd_input)
+        if isinstance(res, FamiParent):
+            res = self.parent_obj.get_kids_info_query()
 
-        if res is None:
-            return "Fetch parent info failed!"
-        elif res == 0:
-            return "User does not exist"
-
-        try:
-            res = sql_utils.sql_exec(parent_signin.format(id_input), 1)[0]
-        except Exception as e:
-            return 'Fetch parent info failed!'
-
-        if not self.__verify_pwd(pwd_input, res[1]):
-            return "Password Incorrect!"
-        else:
-            parent = FamiParent(self.__userid, res[0])
-            self.__parent_obj = parent
-            config['parent_id'] = id_input
-            config['parent_name'] = res[0]
-            config['parent_pwd'] = res[1]
-            config['signin_state'] = True
-            write_to_json()
-            return True
-
-    @staticmethod
-    def __verify_pwd(user_input, pwd):
-        try:
-            if aes_cipher.decrypt_main(pwd) == user_input:
-                return True
-            else:
-                return False
-        except Exception as e:
-            assert False, e
+        return res
+        # self.parent_obj.get_kids_info_query()
+        # try:
+        #     res = sql_utils.sql_exec(parent_id_check.format(id_input), 1)[0][0]
+        # except Exception as e:
+        #     return 'Fetch parent info failed!'
+        #
+        # if res is None:
+        #     return "Fetch parent info failed!"
+        # elif res == 0:
+        #     return "User does not exist"
+        #
+        # try:
+        #     res = sql_utils.sql_exec(parent_signin.format(id_input), 1)[0]
+        # except Exception as e:
+        #     return 'Fetch parent info failed!'
+        #
+        # if not self.__verify_pwd(pwd_input, res[1]):
+        #     return "Password Incorrect!"
+        # else:
+        #     parent = FamiParent(self.__userid, res[0])
+        #     self.__parent_obj = parent
+        #     config['parent_id'] = id_input
+        #     config['parent_name'] = res[0]
+        #     config['parent_pwd'] = res[1]
+        #     config['signin_state'] = True
+        #     write_to_json()
+        #     return True
 
     def __thread_result(self, result):
-        if result is True:
+        if isinstance(result, FamiParent):
+            print(result.return_kids())
+            self.__parent_obj = result
             self.__to_famiowl_client()
         else:
             message_info_box(self, str(result))
