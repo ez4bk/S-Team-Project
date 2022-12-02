@@ -58,8 +58,15 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         if config['current_child'] is None:
             self.__to_child_selection_window()
         else:
+            self.setupprofileicon()
             self.__switch_child()
         # self.__to_child_selection_window()
+
+    def setupprofileicon(self):
+        a = "src/resource/profile_icons/" + config['profile_icon'] + ".png"
+        self.profile_image_widget.setStyleSheet("border-radius:32px;"
+                                                "background-color: rgb(223, 223, 223);"
+                                                "image: url(%s);" % a)
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.MouseButton.LeftButton:
@@ -208,7 +215,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             sizePolicy.setHorizontalStretch(0)
             sizePolicy.setVerticalStretch(0)
             game_profile_button.setSizePolicy(sizePolicy)
-            game_profile_button.setStyleSheet("image: url(src/resource/img/img/image.png);")
+            game_cover = "src/resource/game_covers/" + game_list[i].return_game_name() + ".png"
+            game_profile_button.setStyleSheet("image: url(%s);" % game_cover)
             game_profile_button.setObjectName("game_profile_widget_%s" % i)
             game_card_layout.addWidget(game_profile_button)
             game_info_layout = QtWidgets.QVBoxLayout()
