@@ -206,7 +206,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             sizePolicy.setHorizontalStretch(0)
             sizePolicy.setVerticalStretch(0)
             game_profile_button.setSizePolicy(sizePolicy)
-            game_profile_button.setStyleSheet("image: url(src/resource/img/img/image.png);")
+            game_cover = "src/resource/game_covers/" + game_list[i].return_game_name() + ".png"
+            game_profile_button.setStyleSheet("image: url(%s);" % game_cover)
             game_profile_button.setObjectName("game_profile_widget_%s" % i)
             game_card_layout.addWidget(game_profile_button)
             game_info_layout = QtWidgets.QVBoxLayout()
