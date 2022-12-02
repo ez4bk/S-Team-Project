@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QMainWindow
 
 from config.client_info import config, write_to_json
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
-from config.sql_query.account_query import kids_select
+from config.sql_query.account_query import kids_select, get_last_played, update_last_played, update_time_played_today
 from config.sql_query.client_query import show_top_game, show_inventory_game, search_game
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.pyqt_lib.message_box import message_info_box
@@ -13,6 +13,8 @@ from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWin
 from src.famiowl_client_window import Ui_FamiOwl
 from src.model.fami_kid import FamiKid
 from src.model.store_game import StoreGame
+
+from datetime import date
 
 sql_utils = SqlUtils()
 
@@ -270,6 +272,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                                     "image: url(%s);" % a)
         except Exception as e:
             assert True, e.__str__()
+        # should call update playtime here
 
     def __get_top_game_query(self, flag=0):
         res = None
@@ -316,7 +319,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
         try:
             for a in res:
-                kid = FamiKid(a[0], a[1], self.fami_parent, a[3], a[4])
+                kid = FamiKid(a[0], a[1], self.fami_parent, a[3], a[4], a[5], a[6])
                 children.append(kid)
             self.kids = children
             self.fami_parent.set_kids(children)
@@ -429,3 +432,21 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __update_gui(self):
         minsec = self.__secs_to_minsec(self.time_left_int)
         self.game_timer_lcd.display(minsec)
+
+    # update the playtime and lastplayed for current child only
+    def __update_playtime_query(self):
+        today_date = date.today()
+        kid_name = config['current_child']
+        parent_id = config['parent_id']
+        last_played_indb = None
+        for c in self.kids:
+            if c.return_kid_name == kid_name:
+                last_played_indb = c.return_last_played
+        if last_played_indb == today_date:
+            return
+        else:
+            try:
+                sql_utils.sql_exec(update_last_played.format(today_date, kid_name, parent_id))
+                sql_utils.sql_exec(update_time_played_today.format(0, kid_name, parent_id))
+            except Exception as e:
+                return 'Update playtime failed. '

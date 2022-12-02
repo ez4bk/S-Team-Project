@@ -13,3 +13,11 @@ add_kid = 'insert into kids (kids_name,parent_id,icon_image,time_limit) values (
 # show games user own where parent_id = input id
 show_parent_inventory = 'select * from game_inventory where parent_id = "{0}";'
 
+# check last login
+get_last_played = 'select last_played from kids where kids_name = "{0}" and parent_id = "{1}";'
+
+# update last login
+update_last_played = 'update kids set last_played = "{0}" where kids_name = "{1}" and parent_id = "{2}";'
+
+# update time played today
+update_time_played_today = 'update kids set time_played_today = "{0}" where kids_name = "{1}" and parent_id = "{2}";'
