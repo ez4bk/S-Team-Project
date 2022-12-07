@@ -44,6 +44,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__define_menu_listwidget()
         self.__define_switch_child_button()
         self.__define_search_game_enter()
+        self.game_timer.timeout.connect(self.__game_timer_timeout)
         self.__sync_profile()
         self.__get_game_local()
 
@@ -331,7 +332,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __game_thread_result(self, result):
         if result is not str:
-            self.fami_parent.set_inventory(self.inventory_games)
+            # self.fami_parent.set_inventory(self.inventory_games)
             self.__create_game_widgets(result)
         else:
             message_info_box(self, str(result))
@@ -363,11 +364,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                 #         if (flag != 0) and (game not in self.inventory_games):
                 #             self.inventory_games.append(game)
                 if flag == 0:
-                    self.__start_game_timer()
                     worker = Worker(self.__run_game_thread, game=game)
                     worker.signals.result.connect(self.__run_game_thread_result)
                     worker.signals.finished.connect(self.__run_game_thread_complete)
-                    self.game_timer.start()
+                    self.__start_game_timer()
                     self.threadpool.start(worker)
                 else:
                     self.fami_parent = game.run_game(self.fami_parent)
@@ -380,7 +380,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __run_game_thread_complete(self):
         self.game_timer.stop()
-        print(self.__secs_to_minsec(self.time_left_int))
+        self.current_kid.set_time_remaining(self.time_left_int)
 
     def __define_search_game_enter(self):
         self.search_game_line.returnPressed.connect(lambda: self.__get_game(2))
@@ -398,7 +398,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __start_game_timer(self):
         self.time_left_int = self.current_kid.return_time_remaining()
-        self.game_timer.timeout.connect(self.__game_timer_timeout)
+        # self.game_timer.setInterval(1000)
         self.game_timer.start(1000)
 
     def __game_timer_timeout(self):
