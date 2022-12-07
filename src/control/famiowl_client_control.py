@@ -1,12 +1,9 @@
-from datetime import date
-
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import QThreadPool
 from PyQt6.QtWidgets import QMainWindow
 
 from config.client_info import config, write_to_json
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
-from config.sql_query.account_query import update_last_played, update_time_played_today
 from config.sql_query.client_query import show_top_game, show_inventory_game
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.pyqt_lib.message_box import message_info_box
@@ -14,7 +11,6 @@ from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
 from src.model.fami_parent import FamiParent
-from src.model.fami_kid import FamiKid
 from src.model.store_game import StoreGame
 
 sql_utils = SqlUtils()
@@ -37,7 +33,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.top_games = []
         self.inventory_games = self.fami_parent.return_inventory()
         self.search_games = []
-        self.time_left_int = 600
 
         self.parent_name_label.setText(fami_parent.return_parent_name())
 
@@ -50,7 +45,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__define_switch_child_button()
         self.__define_search_game_enter()
         self.__sync_profile()
-        self.__start_game_timer()
+        self.__get_game_local()
 
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
         self.stackedWidget.setCurrentWidget(self.inventory_page)
@@ -155,7 +150,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __get_game_local(self):
         self.inventory_games = self.fami_parent.return_inventory()
-        print(self.inventory_games)
         self.__create_game_widgets(0)
 
     def __create_game_widgets(self, flag=0):
@@ -267,6 +261,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             self.profile_image_widget.setStyleSheet("border-radius:32px;"
                                                     "background-color: rgb(223, 223, 223);"
                                                     "image: url(%s);" % a)
+            self.time_left_int = self.current_kid.return_time_remaining()
+            self.__update_gui()
         except Exception as e:
             assert True, e.__str__()
         # should call update playtime here
@@ -278,7 +274,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             if kid.return_kid_name() == kid_name:
                 self.current_kid = kid
         self.current_kid.init_playtime()
-
 
     def __get_top_game_query(self, flag=0):
         res = None
@@ -368,6 +363,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                 #         if (flag != 0) and (game not in self.inventory_games):
                 #             self.inventory_games.append(game)
                 if flag == 0:
+                    self.__start_game_timer()
                     worker = Worker(self.__run_game_thread, game=game)
                     worker.signals.result.connect(self.__run_game_thread_result)
                     worker.signals.finished.connect(self.__run_game_thread_complete)
@@ -379,7 +375,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __run_game_thread(self, game):
         self.fami_parent = game.run_game(self.fami_parent)
 
-    def __run_game_thread_result(self):
+    def __run_game_thread_result(self, result):
         pass
 
     def __run_game_thread_complete(self):
@@ -415,28 +411,12 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     @staticmethod
     def __secs_to_minsec(secs: int):
         mins = secs // 60
+        hours = mins // 60
+        mins = mins % 60
         secs = secs % 60
-        minsec = f'{mins:02}:{secs:02}'
+        minsec = f'{hours:02}:{mins:02}:{secs:02}'
         return minsec
 
     def __update_gui(self):
         minsec = self.__secs_to_minsec(self.time_left_int)
         self.game_timer_lcd.display(minsec)
-
-    # update the playtime and lastplayed for current child only
-    # 在client 启动时检查上次游玩时间是不是今天，如果不是今天，之前积累的time played today清零
-
-    def __update_playtime_query(self):
-        today_date = date.today()
-        last_played_indb = self.current_kid.return_last_played()
-        kid_id = self.current_kid.return_kid_id()
-        if last_played_indb == today_date:
-            return
-        else:
-            try:
-                sql_utils.sql_exec(update_last_played.format(today_date, kid_id))
-                sql_utils.sql_exec(update_time_played_today.format(0, kid_id))
-            except Exception as e:
-                return 'Update playtime failed. '
-
-
