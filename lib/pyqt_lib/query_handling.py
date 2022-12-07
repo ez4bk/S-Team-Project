@@ -3,8 +3,6 @@ import traceback
 
 from PyQt6.QtCore import QObject, pyqtSignal, QRunnable, pyqtSlot
 
-from config.client_info import config
-from config.sql_query.client_query import add_to_inventory, exist_game_check
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
 
@@ -57,22 +55,4 @@ class Worker(QRunnable):
             self.signals.result.emit(result)  # Return the result of the processing
         finally:
             self.signals.finished.emit()  # Done
-
-    def handle_add_to_inventory_query(self):
-        game_id = self.kwargs['game_id']
-        parent_id = config['parent_id']
-        try:
-            res = sql_utils.sql_exec(exist_game_check.format(parent_id, game_id), 1)[0][0]
-        except Exception as e:
-            self.error.emit('Fetch database failed!')
-            return
-        if res == 1:
-            self.error.emit("Game already in the inventory!")
-            return
-        else:
-            try:
-                sql_utils.sql_exec(add_to_inventory.format(parent_id, game_id), 0)
-                self.finished.emit()
-            except Exception as e:
-                self.error.emit('Fetch database failed!')
-                return
+   
