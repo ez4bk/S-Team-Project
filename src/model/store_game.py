@@ -21,7 +21,10 @@ class StoreGame(Game):
 
     def run_game(self, fami_parent):
         path = self.download()
-        fami_parent = self.add_to_inventory(fami_parent, path)
+        if self not in fami_parent.return_inventory():
+            fami_parent = self.add_to_inventory(fami_parent, path)
+        else:
+            print("Already in inventory")
         return fami_parent
 
     def add_to_inventory(self, fami_parent, local_path):
@@ -36,9 +39,14 @@ class StoreGame(Game):
 
     def download(self):
         name = self.return_game_name() + ".py"
-        download_dir_path = self.return_path()
-        sftp_utils.sftp_download(download_dir_path, name)
-        return os.path.join(DOWNLOAD_DIR, name)
+        download_dir_path = self.__path
+        full_path = os.path.join(DOWNLOAD_DIR, name)
+        print(full_path)
+        if os.path.exists(full_path):
+            return full_path
+        else:
+            sftp_utils.sftp_download(download_dir_path, name)
+            return full_path
 
     def rate(self):
         res = SqlUtils.sql_exec(get_ratings.format(self.return_game_id()), 1)[0]
