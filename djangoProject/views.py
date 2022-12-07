@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from djangoProject.models import *
 from djangoProject.aes_pass import *
 from django.contrib import messages
+import math
 
 aes_pass = AESCipher()
 
@@ -82,7 +83,12 @@ def my_children(request):
     if request.method == 'POST':
         for kid in kids:
             if kid.kids_name in request.POST:
-                new_time_limit = request.POST.get(kid.kids_name)
+                new_time_limit_minutes = request.POST.get(kid.kids_name)
+                new_time_limit_hours = request.POST.get(kid.kids_name+"hours")
+                new_time_limit = str(int(new_time_limit_minutes) + (int(new_time_limit_hours)*60))
+                if int(new_time_limit) > 1440:
+                    messages.warning(request, 'Time limits has to be within 24 hours')
+                    return render(request, 'my_children.html', {'kids': kids})
                 try:
                     Children.objects.filter(parent_id=user_id, kids_name=kid.kids_name).update(
                         time_limit=new_time_limit)

@@ -34,10 +34,11 @@
              width="10%"
              height="auto">
         <p>
-        <li>{{ kid.kids_name }} -> Timelimit: {{ kid.time_limit }} minutes</li>
+        <li>{{ kid.kids_name }} -> Timelimit: {{ kid.time_limit }}min </li>
         <form method="post">
             {% csrf_token %}
-            <input id=kid.kids_name type="text" placeholder="Enter new time limit" name={{ kid.kids_name }}>
+            <input id=kid.kids_name type="text" placeholder="# Hours" name={{ kid.kids_name }}hours>
+            <input id=kid.kids_name type="text" placeholder="# Minutes" name={{ kid.kids_name }}>
             <button id="set-btn" type="submit">Set</button>
         </form>
         </p>
