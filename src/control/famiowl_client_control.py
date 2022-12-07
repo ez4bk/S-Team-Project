@@ -277,6 +277,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         for kid in self.kids:
             if kid.return_kid_name() == kid_name:
                 self.current_kid = kid
+        self.current_kid.init_playtime()
 
 
     def __get_top_game_query(self, flag=0):
