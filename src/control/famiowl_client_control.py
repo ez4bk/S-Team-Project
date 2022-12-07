@@ -14,6 +14,7 @@ from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
 from src.model.fami_parent import FamiParent
+from src.model.fami_kid import FamiKid
 from src.model.store_game import StoreGame
 
 sql_utils = SqlUtils()
@@ -31,6 +32,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
         self.fami_parent = fami_parent
         self.kids = self.fami_parent.return_kids()
+        # need a single parameter to store the current kid
+        self.fami_kid = None
         self.top_games = []
         self.inventory_games = self.fami_parent.return_inventory()
         self.search_games = []
@@ -255,6 +258,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.windowTitleChanged.connect(lambda: self.__switch_child())
 
     def __switch_child(self):
+        self.__set_current_kid()
         self.child_name_label.setText(config['current_child'])
         self.threadpool.waitForDone(500)
         profile = None
@@ -269,6 +273,14 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         except Exception as e:
             assert True, e.__str__()
         # should call update playtime here
+
+    # set current kid object for this window
+    def __set_current_kid(self):
+        kid_name = config['current_child']
+        for kid in self.kids:
+            if kid.return_kid_name() == kid_name:
+                self.fami_kid = kid
+
 
     def __get_top_game_query(self, flag=0):
         res = None
@@ -430,3 +442,5 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                 sql_utils.sql_exec(update_time_played_today.format(0, kid_name, parent_id))
             except Exception as e:
                 return 'Update playtime failed. '
+
+
