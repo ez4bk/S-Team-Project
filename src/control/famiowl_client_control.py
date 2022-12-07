@@ -397,7 +397,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         return True
 
     def __start_game_timer(self):
-        self.time_left_int = 600
+        self.time_left_int = self.current_kid.return_time_remaining()
         self.game_timer.timeout.connect(self.__game_timer_timeout)
         self.game_timer.start(1000)
 
