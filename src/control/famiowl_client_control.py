@@ -1,21 +1,20 @@
+from datetime import date
+
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import QThreadPool
 from PyQt6.QtWidgets import QMainWindow
 
 from config.client_info import config, write_to_json
 from config.front_end.icon_path import list_widget_icons, switch_child_icon
-from config.sql_query.account_query import kids_select, get_last_played, update_last_played, update_time_played_today
-from config.sql_query.client_query import show_top_game, show_inventory_game, search_game
+from config.sql_query.account_query import update_last_played, update_time_played_today
+from config.sql_query.client_query import show_top_game, show_inventory_game
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
-from lib.systemlib.process_listen import ProcessListen
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
-from src.model.fami_kid import FamiKid
+from src.model.fami_parent import FamiParent
 from src.model.store_game import StoreGame
-
-from datetime import date
 
 sql_utils = SqlUtils()
 
@@ -48,8 +47,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__define_switch_child_button()
         self.__define_search_game_enter()
         self.__sync_profile()
-        self.__get_kids()
-        self.__get_game(0)
         self.__start_game_timer()
 
         self.menu_listwidget.setCurrentItem(self.menu_listwidget.itemAt(0, 0))
@@ -100,24 +97,16 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                                "background-color: transparent;"
                                                )
 
-    def __to_child_selection_window(self, button_flag=False):
-        if button_flag:
-            self.__get_kids(button_flag)
-        else:
-            self.__to_child_selection_window_show()
-        # while self.kids is None:
-        #     pass
-
-    def __to_child_selection_window_show(self):
+    def __to_child_selection_window(self):
+        self.kids = self.fami_parent.return_kids()
         self.child_selection_window = FamiOwlChildSelectionWindow(self, self.kids)
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
         else:
-            # self.child_selection_window.
             self.child_selection_window.show()
 
     def __define_switch_child_button(self):
-        self.switch_child_button.clicked.connect(lambda: self.__to_child_selection_window(True))
+        self.switch_child_button.clicked.connect(lambda: self.__to_child_selection_window())
 
     def __define_menu_listwidget(self):
         self.menu_listwidget.itemClicked.connect(lambda: self.__menu_select())
@@ -137,6 +126,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             # TODO: Separate sign-out and exit
             config['signin_state'] = False
             write_to_json()
+            self.fami_parent.sync_database()
             exit()
 
     def __get_game(self, flag=0):
@@ -148,6 +138,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             if flag == 0:
                 worker = Worker(self.__get_inventory_game_query, flag=flag)
             elif flag == 1:
+                print(">>>>")
                 worker = Worker(self.__get_top_game_query, flag=flag)
             elif flag == 2:
                 self.stackedWidget.setCurrentWidget(self.search_page)
@@ -161,6 +152,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __get_game_local(self):
         self.inventory_games = self.fami_parent.return_inventory()
+        print(self.inventory_games)
         self.__create_game_widgets(0)
 
     def __create_game_widgets(self, flag=0):
@@ -183,7 +175,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
         if len(game_list) == 0:
             no_game_label = QtWidgets.QLabel()
-            no_game_label.setText('No Games Available')
+            no_game_label.setText('No Games Found')
             no_game_label.setStyleSheet('background-color:transparent;'
                                         'color: black;')
             no_game_label.setObjectName("no_game_label")
@@ -236,7 +228,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_info_label.setObjectName("game_info_label_%s" % i)
             game_info_label.setText("Game Info: " + game_list[i].return_game_descr())  # set game description
             game_info_layout.addWidget(game_info_label)
-            if flag == 0 or game_list[i] in self.inventory_games:
+            if flag == 0 or (flag == 2 and game_list[i] in self.inventory_games):
                 time_limit_bar = QtWidgets.QProgressBar(game_card)
                 time_limit_bar.setStyleSheet("QProgressBar::chunk {\n"
                                              "        border-top-left-radius:8px;\n"
@@ -288,7 +280,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             return 'Fetch game store failed!'
         if res is None or res == []:
             return "No games available!"
-
         try:
             for a in res:
                 game = StoreGame(a[0], a[1], a[2], a[3], a[4], a[5])
@@ -298,9 +289,9 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         except Exception:
             return "Game initialization failed!"
 
-    def __get_kids(self, button_flag=False):
+    def __get_kids(self):
         try:
-            worker = Worker(self.__get_kids_query, button_flag=button_flag)
+            worker = Worker(self.__get_kids_query)
             worker.signals.result.connect(self.__kids_thread_result)
             worker.signals.finished.connect(self.__kids_thread_complete)
             self.threadpool.start(worker)
@@ -308,28 +299,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         except:
             pass
 
-    def __get_kids_query(self, button_flag):
-        res = None
-        children = []
-        try:
-            res = sql_utils.sql_exec(kids_select.format(config['parent_id']))
-        except Exception as e:
-            return "Could not fetch kids info"
-
-        if res is None or res == []:
-            self.kids = children
-            self.fami_parent.set_kids(children)
-            return button_flag
-
-        try:
-            for a in res:
-                kid = FamiKid(a[0], a[1], self.fami_parent, a[3], a[4], a[5], a[6])
-                children.append(kid)
-            self.kids = children
-            self.fami_parent.set_kids(children)
-            return button_flag
-        except Exception as e:
-            return 'Fetch children info failed!'
+    def __get_kids_query(self):
+        return self.fami_parent.get_kids_info_query()
 
     def __get_inventory_game_query(self, flag=0):
         res = None
@@ -354,7 +325,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             return "Game initialization failed!"
 
     def __game_thread_result(self, result):
-        if result is not None:
+        if result is not str:
             self.fami_parent.set_inventory(self.inventory_games)
             self.__create_game_widgets(result)
         else:
@@ -364,11 +335,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.menu_listwidget.setEnabled(True)
 
     def __kids_thread_result(self, result):
-        if result is not str:
-            if not result:
-                pass
-            else:
-                self.__to_child_selection_window_show()
+        if isinstance(result, FamiParent):
+            self.fami_parent = result
         else:
             message_info_box(self, str(result))
 
@@ -377,7 +345,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __open_game(self, game_name, flag=0):
         games = None
-        process_listen = ProcessListen()
 
         if flag == 0:
             games = self.inventory_games
@@ -410,28 +377,18 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         print(self.__secs_to_minsec(self.time_left_int))
 
     def __define_search_game_enter(self):
-
         self.search_game_line.returnPressed.connect(lambda: self.__get_game(2))
 
     def __get_search_game_query(self, flag=0):
-
+        keyword = self.search_game_line.text()
         res = None
         games = []
-        try:
-            res = sql_utils.sql_exec(search_game.format(self.search_game_line.text()))
-        except Exception as e:
-            return 'Search game store failed!'
-        if res is None or res == []:
-            return "No game matches your search."
-        try:
-            for a in res:
-                for game in self.top_games:
-                    if int(a[0]) == int(game.return_game_id()):
-                        games.append(game)
-            self.search_games = games
-            return flag
-        except Exception:
-            return "Search game failed!"
+        for game in self.top_games:
+            if keyword.lower() in game.return_game_name().lower():
+                games.append(game)
+
+        self.search_games = games
+        return True
 
     def __start_game_timer(self):
         self.time_left_int = 600
@@ -464,7 +421,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         last_played_indb = None
         for c in self.kids:
             if c.return_kid_name == kid_name:
-                last_played_indb = c.return_last_played
+                last_played_indb = c.return_last_played()
         if last_played_indb == today_date:
             return
         else:

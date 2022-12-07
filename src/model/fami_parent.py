@@ -1,8 +1,12 @@
 from config.client_info import config, write_to_json
-from config.sql_query.account_query import parent_id_check, parent_signin, kids_select
+from config.sql_query.account_query import parent_id_check, parent_signin, kids_select, show_parent_inventory, add_kid
+from config.sql_query.client_query import add_to_inventory, show_inventory_game
+from config.sql_query.game_query import search_game_by_id
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
 from src.model.fami_kid import FamiKid
+from src.model.inventory_game import InventoryGame
+from src.model.store_game import StoreGame
 
 sql_utils = SqlUtils()
 aes_cipher = AESCipher()
@@ -59,15 +63,62 @@ class FamiParent:
 
         try:
             for a in res:
-                kid = FamiKid(a[0], a[1], self, a[3], a[4])
+                kid = FamiKid(a[0], a[1], self, a[3], a[4], a[5], a[6])
                 kids_list.append(kid)
             self.__kids = kids_list
             return self
         except Exception as e:
             return 'Fetch kids_list info failed!'
 
+    def get_inventory_query(self):
+        res = None
+        games = []
+        try:
+            res = sql_utils.sql_exec(show_inventory_game.format(self.__parent_id))
+        except Exception as e:
+            return 'Fetch game store failed!'
+
+        if res is None or res == []:
+            self.__inventory = games
+            return self
+
+        try:
+            for a in res:
+                store_game = sql_utils.sql_exec(search_game_by_id.format(a[2]))[0]
+                game = StoreGame(store_game[0], store_game[1], store_game[2], store_game[3], store_game[4],
+                                 store_game[5])
+                inv_game = InventoryGame(game, self)
+                games.append(inv_game)
+            self.__inventory = games
+            return self
+        except Exception:
+            return "Game initialization failed!"
+
     def sync_database(self):
-        pass
+        self.__sync_kids()
+        self.__sync_inventory()
+
+    def __sync_kids(self):
+        existing_kids = []
+        res = sql_utils.sql_exec(kids_select.format(self.__parent_id))
+        for kid in res:
+            existing_kids.append(kid[1])
+        for kid in self.__kids:
+            if kid.return_kid_name() not in existing_kids:
+                sql_utils.sql_exec(
+                    add_kid.format(kid.return_kid_name(), kid.return_kid_id(), kid.return_profile(),
+                                   kid.return_time_limit()),
+                    0)
+
+    def __sync_inventory(self):
+        existing_games = []
+        res = sql_utils.sql_exec(show_parent_inventory.format(self.__parent_id))
+        for game in res:
+            existing_games.append(int(game[2]))
+        for game in self.__inventory:
+            if int(game.return_game_id()) not in existing_games:
+                sql_utils.sql_exec(
+                    add_to_inventory.format(self.__parent_id, game.return_game_id()), 0)
 
     def set_kids(self, kids):
         self.__kids = kids

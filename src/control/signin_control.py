@@ -128,35 +128,10 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         res = self.parent_obj.get_parent_info_query(id_input, pwd_input)
         if isinstance(res, FamiParent):
             res = self.parent_obj.get_kids_info_query()
+        if isinstance(res, FamiParent):
+            res = self.parent_obj.get_inventory_query()
 
         return res
-        # self.parent_obj.get_kids_info_query()
-        # try:
-        #     res = sql_utils.sql_exec(parent_id_check.format(id_input), 1)[0][0]
-        # except Exception as e:
-        #     return 'Fetch parent info failed!'
-        #
-        # if res is None:
-        #     return "Fetch parent info failed!"
-        # elif res == 0:
-        #     return "User does not exist"
-        #
-        # try:
-        #     res = sql_utils.sql_exec(parent_signin.format(id_input), 1)[0]
-        # except Exception as e:
-        #     return 'Fetch parent info failed!'
-        #
-        # if not self.__verify_pwd(pwd_input, res[1]):
-        #     return "Password Incorrect!"
-        # else:
-        #     parent = FamiParent(self.__userid, res[0])
-        #     self.__parent_obj = parent
-        #     config['parent_id'] = id_input
-        #     config['parent_name'] = res[0]
-        #     config['parent_pwd'] = res[1]
-        #     config['signin_state'] = True
-        #     write_to_json()
-        #     return True
 
     def __thread_result(self, result):
         if isinstance(result, FamiParent):
