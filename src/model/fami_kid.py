@@ -12,20 +12,21 @@ class FamiKid:
         self.__kid_name = kid_name
         self.__profile = profile
         self.__parent = parent
-        self.__time_limit = time_limit
+        self.__time_limit = time_limit * 60
         self.__last_played = last_played
         if last_played != date.today():
             self.__time_played_today = 0
         else:
-            self.__time_played_today = time_played_today
+            self.__time_played_today = time_played_today * 60
         self.__time_remaining = self.__time_limit - self.__time_played_today
 
     def sync_database(self):
         self.sync_playtime()
 
     def sync_playtime(self):
+        time_played_minutes = round(self.__time_played_today / 60)
         try:
-            sql_utils.sql_exec(update_time_played_today.format(self.__time_played_today, self.__kid_id))
+            sql_utils.sql_exec(update_time_played_today.format(time_played_minutes, self.__kid_id))
         except Exception as e:
             return 'Update playtime failed. '
 
