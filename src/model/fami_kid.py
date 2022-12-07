@@ -1,5 +1,10 @@
 from datetime import date
 
+from config.sql_query.account_query import update_last_played, update_time_played_today
+from lib.base_lib.sql.sql_utils import SqlUtils
+
+sql_utils = SqlUtils()
+
 
 class FamiKid:
     def __init__(self, kid_id, kid_name, parent, profile, time_limit, last_played, time_played_today):
@@ -13,6 +18,29 @@ class FamiKid:
             self.__time_played_today = 0
         else:
             self.__time_played_today = time_played_today
+        self.__time_remaining = self.__time_limit - self.__time_played_today
+
+    def sync_database(self):
+        self.sync_playtime()
+
+    def sync_playtime(self):
+        try:
+            sql_utils.sql_exec(update_time_played_today.format(self.__time_played_today, self.__kid_id))
+        except Exception as e:
+            return 'Update playtime failed. '
+
+    def init_playtime(self):
+        today_date = date.today()
+        last_played_indb = self.__last_played
+        kid_id = self.__kid_id
+        if last_played_indb == today_date:
+            return
+        else:
+            try:
+                sql_utils.sql_exec(update_last_played.format(today_date, kid_id))
+                sql_utils.sql_exec(update_time_played_today.format(0, kid_id))
+            except Exception as e:
+                return 'Update playtime failed. '
 
     def return_kid_id(self):
         return str(self.__kid_id)
@@ -34,3 +62,16 @@ class FamiKid:
 
     def return_time_played_today(self):
         return int(self.__time_played_today)
+
+    def return_time_remaining(self):
+        return int(self.__time_remaining)
+
+    def set_time_remaining(self, time_remaining):
+        self.__time_remaining = time_remaining
+        self.__time_played_today = self.__time_limit - self.__time_remaining
+
+    def set_time_played_today(self, time_played_today):
+        self.__time_played_today = time_played_today
+
+    def set_last_played(self, last_played):
+        self.__last_played = last_played
