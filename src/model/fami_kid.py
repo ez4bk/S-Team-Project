@@ -26,7 +26,7 @@ class FamiKid:
     def sync_playtime(self):
         time_played_minutes = round(self.__time_played_today / 60)
         try:
-            sql_utils.sql_exec(update_time_played_today.format(time_played_minutes, self.__kid_id))
+            sql_utils.sql_exec(update_time_played_today.format(time_played_minutes, self.__kid_id), 0)
         except Exception as e:
             return 'Update playtime failed. '
 
@@ -38,8 +38,8 @@ class FamiKid:
             return
         else:
             try:
-                sql_utils.sql_exec(update_last_played.format(today_date, kid_id))
-                sql_utils.sql_exec(update_time_played_today.format(0, kid_id))
+                sql_utils.sql_exec(update_last_played.format(today_date, kid_id), 0)
+                sql_utils.sql_exec(update_time_played_today.format(0, kid_id), 0)
             except Exception as e:
                 return 'Update playtime failed. '
 

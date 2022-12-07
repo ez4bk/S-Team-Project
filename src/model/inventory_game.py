@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sys
 
 from config.client_info import config
 from config.project_info import DOWNLOAD_DIR
@@ -22,10 +23,11 @@ class InventoryGame(Game):
 
     def run_game(self, fami_parent):
         path = os.path.join(DOWNLOAD_DIR, self.return_game_name())
-        # print(process_listen.find_process_by_name('snake'))
+        python_cmd = 'python'
+        if sys.version_info >= (3, 0):
+            python_cmd = 'python3'
         try:
-            completed_process = subprocess.run(["python3", path + '.py'])
-            # subprocess.call(r'python3 %s.py' % path)
+            completed_process = subprocess.run([python_cmd, path + '.py'])
         except:
             pass
         return fami_parent
