@@ -261,10 +261,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.__set_current_kid()
         self.child_name_label.setText(config['current_child'])
         self.threadpool.waitForDone(500)
-        profile = None
-        for kid in self.kids:
-            if kid.return_kid_name() == config['current_child']:
-                profile = kid.return_profile()
+        profile = self.current_kid.return_profile()
         try:
             a = "src/resource/profile_icons/" + profile + ".png"
             self.profile_image_widget.setStyleSheet("border-radius:32px;"
@@ -428,18 +425,14 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     # update the playtime and lastplayed for current child only
     def __update_playtime_query(self):
         today_date = date.today()
-        kid_name = config['current_child']
-        parent_id = config['parent_id']
-        last_played_indb = None
-        for c in self.kids:
-            if c.return_kid_name == kid_name:
-                last_played_indb = c.return_last_played()
+        last_played_indb = self.current_kid.return_last_played()
+        kid_id = self.current_kid.return_kid_id()
         if last_played_indb == today_date:
             return
         else:
             try:
-                sql_utils.sql_exec(update_last_played.format(today_date, kid_name, parent_id))
-                sql_utils.sql_exec(update_time_played_today.format(0, kid_name, parent_id))
+                sql_utils.sql_exec(update_last_played.format(today_date, kid_id))
+                sql_utils.sql_exec(update_time_played_today.format(0, kid_id))
             except Exception as e:
                 return 'Update playtime failed. '
 
