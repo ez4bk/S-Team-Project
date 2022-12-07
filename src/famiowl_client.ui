@@ -471,6 +471,7 @@ background-color: transparent;</string>
 	background-color: rgba(255, 255, 255,0.8);
 	border:0px solid red;
 	border-radius:14px;
+	color: black
 }</string>
                 </property>
                 <property name="inputMask">
@@ -535,7 +536,7 @@ color: white;</string>
                  <bool>false</bool>
                 </property>
                 <property name="digitCount">
-                 <number>5</number>
+                 <number>8</number>
                 </property>
                </widget>
               </item>

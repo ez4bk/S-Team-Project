@@ -299,6 +299,7 @@ class Ui_FamiOwl(object):
 "    background-color: rgba(255, 255, 255,0.8);\n"
 "    border:0px solid red;\n"
 "    border-radius:14px;\n"
+"    color: black\n"
 "}")
         self.search_game_line.setInputMask("")
         self.search_game_line.setText("")
@@ -321,7 +322,7 @@ class Ui_FamiOwl(object):
 "border-radius: 14px;\n"
 "color: white;")
         self.game_timer_lcd.setSmallDecimalPoint(False)
-        self.game_timer_lcd.setDigitCount(5)
+        self.game_timer_lcd.setDigitCount(8)
         self.game_timer_lcd.setObjectName("game_timer_lcd")
         self.active_game_layout.addWidget(self.game_timer_lcd)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
