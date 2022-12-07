@@ -33,7 +33,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.fami_parent = fami_parent
         self.kids = self.fami_parent.return_kids()
         # need a single parameter to store the current kid
-        self.fami_kid = None
+        self.current_kid = None
         self.top_games = []
         self.inventory_games = self.fami_parent.return_inventory()
         self.search_games = []
@@ -279,7 +279,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         kid_name = config['current_child']
         for kid in self.kids:
             if kid.return_kid_name() == kid_name:
-                self.fami_kid = kid
+                self.current_kid = kid
 
 
     def __get_top_game_query(self, flag=0):
