@@ -277,6 +277,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         for kid in self.kids:
             if kid.return_kid_name() == kid_name:
                 self.current_kid = kid
+        self.current_kid.init_playtime()
 
 
     def __get_top_game_query(self, flag=0):
@@ -423,6 +424,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.game_timer_lcd.display(minsec)
 
     # update the playtime and lastplayed for current child only
+    # 在client 启动时检查上次游玩时间是不是今天，如果不是今天，之前积累的time played today清零
+
     def __update_playtime_query(self):
         today_date = date.today()
         last_played_indb = self.current_kid.return_last_played()
