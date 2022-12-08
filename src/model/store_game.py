@@ -1,7 +1,7 @@
 import os.path
 
 from config.project_info import VM_SRC_DIR, DOWNLOAD_DIR
-from config.sql_query.game_query import get_ratings
+from config.sql_query.game_query import add_likes, remove_likes
 from lib.base_lib.sftp_utils.sftp_utils import SftpUtils
 from lib.base_lib.sql.sql_utils import SqlUtils
 from src.model.game import Game
@@ -12,11 +12,11 @@ sftp_utils = SftpUtils()
 
 
 class StoreGame(Game):
-    def __init__(self, game_id, game_name, cover_img, path, game_description, sales):
+    def __init__(self, game_id, game_name, cover_img, path, game_description, likes):
         super().__init__(game_id, game_name, cover_img, game_description)
         self.__path = path
-        self.__sales = sales
-        self.__rate = ""
+        self.__likes = likes
+
         self.__filesize = ""
 
     def run_game(self, fami_parent):
@@ -48,9 +48,11 @@ class StoreGame(Game):
             sftp_utils.sftp_download(download_dir_path, name)
             return full_path
 
-    def rate(self):
-        res = SqlUtils.sql_exec(get_ratings.format(self.return_game_id()), 1)[0]
-        return res
+    def add_likes(self):
+        SqlUtils.sql_exec(add_likes.format(self.return_game_id()), 0)
+
+    def remove_likes(self):
+        SqlUtils.sql_exec(remove_likes.format(self.return_game_id()), 0)
 
     def __str__(self):
         return ""
@@ -58,11 +60,8 @@ class StoreGame(Game):
     def return_path(self):
         return str(self.__path)
 
-    def return_sales(self):
-        return str(self.__sales)
-
-    def return_rate(self):
-        return str(self.__rate)
+    def return_likes(self):
+        return str(self.__likes)
 
     def return_filesize(self):
         return str(self.__filesize)

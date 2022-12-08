@@ -99,6 +99,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __to_child_selection_window(self):
         self.kids = self.fami_parent.return_kids()
+        if self.current_kid != None:
+            self.current_kid.sync_database()
         self.child_selection_window = FamiOwlChildSelectionWindow(self, self.kids)
         if self.child_selection_window.isVisible():
             self.child_selection_window.hide()
@@ -127,6 +129,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             config['signin_state'] = False
             write_to_json()
             self.fami_parent.sync_database()
+            self.current_kid.sync_database()
             exit()
 
     def __get_game(self, flag=0):
