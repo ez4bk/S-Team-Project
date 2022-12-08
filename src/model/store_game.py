@@ -21,7 +21,8 @@ class StoreGame(Game):
 
     def run_game(self, fami_parent):
         path = self.download()
-        if self not in fami_parent.return_inventory():
+        parent_invent = fami_parent.return_inventory()
+        if self not in parent_invent:
             fami_parent = self.add_to_inventory(fami_parent, path)
         else:
             pass
@@ -41,7 +42,6 @@ class StoreGame(Game):
         name = self.return_game_name() + ".py"
         download_dir_path = self.__path
         full_path = os.path.join(DOWNLOAD_DIR, name)
-        print(full_path)
         if os.path.exists(full_path):
             return full_path
         else:

@@ -11,7 +11,7 @@ aes_cipher = AESCipher()
 
 class FamiParent:
 
-    def __init__(self, parent_id='', parent_name='', parent_profile='', kids=None, inventory=None):
+    def __init__(self, parent_id='', parent_name='', parent_profile='', kids=[], inventory=[]):
         self.__parent_id = parent_id
         self.__parent_name = parent_name
         self.__parent_profile = parent_profile

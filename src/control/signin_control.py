@@ -127,6 +127,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
     def __signin_query(self, id_input, pwd_input):
         self.parent_obj = FamiParent()
         res = self.parent_obj.get_parent_info_query(id_input, pwd_input)
+        id_res = []
         if isinstance(res, FamiParent):
             res = self.parent_obj.get_kids_info_query()
         if isinstance(res, FamiParent):
@@ -140,9 +141,11 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
             if int(game.return_game_id()) in id_res:
                 game.run_game(self.parent_obj)
 
+        return self.parent_obj
+
     def __thread_result(self, result):
         if isinstance(result, FamiParent):
-            print(result.return_kids())
+            # print(result.return_kids())
             self.__parent_obj = result
             self.__to_famiowl_client()
         else:
