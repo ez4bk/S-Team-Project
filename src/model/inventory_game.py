@@ -4,7 +4,7 @@ import sys
 
 from config.client_info import config
 from config.project_info import DOWNLOAD_DIR
-from config.sql_query.game_query import time_record_update, time_record_check, get_kid_id
+from config.sql_query.game_query import time_record_update, time_record_check, get_kid_id, add_likes
 from lib.base_lib.sql.sql_utils import SqlUtils
 from src.model.game import Game
 
@@ -15,13 +15,16 @@ class InventoryGame(Game):
     def __init__(self, game, fami_parent, local_path=''):
         super().__init__(game.return_game_id(), game.return_game_name(), game.return_cover_img(),
                          game.return_game_descr())
+        self.store_game = game
         self.__fami_parent = fami_parent
         if local_path == '':
             self.__local_path = os.path.join(DOWNLOAD_DIR, self.return_game_name())
         else:
             self.__local_path = local_path
+        self.__liked = False
         self.proc = None
         self.pid = -1
+
 
     def run_game(self, fami_parent):
         path = os.path.join(DOWNLOAD_DIR, self.return_game_name())
@@ -44,6 +47,19 @@ class InventoryGame(Game):
     def stop(self):
         # os.killpg(self.pid, signal.SIGKILL)
         self.proc.kill()
+
+    def return_likes(self):
+        self.store_game.return_likes()
+
+    def hit_like(self):
+        self.__liked = True
+
+    def hit_unlike(self):
+        self.__liked = False
+
+    def sync_likes(self):
+        if self.__liked:
+            SqlUtils.sql_exec(add_likes.format(self.return_game_id()), 0)
 
     # Wendi: get kid id from parents table, use kid id to find
     # time_played: the time this kid spent on this game this time opening the game
