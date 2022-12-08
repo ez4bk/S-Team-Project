@@ -30,6 +30,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.kids = self.fami_parent.return_kids()
         # need a single parameter to store the current kid
         self.current_kid = None
+        self.current_game = None
         self.top_games = []
         self.inventory_games = self.fami_parent.return_inventory()
         self.search_games = []
@@ -364,22 +365,31 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                 #         if (flag != 0) and (game not in self.inventory_games):
                 #             self.inventory_games.append(game)
                 if flag == 0:
-                    worker = Worker(self.__run_game_thread, game=game)
+                    if self.current_kid.return_time_remaining() < 1:
+                        message_info_box(self, 'No more time to play!')
+                        return
+                    self.__start_game_timer()
+                    game.run_game(self.fami_parent)
+                    self.current_game = game
+                    worker = Worker(self.__run_game_thread)
                     worker.signals.result.connect(self.__run_game_thread_result)
                     worker.signals.finished.connect(self.__run_game_thread_complete)
-                    self.__start_game_timer()
                     self.threadpool.start(worker)
                 else:
                     self.fami_parent = game.run_game(self.fami_parent)
 
-    def __run_game_thread(self, game):
-        self.fami_parent = game.run_game(self.fami_parent)
+    def __run_game_thread(self):
+        # self.fami_parent = game.run_game(self.fami_parent)
+        while self.current_game.proc.poll() is None:
+            print('pass')
+        print('finished')
 
     def __run_game_thread_result(self, result):
         pass
 
     def __run_game_thread_complete(self):
         self.game_timer.stop()
+        self.current_game = None
         self.current_kid.set_time_remaining(self.time_left_int)
 
     def __define_search_game_enter(self):
@@ -405,7 +415,9 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.time_left_int -= 1
 
         if self.time_left_int == 0:
-            self.time_left_int = 600
+            if self.current_game is not None:
+                self.current_game.stop()
+            message_info_box(self, 'Game Time Over!')
         self.__update_gui()
 
     @staticmethod

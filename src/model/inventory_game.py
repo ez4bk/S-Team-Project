@@ -20,26 +20,30 @@ class InventoryGame(Game):
             self.__local_path = os.path.join(DOWNLOAD_DIR, self.return_game_name())
         else:
             self.__local_path = local_path
+        self.proc = None
+        self.pid = -1
 
     def run_game(self, fami_parent):
         path = os.path.join(DOWNLOAD_DIR, self.return_game_name())
+        path = path.replace(' ', '\ ')
         python_cmd = 'python'
+        # time.sleep(5)
+        # return fami_parent
         if sys.version_info >= (3, 0):
             python_cmd = 'python3'
+        cmd = '%s %s.py' % (python_cmd, path)
         try:
-            completed_process = subprocess.run([python_cmd, path + '.py'])
+            # completed_process = subprocess.run([python_cmd, path + '.py'])
+            self.proc = subprocess.Popen(cmd, shell=True, preexec_fn=os.setsid)
+            self.pid = self.proc.pid
+            return fami_parent
         except:
             pass
         return fami_parent
 
     def stop(self):
-        return 0
-
-    def monitor(self):
-        return 0
-
-    def delete(self):
-        return 0
+        # os.killpg(self.pid, signal.SIGKILL)
+        self.proc.kill()
 
     # Wendi: get kid id from parents table, use kid id to find
     # time_played: the time this kid spent on this game this time opening the game
