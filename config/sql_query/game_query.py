@@ -16,4 +16,11 @@ get_kid_id = 'select kid_id from kids where kids_name="{0}" and parent_id="{1}";
 # search game with name
 search_game_by_name = 'select * from game_store where game_name like "%{0}%";'
 
+# search game with id
 search_game_by_id = 'select * from game_store where game_id = "{0}";'
+
+# add likes
+add_likes = 'update game_store set like_count = like_count + 1 where game_id = "{0}";'
+
+# remove likes
+remove_likes = 'update game_store set like_count = like_count - 1 where game_id = "{0}";'
