@@ -16,7 +16,6 @@ class StoreGame(Game):
         super().__init__(game_id, game_name, cover_img, game_description)
         self.__path = path
         self.__likes = likes
-
         self.__filesize = ""
 
     def run_game(self, fami_parent):

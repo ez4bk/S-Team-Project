@@ -9,7 +9,7 @@ from config.client_info import config
 from config.front_end.icon_path import owl_gif, title_img, signin_icon
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
-from lib.business_lib.top_game_query import get_top_game_query
+from lib.business_lib.game_query import get_top_game_query
 from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_client_control import FamiOwlClientWindow
@@ -33,6 +33,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         self.__userid = userid
         self.__pwd = pwd
         self.__parent_obj = parent_obj
+        self.__top_games = []
 
         self.famiowl_title_label.setPixmap(QtGui.QPixmap(title_img))
         self.owl_gif_movie = QMovie(owl_gif)
@@ -120,7 +121,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
             self.signup_window.show()
 
     def __to_famiowl_client(self):
-        self.famiowl_client = FamiOwlClientWindow(fami_parent=self.__parent_obj)
+        self.famiowl_client = FamiOwlClientWindow(fami_parent=self.__parent_obj, top_games=self.__top_games)
         self.famiowl_client.show()
         self.close()
 
@@ -135,21 +136,23 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
             id_res = self.parent_obj.get_inventory_query()
         if not isinstance(res, str):
             top_games = get_top_game_query()
+            self.__top_games = top_games
         else:
             return self.parent_obj
         for game in top_games:
             if int(game.return_game_id()) in id_res:
                 game.run_game(self.parent_obj)
 
-        return self.parent_obj
+        return self.parent_obj, self.__top_games
 
     def __thread_result(self, result):
-        if isinstance(result, FamiParent):
+        if isinstance(result[0], FamiParent):
             # print(result.return_kids())
-            self.__parent_obj = result
+            self.__parent_obj = result[0]
+            self.__top_games = result[1]
             self.__to_famiowl_client()
         else:
-            message_info_box(self, str(result))
+            message_info_box(self, 'Error Signin')
 
     def __thread_complete(self):
         self.signin_button.setEnabled(True)
