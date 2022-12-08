@@ -1,12 +1,9 @@
 from config.client_info import config, write_to_json
 from config.sql_query.account_query import parent_id_check, parent_signin, kids_select, show_parent_inventory, add_kid
 from config.sql_query.client_query import add_to_inventory, show_inventory_game
-from config.sql_query.game_query import search_game_by_id
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
 from src.model.fami_kid import FamiKid
-from src.model.inventory_game import InventoryGame
-from src.model.store_game import StoreGame
 
 sql_utils = SqlUtils()
 aes_cipher = AESCipher()
@@ -73,6 +70,7 @@ class FamiParent:
     def get_inventory_query(self):
         res = None
         games = []
+        id_res = []
         try:
             res = sql_utils.sql_exec(show_inventory_game.format(self.__parent_id))
         except Exception as e:
@@ -80,19 +78,24 @@ class FamiParent:
 
         if res is None or res == []:
             self.__inventory = games
-            return self
+            return id_res
 
-        try:
-            for a in res:
-                store_game = sql_utils.sql_exec(search_game_by_id.format(a[2]))[0]
-                game = StoreGame(store_game[0], store_game[1], store_game[2], store_game[3], store_game[4],
-                                 store_game[5])
-                inv_game = InventoryGame(game, self)
-                games.append(inv_game)
-            self.__inventory = games
-            return self
-        except Exception:
-            return "Game initialization failed!"
+        for a in res:
+            id_res.append(a[2])
+
+        return id_res
+
+        # try:
+        #     for a in res:
+        #         store_game = sql_utils.sql_exec(search_game_by_id.format(a[2]))[0]
+        #         game = StoreGame(store_game[0], store_game[1], store_game[2], store_game[3], store_game[4],
+        #                          store_game[5])
+        #         inv_game = InventoryGame(game, self)
+        #         games.append(inv_game)
+        #     self.__inventory = games
+        #     return self
+        # except Exception:
+        #     return "Game initialization failed!"
 
     def sync_database(self):
         self.__sync_kids()

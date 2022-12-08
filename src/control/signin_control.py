@@ -9,6 +9,7 @@ from config.client_info import config
 from config.front_end.icon_path import owl_gif, title_img, signin_icon
 from lib.base_lib.sql.sql_utils import SqlUtils
 from lib.base_lib.utils.aes_pass import AESCipher
+from lib.business_lib.top_game_query import get_top_game_query
 from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_client_control import FamiOwlClientWindow
@@ -129,9 +130,15 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         if isinstance(res, FamiParent):
             res = self.parent_obj.get_kids_info_query()
         if isinstance(res, FamiParent):
-            res = self.parent_obj.get_inventory_query()
-
-        return res
+            self.parent_obj = res
+            id_res = self.parent_obj.get_inventory_query()
+        if not isinstance(res, str):
+            top_games = get_top_game_query()
+        else:
+            return self.parent_obj
+        for game in top_games:
+            if int(game.return_game_id()) in id_res:
+                game.run_game(self.parent_obj)
 
     def __thread_result(self, result):
         if isinstance(result, FamiParent):
