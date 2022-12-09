@@ -76,5 +76,8 @@ class InventoryGame(Game):
         if record_exist:
             sql_utils.sql_exec(time_record_update.format(kid_id, game_id, time_played), 0)
 
+    def return_store_game(self):
+        return self.store_game
+
     def __str__(self):
         return ""

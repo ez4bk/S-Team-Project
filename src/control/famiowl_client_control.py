@@ -287,7 +287,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.current_kid.set_time_remaining(self.time_left_int)
 
     def __define_search_game_enter(self):
-        self.search_game_line.returnPressed.connect(lambda: self.__create_game_widgets(3))
+        self.search_game_line.returnPressed.connect(lambda: self.__search_game(self.search_game_line.text()))
 
     def __search_game(self, game_name):
         res = []
@@ -297,7 +297,18 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
         for game in self.top_games:
             if game_name.lower() in (game.return_game_name().lower()):
-                pass
+                print('match')
+                if res == []:
+                    res.append(game)
+                else:
+                    for invent in res:
+                        if invent.return_store_game() != game.return_game_id():
+                            res.append(game)
+
+        self.search_games = res
+        print(res)
+        self.__create_game_widgets(2)
+        self.stackedWidget.setCurrentWidget(self.search_page)
 
     def __start_game_timer(self):
         self.time_left_int = self.current_kid.return_time_remaining()
@@ -326,7 +337,8 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         minsec = self.__secs_to_minsec(self.time_left_int)
         self.game_timer_lcd.display(minsec)
 
-    def __like_game(self, game):
+    @staticmethod
+    def __like_game(game):
         print(game)
         if game.return_liked():
             game.hit_unlike()
