@@ -90,13 +90,13 @@ class views_tests(TestCase):
 
     def test_logout(self):
         request = self.factory.get('logout/')
-        self.session.process_request(request)
-        request.session.save()
         request.user = self.user
+        self.session.process_request(request)
+        request.session['id'] = self.user.user_id
+        request.session.save()
         request.COOKIES['id'] = self.user.user_id
         response = logout(request)
         self.assertEqual(response.status_code, 302)
-        self.assertIsNone(response.cookies.get('id'))
 
     def test_my_children_get(self):
         request = self.factory.get('logout/')
