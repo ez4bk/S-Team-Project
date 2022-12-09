@@ -46,6 +46,12 @@ class StoreGame(Game):
             sftp_utils.sftp_download(download_dir_path, name)
             return full_path
 
+    def add_like(self):
+        self.__likes_count += 1
+
+    def remove_like(self):
+        self.__likes_count -= 1
+
     def __str__(self):
         return ""
 

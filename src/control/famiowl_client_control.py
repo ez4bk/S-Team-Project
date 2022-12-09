@@ -328,3 +328,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __like_game(self, game):
         print(game)
+        if game.return_liked():
+            game.hit_unlike()
+        else:
+            game.hit_like()
