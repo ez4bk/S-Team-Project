@@ -32,7 +32,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.current_kid = None
         self.current_game = None
         self.top_games = top_games
-        print(self.top_games)
         self.inventory_games = self.fami_parent.return_inventory()
         self.search_games = []
 
@@ -253,8 +252,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.current_kid.init_playtime()
 
     def __open_game(self, game):
-        games = None
-        print(game)
         if self.current_kid.return_time_remaining() < 1:
             message_info_box(self, 'No more time to play!')
             return
@@ -297,7 +294,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
         for game in self.top_games:
             if game_name.lower() in (game.return_game_name().lower()):
-                print('match')
                 if res == []:
                     res.append(game)
                 else:
@@ -306,7 +302,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                             res.append(game)
 
         self.search_games = res
-        print(res)
         self.__create_game_widgets(2)
         self.stackedWidget.setCurrentWidget(self.search_page)
 
