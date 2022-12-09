@@ -1,10 +1,10 @@
 {
-    "signin_state": false,
+    "signin_state": true,
     "parent_id": "test5@test.com",
-    "parent_name": "test",
+    "parent_name": "Theo",
     "parent_pwd": "MDAwMDAwMDAwMDAwMDQwMFYRtNLC4Dgty/pKHFP7U/k=",
     "signin_timestamp": null,
-    "current_child": "abc",
+    "current_child": "Adam",
     "profile_icon": "1",
     "default_child": null
 }
