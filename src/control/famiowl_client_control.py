@@ -215,7 +215,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                           "color: rgb(22, 54, 53)\n}"
                                           )
                 like_button.setObjectName("like_button_%s" % i)
-                like_button.setText('Like me!')
+                if game_list[i].return_liked:
+                    like_button.setText('Like me!')
+                else:
+                    like_button.setText('Unlike :(')
                 game_info_layout.addWidget(like_button)
                 like_button.clicked.connect(
                     lambda _, game=game_list[i], button=like_button: self.__like_game(game, button))

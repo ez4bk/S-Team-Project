@@ -17,13 +17,20 @@ ch.setFormatter(formatter)
 
 
 def __clear_log_handler():
-    # global user_logger
+    """
+    Clear log handler
+    :return:
+    """
     global fh
     user_logger.removeHandler(fh)
     user_logger.removeHandler(ch)
 
 
 def __add_log_handler():
+    """
+    Add log handler
+    :return:
+    """
     global user_logger
     global fh
     user_logger.addHandler(fh)
@@ -31,6 +38,12 @@ def __add_log_handler():
 
 
 def __init_file_handler(file_path, log_name):
+    """
+    Initialise log file handler
+    :param file_path: path to log file
+    :param log_name: log name
+    :return:
+    """
     global formatter
     global fh
     global log_file_name
