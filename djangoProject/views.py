@@ -61,7 +61,7 @@ def sign(request):
                 return redirect('signin')
         else:
             messages.warning(request, 'Username not found')
-            redirect('signin')
+            return redirect('signin')
 
     return render(request, "signin.html")
 
