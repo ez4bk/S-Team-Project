@@ -280,16 +280,16 @@ border-left: 2px solid rgb(90, 216, 212)
              </property>
              <property name="icon">
               <iconset resource="resource/resources.qrc">
-               <normaloff>:/buttom/img/buttom/文件柜_file-cabinet.svg</normaloff>:/buttom/img/buttom/文件柜_file-cabinet.svg</iconset>
+               <normaloff>:/buttom/img/buttom/商店_shop.svg</normaloff>:/buttom/img/buttom/商店_shop.svg</iconset>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Settings</string>
+              <string>Sign out</string>
              </property>
              <property name="icon">
               <iconset resource="resource/resources.qrc">
-               <normaloff>:/buttom/img/buttom/设置配置_setting-config.svg</normaloff>:/buttom/img/buttom/设置配置_setting-config.svg</iconset>
+               <normaloff>:/buttom/img/buttom/打开_open-one.svg</normaloff>:/buttom/img/buttom/打开_open-one.svg</iconset>
              </property>
             </item>
             <item>

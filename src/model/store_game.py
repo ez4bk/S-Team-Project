@@ -1,6 +1,7 @@
 import os.path
 
-from config.project_info import VM_SRC_DIR, DOWNLOAD_DIR
+from config.project_info import DOWNLOAD_DIR
+from config.sql_query.game_query import add_likes
 from lib.base_lib.sftp_utils.sftp_utils import SftpUtils
 from lib.base_lib.sql.sql_utils import SqlUtils
 from src.model.game import Game
@@ -17,7 +18,7 @@ class StoreGame(Game):
     def __init__(self, game_id, game_name, cover_img, path, game_description, likes_count):
         super().__init__(game_id, game_name, cover_img, game_description)
         self.__path = path
-        self.__likes_count = likes_count
+        self.__likes_count = int(likes_count)
         self.__filesize = ""
 
     def run_game(self, fami_parent):
@@ -59,9 +60,6 @@ class StoreGame(Game):
     def remove_like(self):
         self.__likes_count -= 1
 
-    def __str__(self):
-        return ""
-
     def return_path(self):
         return str(self.__path)
 
@@ -71,7 +69,5 @@ class StoreGame(Game):
     def return_filesize(self):
         return str(self.__filesize)
 
-
-if __name__ == '__main__':
-    a = StoreGame('1', 'Snake', 'img', VM_SRC_DIR + '/snake.py', 'desc', 'sales')
-    print(a.run_game(None))
+    def sync_likes(self):
+        sql_utils.sql_exec(add_likes.format(self.return_game_id()), 0)

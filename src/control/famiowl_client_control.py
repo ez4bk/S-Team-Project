@@ -113,7 +113,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __define_menu_listwidget(self):
         self.menu_listwidget.itemClicked.connect(lambda: self.__menu_select())
 
-
     def __menu_select(self):
         """
         Menu for buttons that navigates through the application
@@ -127,12 +126,13 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         elif widget_to_go == 'Store':
             self.__create_game_widgets(1)
             self.stackedWidget.setCurrentWidget(self.store_page)
-        elif widget_to_go == 'Settings':
-            self.stackedWidget.setCurrentWidget(self.setting_page)
-        elif widget_to_go == 'Exit':
-            # TODO: Separate sign-out and exit
+        elif widget_to_go == 'Sign out':
             config['signin_state'] = False
             write_to_json()
+            self.fami_parent.sync_database()
+            self.current_kid.sync_database()
+            exit()
+        elif widget_to_go == 'Exit':
             self.fami_parent.sync_database()
             self.current_kid.sync_database()
             exit()
@@ -220,8 +220,9 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                           "color: rgb(22, 54, 53)\n}"
                                           )
                 like_button.setObjectName("like_button_%s" % i)
-                if game_list[i].return_liked:
-                    like_button.setText('Like me!')
+                if not game_list[i].return_liked():
+                    print(game_list[i])
+                    like_button.setText('Likes: %s - Click to like me!' % game_list[i].return_like_count())
                 else:
                     like_button.setText('Unlike :(')
                 game_info_layout.addWidget(like_button)
@@ -360,7 +361,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __like_game(game, button):
         if game.return_liked():
             game.hit_unlike()
-            button.setText('Like me!')
+            button.setText('Likes: %s - Click to like me!' % game.return_like_count())
         else:
             game.hit_like()
             button.setText('Unlike :(')

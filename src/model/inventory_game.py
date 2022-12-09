@@ -4,7 +4,7 @@ import sys
 
 from config.client_info import config
 from config.project_info import DOWNLOAD_DIR
-from config.sql_query.game_query import time_record_update, time_record_check, get_kid_id, add_likes
+from config.sql_query.game_query import time_record_update, time_record_check, get_kid_id
 from lib.base_lib.sql.sql_utils import SqlUtils
 from src.model.game import Game
 
@@ -49,9 +49,12 @@ class InventoryGame(Game):
         # os.killpg(self.pid, signal.SIGKILL)
         self.proc.kill()
 
+    def sync_database(self):
+        self.sync_likes()
+
     # retrieve likes count from pre-feteched data from initialization
     def return_like_count(self):
-        self.store_game.return_like_count()
+        return str(self.store_game.return_like_count())
 
     # Once user hit like button, set this game's __liked status to True
     # Add 1 value to the likes count
@@ -74,7 +77,7 @@ class InventoryGame(Game):
     # True: +1, False: do nothing
     def sync_likes(self):
         if self.__liked:
-            SqlUtils.sql_exec(add_likes.format(self.return_game_id()), 0)
+            self.store_game.sync_likes()
 
     # Wendi: get kid id from parents table, use kid id to find
     # time_played: the time this kid spent on this game this time opening the game

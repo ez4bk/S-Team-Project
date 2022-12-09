@@ -28,7 +28,7 @@ class FamiKid:
         try:
             sql_utils.sql_exec(update_time_played_today.format(time_played_minutes, self.__kid_id), 0)
         except Exception as e:
-            return 'Update playtime failed. '
+            return 'Update playtime failed.'
 
     def init_playtime(self):
         today_date = date.today()
@@ -50,7 +50,7 @@ class FamiKid:
         return str(self.__kid_name)
 
     def return_parent_id(self):
-        return str(self.__parent.return_kid_id())
+        return str(self.__parent.return_parent_id())
 
     def return_profile(self):
         return str(self.__profile)
