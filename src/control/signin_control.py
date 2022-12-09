@@ -105,7 +105,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
                 self.userid_line.setEnabled(False)
                 self.pwd_line.setEnabled(False)
                 self.signup_button.setEnabled(False)
-                self.forget_pwd_button.setEnabled(False)
+                # self.forget_pwd_button.setEnabled(False)
             except Exception as e:
                 message_info_box(self, e)
 
@@ -159,7 +159,7 @@ class SigninWindow(QMainWindow, Ui_Signin_Window):
         self.userid_line.setEnabled(True)
         self.pwd_line.setEnabled(True)
         self.signup_button.setEnabled(True)
-        self.forget_pwd_button.setEnabled(True)
+        # self.forget_pwd_button.setEnabled(True)
 
     # Test Orientated
     def signin_query(self, id, pwd):

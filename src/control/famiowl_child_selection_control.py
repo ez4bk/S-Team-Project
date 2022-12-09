@@ -57,29 +57,29 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
                 # profile_list[i].clicked.connect(lambda num=i: self.__add_new_child(num))
 
         self.__define_buttons()
-
+    
     def __define_buttons(self):
         if self.child_profile_0.objectName() != to_add_new_child:
-            self.child_profile_0.clicked.connect(lambda: self.__save_child_select(self.child_name_0.text(),0))
+            self.child_profile_0.clicked.connect(lambda: self.__save_child_select(self.child_name_0.text(), 0))
         else:
             self.child_profile_0.clicked.connect(lambda: self.__add_new_child())
 
         if self.child_profile_1.objectName() != to_add_new_child:
-            self.child_profile_1.clicked.connect(lambda: self.__save_child_select(self.child_name_1.text(),1))
+            self.child_profile_1.clicked.connect(lambda: self.__save_child_select(self.child_name_1.text(), 1))
         else:
             self.child_profile_1.clicked.connect(lambda: self.__add_new_child())
 
         if self.child_profile_2.objectName() != to_add_new_child:
-            self.child_profile_2.clicked.connect(lambda: self.__save_child_select(self.child_name_2.text(),2))
+            self.child_profile_2.clicked.connect(lambda: self.__save_child_select(self.child_name_2.text(), 2))
         else:
             self.child_profile_2.clicked.connect(lambda: self.__add_new_child())
 
         if self.child_profile_3.objectName() != to_add_new_child:
-            self.child_profile_3.clicked.connect(lambda: self.__save_child_select(self.child_name_3.text(),3))
+            self.child_profile_3.clicked.connect(lambda: self.__save_child_select(self.child_name_3.text(), 3))
         else:
             self.child_profile_3.clicked.connect(lambda: self.__add_new_child())
 
-    def __save_child_select(self, profile,index):
+    def __save_child_select(self, profile, index):
         config['current_child'] = profile
         config['profile_icon'] = self.kids[int(index)].return_profile()
         write_to_json()
@@ -90,7 +90,7 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
         self.__goto_AddNewChild_window()
 
     def __goto_AddNewChild_window(self):
-        self.addnew_window = FamiOwlChildNew(self,self.kids)
+        self.addnew_window = FamiOwlChildNew(self, self.kids)
         if self.addnew_window.isVisible():
             self.addnew_window.hide()
         else:

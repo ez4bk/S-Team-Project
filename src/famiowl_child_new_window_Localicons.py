@@ -13,7 +13,8 @@ class Ui_FamiOwlChildNew_localicons(object):
     def setupUi(self, test):
         test.setObjectName("Set Up Your Account")
         test.resize(338, 580)
-        test.setStyleSheet("background-color:rgb(200,200,200);")
+        test.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+                           "border-radius:20px;")
         self.centralwidget = QtWidgets.QWidget(test)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -163,9 +164,9 @@ class Ui_FamiOwlChildNew_localicons(object):
         font.setFamily("Calibri")
         font.setPointSize(20)
         self.add_newchild_button.setFont(font)
-        self.add_newchild_button.setStyleSheet("background-color: rgb(0, 0, 0);\n"
-"color:rgb(255, 255, 255);\n"
-"border-radius:20px;")
+        self.add_newchild_button.setStyleSheet("background-color: rgb(60, 32, 228);\n"
+                                               "color:rgb(255, 255, 255);\n"
+                                               "border-radius:20px;")
         self.add_newchild_button.setObjectName("add_newchild_button")
         self.verticalLayout.addWidget(self.add_newchild_button)
         test.setCentralWidget(self.centralwidget)

@@ -48,6 +48,11 @@ class InventoryGame(Game):
     def stop(self):
         # os.killpg(self.pid, signal.SIGKILL)
         self.proc.kill()
+        self.init_proc()
+
+    def init_proc(self):
+        self.proc = None
+        self.pid = -1
 
     def sync_database(self):
         self.sync_likes()

@@ -14,7 +14,7 @@ sql_utils = SqlUtils()
 
 
 class FamiOwlChildNew(QMainWindow, Ui_FamiOwlChildNew_localicons):
-    def __init__(self, parent=None,kids=None):
+    def __init__(self, parent=None, kids=None):
         super(FamiOwlChildNew, self).__init__(parent)
         self.parent = parent
         self.setupUi(self)

@@ -98,6 +98,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                                )
 
     def __to_child_selection_window(self):
+        self.fami_parent = self.fami_parent.get_kids_info_query()
         self.kids = self.fami_parent.return_kids()
         if self.current_kid != None:
             self.current_kid.sync_database()
@@ -130,11 +131,13 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             config['signin_state'] = False
             write_to_json()
             self.fami_parent.sync_database()
-            self.current_kid.sync_database()
+            # if self.current_kid is not None:
+            #     self.current_kid.sync_database()
             exit()
         elif widget_to_go == 'Exit':
             self.fami_parent.sync_database()
-            self.current_kid.sync_database()
+            # if self.current_kid is not None:
+            #     self.current_kid.sync_database()
             exit()
 
     def __get_game_local(self):
@@ -305,6 +308,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __run_game_thread_complete(self):
         self.game_timer.stop()
+        self.current_game.init_proc()
         self.current_game = None
         self.current_kid.set_time_remaining(self.time_left_int)
 
