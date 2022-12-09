@@ -29,7 +29,7 @@ class StoreGame(Game):
             return 'Game already in inventory!'
         return fami_parent
 
-# add store game to inventory
+    # add store game to inventory
     def add_to_inventory(self, fami_parent, local_path):
         inventory = fami_parent.return_inventory()
         if inventory is not []:
@@ -40,7 +40,7 @@ class StoreGame(Game):
         fami_parent.add_to_inventory(inventory_game)
         return fami_parent
 
-# download game
+    # download game
     def download(self):
         name = self.return_game_name() + ".py"
         download_dir_path = self.__path
@@ -51,11 +51,11 @@ class StoreGame(Game):
             sftp_utils.sftp_download(download_dir_path, name)
             return full_path
 
-# increase like count by 1
+    # increase like count by 1
     def add_like(self):
         self.__likes_count += 1
 
-# decrease like count by 1
+    # decrease like count by 1
     def remove_like(self):
         self.__likes_count -= 1
 
@@ -65,8 +65,8 @@ class StoreGame(Game):
     def return_path(self):
         return str(self.__path)
 
-    def return_likes(self):
-        return str(self.__likes)
+    def return_like_count(self):
+        return str(self.__likes_count)
 
     def return_filesize(self):
         return str(self.__filesize)
