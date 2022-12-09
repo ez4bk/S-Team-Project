@@ -327,7 +327,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                     res.append(game)
                 else:
                     for invent in res:
-                        if invent.return_store_game() != game.return_game_id():
+                        if invent.return_game_id() != game.return_game_id():
                             res.append(game)
 
         self.search_games = res
