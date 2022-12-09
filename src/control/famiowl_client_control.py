@@ -9,7 +9,8 @@ from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
-from src.model.fami_parent import FamiParent
+from src.model.inventory_game import InventoryGame
+from src.model.store_game import StoreGame
 
 sql_utils = SqlUtils()
 
@@ -169,9 +170,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                                     "    background-color: qlineargradient(x1:0, y0:0, x2:1, y2:0,stop:0 rgb(234, 249, 253), stop:1 rgb(155, 230, 237));\n"
                                     "    border-radius:20px;\n"
                                     "    color: rgb(255, 255, 255);\n"
-                                    "}\n"
-                                    "\n"
-                                    "")
+                                    "}\n")
             game_card.setObjectName("game_card_%s" % i)
             game_card_layout = QtWidgets.QHBoxLayout(game_card)
             game_card_layout.setContentsMargins(24, 24, 24, 24)
@@ -210,16 +209,18 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_info_layout.addWidget(game_info_label)
             if flag == 0 or (flag == 2 and game_list[i] in self.inventory_games):
                 like_button = QtWidgets.QPushButton(game_card)
-                like_button.setStyleSheet("border-radius:14px;\n"
-                                          "background-color: rgb(103, 216, 217)\n"
+                like_button.setStyleSheet(".QPushButton{border-radius:32px;\n"
+                                          "background-color: rgb(103, 216, 217);\n"
+                                          "color: black\n}"
                                           )
                 like_button.setObjectName("like_button_%s" % i)
                 like_button.setText('Like me!')
                 game_info_layout.addWidget(like_button)
+                like_button.clicked.connect(lambda _, game=game_list[i]: self.__like_game(game))
             game_card_layout.addLayout(game_info_layout)
             game_card_layout.setStretch(0, 1)
             game_profile_button.clicked.connect(
-                lambda _, f=flag, name=game_name_label.text(): self.__open_game(name, f))
+                lambda _, game=game_list[i]: self.__open_game(game))
 
             layout.addWidget(game_card)
 
@@ -250,42 +251,26 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                 self.current_kid = kid
         self.current_kid.init_playtime()
 
-    def __kids_thread_result(self, result):
-        if isinstance(result, FamiParent):
-            self.fami_parent = result
-        else:
-            message_info_box(self, str(result))
-
-    def __kids_thread_complete(self):
-        self.setEnabled(True)
-
-    def __open_game(self, game_name, flag=0):
+    def __open_game(self, game):
         games = None
-
-        if flag == 0:
-            games = self.inventory_games
-        elif flag == 1:
-            games = self.top_games
-        else:
-            pass
-        for game in games:
-            if game.return_game_name() == game_name:
-                #     try:
-                #         if (flag != 0) and (game not in self.inventory_games):
-                #             self.inventory_games.append(game)
-                if flag == 0:
-                    if self.current_kid.return_time_remaining() < 1:
-                        message_info_box(self, 'No more time to play!')
-                        return
-                    self.__start_game_timer()
-                    game.run_game(self.fami_parent)
-                    self.current_game = game
-                    worker = Worker(self.__run_game_thread)
-                    worker.signals.result.connect(self.__run_game_thread_result)
-                    worker.signals.finished.connect(self.__run_game_thread_complete)
-                    self.threadpool.start(worker)
-                else:
-                    self.fami_parent = game.run_game(self.fami_parent)
+        print(game)
+        if self.current_kid.return_time_remaining() < 1:
+            message_info_box(self, 'No more time to play!')
+            return
+        if isinstance(game, InventoryGame):
+            print('Inventory game')
+            self.__start_game_timer()
+            game.run_game(self.fami_parent)
+            self.current_game = game
+            worker = Worker(self.__run_game_thread)
+            worker.signals.result.connect(self.__run_game_thread_result)
+            worker.signals.finished.connect(self.__run_game_thread_complete)
+            self.threadpool.start(worker)
+        elif isinstance(game, StoreGame):
+            print('Store')
+            self.fami_parent = game.run_game(self.fami_parent)
+        #         else:
+        #             self.fami_parent = game.run_game(self.fami_parent)
 
     def __run_game_thread(self):
         # self.fami_parent = game.run_game(self.fami_parent)
@@ -340,3 +325,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __update_gui(self):
         minsec = self.__secs_to_minsec(self.time_left_int)
         self.game_timer_lcd.display(minsec)
+
+    def __like_game(self, flag, game):
+        print(flag)
+        print(game)
