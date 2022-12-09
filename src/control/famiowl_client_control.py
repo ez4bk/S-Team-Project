@@ -9,6 +9,7 @@ from lib.pyqt_lib.message_box import message_info_box
 from lib.pyqt_lib.query_handling import Worker
 from src.control.famiowl_child_selection_control import FamiOwlChildSelectionWindow
 from src.famiowl_client_window import Ui_FamiOwl
+from src.model.fami_parent import FamiParent
 from src.model.inventory_game import InventoryGame
 from src.model.store_game import StoreGame
 
@@ -258,7 +259,6 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             message_info_box(self, 'No more time to play!')
             return
         if isinstance(game, InventoryGame):
-            print('Inventory game')
             self.__start_game_timer()
             game.run_game(self.fami_parent)
             self.current_game = game
@@ -267,10 +267,11 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             worker.signals.finished.connect(self.__run_game_thread_complete)
             self.threadpool.start(worker)
         elif isinstance(game, StoreGame):
-            print('Store')
-            self.fami_parent = game.run_game(self.fami_parent)
-        #         else:
-        #             self.fami_parent = game.run_game(self.fami_parent)
+            res = game.run_game(self.fami_parent)
+            if isinstance(res, str):
+                message_info_box(self, res)
+            elif isinstance(res, FamiParent):
+                self.fami_parent = res
 
     def __run_game_thread(self):
         # self.fami_parent = game.run_game(self.fami_parent)
@@ -288,16 +289,15 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __define_search_game_enter(self):
         self.search_game_line.returnPressed.connect(lambda: self.__create_game_widgets(3))
 
-    def __get_search_game_query(self, flag=0):
-        keyword = self.search_game_line.text()
-        res = None
-        games = []
-        for game in self.top_games:
-            if keyword.lower() in game.return_game_name().lower():
-                games.append(game)
+    def __search_game(self, game_name):
+        res = []
+        for game in self.inventory_games:
+            if game_name.lower() in (game.return_game_name().lower()):
+                res.append(game)
 
-        self.search_games = games
-        return True
+        for game in self.top_games:
+            if game_name.lower() in (game.return_game_name().lower()):
+                pass
 
     def __start_game_timer(self):
         self.time_left_int = self.current_kid.return_time_remaining()
