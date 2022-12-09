@@ -326,8 +326,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         minsec = self.__secs_to_minsec(self.time_left_int)
         self.game_timer_lcd.display(minsec)
 
-    def __like_game(self, flag, game):
-        print(flag)
+    def __like_game(self, game):
         print(game)
         if game.return_liked():
             game.hit_unlike()
