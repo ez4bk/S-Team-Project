@@ -1,7 +1,6 @@
-from src.model.store_game import StoreGame
-from src.model.fami_parent import FamiParent
 from config.project_info import DOWNLOAD_DIR
-
+from src.model.fami_parent import FamiParent
+from src.model.store_game import StoreGame
 
 
 class TestStoreGame(object):
@@ -12,9 +11,12 @@ class TestStoreGame(object):
                                "/home/famiowl_files/snake.py", "Eat and grow your snake!", 8)
         fami_parent.get_parent_info_query('test5@test.com', 'test')
         try:
-            store_game.run_game()
+            store_game.run_game(fami_parent)
         except:
             assert False, "run game failed"
+        assert fami_parent.return_inventory() != [], "Empty inventory"
+        game = fami_parent.return_inventory()[0]
+        assert int(game.return_game_id()) == int(store_game.return_game_id()), "Wrong game"
 
     def test_add_to_inventory(self):
         fami_parent = FamiParent()
