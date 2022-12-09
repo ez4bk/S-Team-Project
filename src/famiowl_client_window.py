@@ -424,8 +424,8 @@ class Ui_FamiOwl(object):
     def retranslateUi(self, FamiOwl):
         _translate = QtCore.QCoreApplication.translate
         FamiOwl.setWindowTitle(_translate("FamiOwl", "FamiOwl Client"))
-        self.parent_name_label.setText(_translate("FamiOwl", "Test"))
-        self.child_name_label.setText(_translate("FamiOwl", "Child A"))
+        self.parent_name_label.setText(_translate("FamiOwl", "Welcome!"))
+        self.child_name_label.setText(_translate("FamiOwl", "Please Select Kid"))
         __sortingEnabled = self.menu_listwidget.isSortingEnabled()
         self.menu_listwidget.setSortingEnabled(False)
         item = self.menu_listwidget.item(0)
@@ -437,8 +437,8 @@ class Ui_FamiOwl(object):
         item = self.menu_listwidget.item(3)
         item.setText(_translate("FamiOwl", "Exit"))
         self.menu_listwidget.setSortingEnabled(__sortingEnabled)
-        self.click_to_label.setText(_translate("FamiOwl", "Click To"))
-        self.switch_label.setText(_translate("FamiOwl", "Switch"))
+        self.click_to_label.setText(_translate("FamiOwl", "Add or"))
+        self.switch_label.setText(_translate("FamiOwl", "Select"))
         self.kid_table.setText(_translate("FamiOwl", "Kid"))
         self.famiowl_title_label.setText(_translate("FamiOwl", "FamiOwl"))
         self.search_game_line.setPlaceholderText(_translate("FamiOwl", "Search here!"))
