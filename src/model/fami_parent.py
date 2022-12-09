@@ -98,8 +98,9 @@ class FamiParent:
             if kid.return_kid_name() not in existing_kids:
                 sql_utils.sql_exec(
                     add_kid.format(kid.return_kid_name(), kid.return_kid_id(), kid.return_profile(),
-                                   kid.return_time_limit()),
-                    0)
+                                   kid.return_time_limit()), 0)
+        for kid in self.__kids:
+            kid.sync_database()
 
     def __sync_inventory(self):
         existing_games = []
@@ -110,6 +111,8 @@ class FamiParent:
             if int(game.return_game_id()) not in existing_games:
                 sql_utils.sql_exec(
                     add_to_inventory.format(self.__parent_id, game.return_game_id()), 0)
+            if game.return_liked():
+                game.sync_database()
 
     def set_kids(self, kids):
         self.__kids = kids

@@ -109,13 +109,13 @@ class Ui_Signin_Window(object):
                                          "color: white;")
         self.signup_button.setObjectName("signup_button")
         self.signin_layout.addWidget(self.signup_button, 3, 2, 1, 1)
-        self.forget_pwd_button = QtWidgets.QPushButton(self.centralwidget)
-        self.forget_pwd_button.setStyleSheet("background-color: transparent;\n"
-                                             "color: white;\n"
-                                             "\n"
-                                             "")
-        self.forget_pwd_button.setObjectName("forget_pwd_button")
-        self.signin_layout.addWidget(self.forget_pwd_button, 2, 2, 1, 1)
+        # self.forget_pwd_button = QtWidgets.QPushButton(self.centralwidget)
+        # self.forget_pwd_button.setStyleSheet("background-color: transparent;\n"
+        #                                      "color: white;\n"
+        #                                      "\n"
+        #                                      "")
+        # self.forget_pwd_button.setObjectName("forget_pwd_button")
+        # self.signin_layout.addWidget(self.forget_pwd_button, 2, 2, 1, 1)
         self.user_input_layout = QtWidgets.QVBoxLayout()
         self.user_input_layout.setObjectName("user_input_layout")
         self.userid_line = QtWidgets.QLineEdit(self.centralwidget)
@@ -183,6 +183,6 @@ class Ui_Signin_Window(object):
         self.place_holder_button.setText(_translate("Signin_Window", "X"))
         self.exit_button.setText(_translate("Signin_Window", "X"))
         self.signup_button.setText(_translate("Signin_Window", "Sign up ->"))
-        self.forget_pwd_button.setText(_translate("Signin_Window", "Forget your password?"))
+        # self.forget_pwd_button.setText(_translate("Signin_Window", "Forget your password?"))
         self.userid_line.setPlaceholderText(_translate("Signin_Window", "User ID"))
         self.pwd_line.setPlaceholderText(_translate("Signin_Window", "Password"))

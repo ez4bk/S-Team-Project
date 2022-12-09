@@ -223,30 +223,6 @@ color: white;</string>
       </item>
       <item>
        <layout class="QGridLayout" name="signin_layout">
-        <item row="3" column="2">
-         <widget class="QPushButton" name="signup_button">
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;
-color: white;</string>
-          </property>
-          <property name="text">
-           <string>Sign up -&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QPushButton" name="forget_pwd_button">
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;
-color: white;
-
-</string>
-          </property>
-          <property name="text">
-           <string>Forget your password?</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="2">
          <layout class="QVBoxLayout" name="user_input_layout">
           <item>
@@ -327,39 +303,6 @@ color: black;</string>
           </item>
          </layout>
         </item>
-        <item row="1" column="3">
-         <widget class="QPushButton" name="login_button">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>60</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normalon>:/login_icon/login_icon.png</normalon>
-           </iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>60</width>
-            <height>60</height>
-           </size>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="4">
          <spacer name="horizontalSpacer_4">
           <property name="orientation">
@@ -391,6 +334,50 @@ color: black;</string>
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="1" column="3">
+         <widget class="QPushButton" name="signin_button">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>60</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normalon>:/login_icon/login_icon.png</normalon>
+           </iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>60</width>
+            <height>60</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="signup_button">
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+color: white;</string>
+          </property>
+          <property name="text">
+           <string>Sign up -&gt;</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
