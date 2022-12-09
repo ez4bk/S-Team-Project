@@ -11,6 +11,9 @@ sftp_utils = SftpUtils()
 
 
 class StoreGame(Game):
+
+    # Will be initialized by famiowl_client_control
+    # client_control will pass
     def __init__(self, game_id, game_name, cover_img, path, game_description, likes_count):
         super().__init__(game_id, game_name, cover_img, game_description)
         self.__path = path
@@ -26,6 +29,7 @@ class StoreGame(Game):
             return 'Game already in inventory!'
         return fami_parent
 
+# add store game to inventory
     def add_to_inventory(self, fami_parent, local_path):
         inventory = fami_parent.return_inventory()
         if inventory is not []:
@@ -36,6 +40,7 @@ class StoreGame(Game):
         fami_parent.add_to_inventory(inventory_game)
         return fami_parent
 
+# download game
     def download(self):
         name = self.return_game_name() + ".py"
         download_dir_path = self.__path
@@ -46,9 +51,11 @@ class StoreGame(Game):
             sftp_utils.sftp_download(download_dir_path, name)
             return full_path
 
+# increase like count by 1
     def add_like(self):
         self.__likes_count += 1
 
+# decrease like count by 1
     def remove_like(self):
         self.__likes_count -= 1
 

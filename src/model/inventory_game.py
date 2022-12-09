@@ -25,6 +25,7 @@ class InventoryGame(Game):
         self.proc = None
         self.pid = -1
 
+    # start game from download folder
     def run_game(self, fami_parent):
         path = os.path.join(DOWNLOAD_DIR, self.return_game_name())
         path = path.replace(' ', '\ ')
@@ -43,24 +44,33 @@ class InventoryGame(Game):
             pass
         return fami_parent
 
+    # stop the game by killing its process
     def stop(self):
         # os.killpg(self.pid, signal.SIGKILL)
         self.proc.kill()
 
+    # retrieve likes count from pre-feteched data from initialization
     def return_likes(self):
         self.store_game.return_likes()
 
+    # Once user hit like button, set this game's __liked status to True
+    # Add 1 value to the likes count
     def hit_like(self):
         self.__liked = True
         self.store_game.add_like()
 
+    # Once user hit unlike button, set this game's __like status to False
+    # Remove 1 value from the likes count
     def hit_unlike(self):
         self.__liked = False
         self.store_game.remove_like()
 
+    # return __liked status
     def return_liked(self):
         return self.__liked
 
+    # sync likes count with database based on __liked status
+    # True: +1, False: do nothing
     def sync_likes(self):
         if self.__liked:
             SqlUtils.sql_exec(add_likes.format(self.return_game_id()), 0)
