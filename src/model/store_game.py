@@ -23,7 +23,7 @@ class StoreGame(Game):
         if self not in parent_invent:
             fami_parent = self.add_to_inventory(fami_parent, path)
         else:
-            pass
+            return 'Game already in inventory!'
         return fami_parent
 
     def add_to_inventory(self, fami_parent, local_path):
