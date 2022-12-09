@@ -97,7 +97,7 @@ class FamiParent:
         for kid in self.__kids:
             if kid.return_kid_name() not in existing_kids:
                 sql_utils.sql_exec(
-                    add_kid.format(kid.return_kid_name(), kid.return_kid_id(), kid.return_profile(),
+                    add_kid.format(kid.return_kid_name(), kid.return_parent_id(), kid.return_profile(),
                                    kid.return_time_limit()), 0)
         for kid in self.__kids:
             kid.sync_database()
@@ -114,9 +114,6 @@ class FamiParent:
             if game.return_liked():
                 game.sync_database()
 
-    def set_kids(self, kids):
-        self.__kids = kids
-
     def set_inventory(self, inventory):
         self.__inventory = inventory
 
@@ -131,7 +128,6 @@ class FamiParent:
 
     def change_name(self, name):
         self.__parent_name = name
-        # TODO: change name query
 
     def return_parent_id(self):
         return str(self.__parent_id)

@@ -50,7 +50,7 @@ class FamiKid:
         return str(self.__kid_name)
 
     def return_parent_id(self):
-        return str(self.__parent.return_kid_id())
+        return str(self.__parent.return_parent_id())
 
     def return_profile(self):
         return str(self.__profile)

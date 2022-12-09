@@ -18,7 +18,7 @@ class StoreGame(Game):
     def __init__(self, game_id, game_name, cover_img, path, game_description, likes_count):
         super().__init__(game_id, game_name, cover_img, game_description)
         self.__path = path
-        self.__likes_count = likes_count
+        self.__likes_count = int(likes_count)
         self.__filesize = ""
 
     def run_game(self, fami_parent):
