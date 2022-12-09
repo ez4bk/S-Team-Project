@@ -50,8 +50,8 @@ class InventoryGame(Game):
         self.proc.kill()
 
     # retrieve likes count from pre-feteched data from initialization
-    def return_likes(self):
-        self.store_game.return_likes()
+    def return_like_count(self):
+        self.store_game.return_like_count()
 
     # Once user hit like button, set this game's __liked status to True
     # Add 1 value to the likes count
