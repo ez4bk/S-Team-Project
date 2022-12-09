@@ -11,6 +11,9 @@ sftp_utils = SftpUtils()
 
 
 class StoreGame(Game):
+
+    # Will be initialized by famiowl_client_control
+    # client_control will pass
     def __init__(self, game_id, game_name, cover_img, path, game_description, likes_count):
         super().__init__(game_id, game_name, cover_img, game_description)
         self.__path = path
