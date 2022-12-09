@@ -19,6 +19,9 @@ search_game_by_name = 'select * from game_store where game_name like "%{0}%";'
 # search game with id
 search_game_by_id = 'select * from game_store where game_id = "{0}";'
 
+# return like count
+get_likes ='select like_count from game_store where game_id = "{0}";'
+
 # add likes
 add_likes = 'update game_store set like_count = like_count + 1 where game_id = "{0}";'
 
