@@ -25,7 +25,6 @@ class InventoryGame(Game):
         self.proc = None
         self.pid = -1
 
-
     def run_game(self, fami_parent):
         path = os.path.join(DOWNLOAD_DIR, self.return_game_name())
         path = path.replace(' ', '\ ')
@@ -53,9 +52,14 @@ class InventoryGame(Game):
 
     def hit_like(self):
         self.__liked = True
+        self.store_game.add_like()
 
     def hit_unlike(self):
         self.__liked = False
+        self.store_game.remove_like()
+
+    def return_liked(self):
+        return self.__liked
 
     def sync_likes(self):
         if self.__liked:
