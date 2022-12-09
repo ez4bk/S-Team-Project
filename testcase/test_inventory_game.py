@@ -1,7 +1,6 @@
 from src.model.inventory_game import InventoryGame
 from src.model.store_game import StoreGame
 from src.model.fami_parent import FamiParent
-from config.sql_query.game_query import get_likes
 
 from lib.base_lib.sql.sql_utils import SqlUtils
 
