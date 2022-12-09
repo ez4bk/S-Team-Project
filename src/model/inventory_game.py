@@ -62,6 +62,7 @@ class InventoryGame(Game):
     # Once user hit unlike button, set this game's __like status to False
     # Remove 1 value from the likes count
     def hit_unlike(self):
+
         self.__liked = False
         self.store_game.remove_like()
 

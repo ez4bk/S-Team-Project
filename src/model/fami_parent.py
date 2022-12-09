@@ -85,18 +85,6 @@ class FamiParent:
 
         return id_res
 
-        # try:
-        #     for a in res:
-        #         store_game = sql_utils.sql_exec(search_game_by_id.format(a[2]))[0]
-        #         game = StoreGame(store_game[0], store_game[1], store_game[2], store_game[3], store_game[4],
-        #                          store_game[5])
-        #         inv_game = InventoryGame(game, self)
-        #         games.append(inv_game)
-        #     self.__inventory = games
-        #     return self
-        # except Exception:
-        #     return "Game initialization failed!"
-
     def sync_database(self):
         self.__sync_kids()
         self.__sync_inventory()

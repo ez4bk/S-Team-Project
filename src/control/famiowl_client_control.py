@@ -207,16 +207,25 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             game_info_label.setObjectName("game_info_label_%s" % i)
             game_info_label.setText("Game Info: " + game_list[i].return_game_descr())  # set game description
             game_info_layout.addWidget(game_info_label)
-            if flag == 0 or (flag == 2 and game_list[i] in self.inventory_games):
+            # if flag == 0 or (flag == 2 and game_list[i] in self.inventory_games):
+            if isinstance(game_list[i], InventoryGame):
                 like_button = QtWidgets.QPushButton(game_card)
                 like_button.setStyleSheet(".QPushButton{border-radius:32px;\n"
                                           "background-color: rgb(103, 216, 217);\n"
-                                          "color: black\n}"
+                                          "color: rgb(22, 54, 53)\n}"
                                           )
                 like_button.setObjectName("like_button_%s" % i)
                 like_button.setText('Like me!')
                 game_info_layout.addWidget(like_button)
-                like_button.clicked.connect(lambda _, game=game_list[i]: self.__like_game(game))
+                like_button.clicked.connect(
+                    lambda _, game=game_list[i], button=like_button: self.__like_game(game, button))
+            elif isinstance(game_list[i], StoreGame):
+                like_count_label = QtWidgets.QLabel(game_card)
+                like_count_label.setStyleSheet("color: rgb(22, 54, 53)")
+                like_count_label.setObjectName("like_count_label_%s" % i)
+                like_count_label.setText('Likes: %s' % game_list[i].return_like_count())  # set game name
+                game_info_layout.addWidget(like_count_label)
+
             game_card_layout.addLayout(game_info_layout)
             game_card_layout.setStretch(0, 1)
             game_profile_button.clicked.connect(
@@ -333,9 +342,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.game_timer_lcd.display(minsec)
 
     @staticmethod
-    def __like_game(game):
-        print(game)
+    def __like_game(game, button):
         if game.return_liked():
             game.hit_unlike()
+            button.setText('Like me!')
         else:
             game.hit_like()
+            button.setText('Unlike :(')
