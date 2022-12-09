@@ -113,7 +113,12 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
     def __define_menu_listwidget(self):
         self.menu_listwidget.itemClicked.connect(lambda: self.__menu_select())
 
+
     def __menu_select(self):
+        """
+        Menu for buttons that navigates through the application
+        :return:
+        """
         item = self.menu_listwidget.currentItem()
         widget_to_go = item.text()
         if widget_to_go == 'Inventory':
@@ -240,6 +245,12 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
         self.windowTitleChanged.connect(lambda: self.__switch_child())
 
     def __switch_child(self):
+        """
+        Get current kid's info from config JSON file
+        Call set current kid function
+        Set up the UI based from config file
+        :return:
+        """
         self.__set_current_kid()
         self.child_name_label.setText(config['current_child'])
         self.threadpool.waitForDone(500)
@@ -255,7 +266,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             assert True, e.__str__()
         # should call update playtime here
 
-    # set current kid object for this window
+    # set current_kid parameter to a kid object base on info in config JSON file
     def __set_current_kid(self):
         kid_name = config['current_child']
         for kid in self.kids:
@@ -263,6 +274,7 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
                 self.current_kid = kid
         self.current_kid.init_playtime()
 
+    # Open game or pop up exceed playtime time limit alert
     def __open_game(self, game):
         if self.current_kid.return_time_remaining() < 1:
             message_info_box(self, 'No more time to play!')
