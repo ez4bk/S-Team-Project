@@ -10,17 +10,37 @@ sql_utils = SqlUtils()
 class TestInventoryGame(object):
 
     def test_run_game(self):
-        return
+        store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
+                               "/home/famiowl_files/snake.py", "Eat and grow your snake!", 8)
+        fami_parent = FamiParent()
+        inventory_game = InventoryGame(store_game, fami_parent)
+        try:
+            inventory_game.run_game()
+        except:
+            assert False, "run game failed"
 
     def test_stop_game(self):
-        return
+        store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
+                               "/home/famiowl_files/snake.py", "Eat and grow your snake!", 8)
+        fami_parent = FamiParent()
+        inventory_game = InventoryGame(store_game, fami_parent)
+        try:
+            inventory_game.run_game()
+        except:
+            assert False, "run game failed"
+        try:
+            inventory_game.stop_game()
+        except:
+            assert False, "stop game failed"
 
     def test_get_like_count(self):
         store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
                                "/home/famiowl_files/snake.py", "Eat and grow your snake!", 8)
         fami_parent = FamiParent()
         inventory_game = InventoryGame(store_game, fami_parent)
-        assert inventory_game.return_like_count() != 8, "get like count failed"
+        # sql_cmd = "select like_count from game_store where game_id = 6"
+        correct_res = 8 # sql_utils.sql_exec(sql_cmd,1)[0][0]
+        assert inventory_game.return_like_count() == correct_res, "get like count failed"
 
     def test_hit_like(self):
         store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",

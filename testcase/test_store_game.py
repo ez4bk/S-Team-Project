@@ -6,6 +6,16 @@ from config.project_info import DOWNLOAD_DIR
 
 class TestStoreGame(object):
 
+    def test_run_game(self):
+        fami_parent = FamiParent()
+        store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
+                               "/home/famiowl_files/snake.py", "Eat and grow your snake!", 8)
+        fami_parent.get_parent_info_query('test5@test.com', 'test')
+        try:
+            store_game.run_game()
+        except:
+            assert False, "run game failed"
+
     def test_add_to_inventory(self):
         fami_parent = FamiParent()
         store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
