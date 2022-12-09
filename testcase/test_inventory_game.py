@@ -51,11 +51,13 @@ class TestInventoryGame(object):
         fami_parent = FamiParent()
         inventory_game = InventoryGame(store_game, fami_parent)
         inventory_game.hit_like()
-        # original_res = SqlUtils.sql_exec(get_likes.format(store_game.return_game_id()), 1)[0][0]
+        sql_cmd = "select like_count from game_store where game_id = 6;"
+        correct_res = sql_utils.sql_exec(sql_cmd, 1)[0][0]
+        correct_res += 1
         try:
             inventory_game.sync_likes()
         except:
             assert False, 'sync like failed'
-        # res = SqlUtils.sql_exec(get_likes.format(store_game.return_game_id()),1)[0][0]
-        # assert res != original_res+1, "failed, incorrect like count"
+        res = sql_utils.sql_exec(sql_cmd, 1)[0][0]
+        assert res == correct_res, "failed, incorrect like count"
 
