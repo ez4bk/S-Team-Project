@@ -37,7 +37,8 @@ class InventoryGame(Game):
         cmd = '%s %s.py' % (python_cmd, path)
         try:
             # completed_process = subprocess.run([python_cmd, path + '.py'])
-            self.proc = subprocess.Popen(cmd, shell=True, preexec_fn=os.setsid)
+            # preexec_fn=os.setsid
+            self.proc = subprocess.Popen(cmd, shell=True, stderr=subprocess.PIPE)
             self.pid = self.proc.pid
             return fami_parent
         except:
@@ -48,7 +49,7 @@ class InventoryGame(Game):
     def stop(self):
         # os.killpg(self.pid, signal.SIGKILL)
         self.proc.kill()
-        self.init_proc()
+        # self.init_proc()
 
     def init_proc(self):
         self.proc = None

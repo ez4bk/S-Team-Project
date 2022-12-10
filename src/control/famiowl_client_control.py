@@ -284,9 +284,9 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
             message_info_box(self, 'No more time to play!')
             return
         if isinstance(game, InventoryGame):
-            self.__start_game_timer()
             game.run_game(self.fami_parent)
             self.current_game = game
+            self.__start_game_timer()
             worker = Worker(self.__run_game_thread)
             worker.signals.result.connect(self.__run_game_thread_result)
             worker.signals.finished.connect(self.__run_game_thread_complete)

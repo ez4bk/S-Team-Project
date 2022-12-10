@@ -20,7 +20,7 @@ class TestInventoryGame(object):
             assert False, "run game failed"
 
         assert inventory_game.proc is not None, "start game failed"
-        inventory_game.stop()
+        # inventory_game.stop()
 
     def test_stop_game(self):
         store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
@@ -44,7 +44,7 @@ class TestInventoryGame(object):
         inventory_game = InventoryGame(store_game, fami_parent)
         # sql_cmd = "select like_count from game_store where game_id = 6"
         correct_res = 8  # sql_utils.sql_exec(sql_cmd,1)[0][0]
-        assert inventory_game.return_like_count() == correct_res, "get like count failed"
+        assert int(inventory_game.return_like_count()) == int(correct_res), "get like count failed"
 
     def test_hit_like(self):
         store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",

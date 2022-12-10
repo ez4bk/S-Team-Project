@@ -43,7 +43,7 @@ class TestStoreGame(object):
         store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
                                "/home/famiowl_files/snake.py", "Eat and grow your snake!", 8)
         fami_parent.get_parent_info_query('test5@test.com', 'test')
-        correct_res = store_game.return_like_count()
+        correct_res = int(store_game.return_like_count())
         correct_res += 1
         try:
             store_game.add_like()
@@ -57,7 +57,7 @@ class TestStoreGame(object):
         store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
                                "/home/famiowl_files/snake.py", "Eat and grow your snake!", 8)
         fami_parent.get_parent_info_query('test5@test.com', 'test')
-        correct_res = store_game.return_like_count()
+        correct_res = int(store_game.return_like_count())
         correct_res -= 1
         try:
             store_game.remove_like()
