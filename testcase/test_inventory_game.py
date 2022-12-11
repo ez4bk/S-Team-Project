@@ -18,9 +18,8 @@ class TestInventoryGame(object):
             fami_parent = inventory_game.run_game(fami_parent)
         except:
             assert False, "run game failed"
-
         assert inventory_game.proc is not None, "start game failed"
-        # inventory_game.stop()
+        inventory_game.stop()
 
     def test_stop_game(self):
         store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
@@ -32,10 +31,12 @@ class TestInventoryGame(object):
             inventory_game.run_game(fami_parent)
         except:
             assert False, "run game failed"
-        # try:
-        # inventory_game.stop()
-        # except:
-        #     assert False, "stop game failed"
+        assert inventory_game.proc is not None, "start game failed"
+        try:
+            inventory_game.stop()
+        except:
+            assert False, "stop game failed"
+        assert inventory_game.proc is None, "stop game failed"
 
     def test_get_like_count(self):
         store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
@@ -55,7 +56,7 @@ class TestInventoryGame(object):
             inventory_game.hit_like()
         except:
             assert False, 'hit like failed'
-        assert inventory_game.return_liked() == True, "Failed, Incorrect result"
+        assert inventory_game.return_liked() is True, "Failed, Incorrect result"
 
     def test_hit_unlike(self):
         store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
@@ -66,7 +67,7 @@ class TestInventoryGame(object):
             inventory_game.hit_unlike()
         except:
             assert False, 'hit unlike failed'
-        assert inventory_game.return_liked() == False, "Failed, Incorrect result"
+        assert inventory_game.return_liked() is False, "Failed, Incorrect result"
 
     def test_sync_like(self):
         store_game = StoreGame(6, "Snake", "/home/famiowl_files/game_icons/icon_gameid=6.png",
