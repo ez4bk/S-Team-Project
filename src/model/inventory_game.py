@@ -1,4 +1,5 @@
 import os
+import signal
 import subprocess
 import sys
 
@@ -47,9 +48,9 @@ class InventoryGame(Game):
 
     # stop the game by killing its process
     def stop(self):
-        # os.killpg(self.pid, signal.SIGKILL)
-        self.proc.kill()
-        # self.init_proc()
+        os.killpg(self.pid, signal.SIGKILL)
+        # self.proc.kill()
+        self.init_proc()
 
     def init_proc(self):
         self.proc = None
