@@ -300,7 +300,10 @@ class FamiOwlClientWindow(QMainWindow, Ui_FamiOwl):
 
     def __run_game_thread(self):
         # self.fami_parent = game.run_game(self.fami_parent)
-        while self.current_game.proc.poll() is None:
+        try:
+            while self.current_game.proc.poll() is None:
+                pass
+        except:
             pass
 
     def __run_game_thread_result(self, result):
