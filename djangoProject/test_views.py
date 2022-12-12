@@ -1,11 +1,8 @@
 from django.test import TestCase
-from django.test import Client, RequestFactory
+from django.test import RequestFactory
 from djangoProject.views import *
-from django.shortcuts import render, HttpResponse, redirect
 from djangoProject.models import *
 from djangoProject.aes_pass import *
-from django.contrib import messages
-from django.contrib.messages import get_messages
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.messages.middleware import MessageMiddleware
 
@@ -86,7 +83,6 @@ class views_tests(TestCase):
         response = register(request)
         self.assertIsNone(response.cookies.get('id'), 302)
         self.assertEqual(response.status_code, 302)
-
 
     def test_logout(self):
         request = self.factory.get('logout/')
