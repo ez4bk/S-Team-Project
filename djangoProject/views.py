@@ -2,13 +2,12 @@ from django.shortcuts import render, HttpResponse, redirect
 from djangoProject.models import *
 from djangoProject.aes_pass import *
 from django.contrib import messages
-import math
 
 aes_pass = AESCipher()
 
 
+# view function for registration
 def register(request):
-
     if request.method == "POST":
         user_id = request.POST.get('user_id')
         uname = request.POST.get('username')  # 获取post数据
@@ -36,6 +35,7 @@ def register(request):
     return render(request, "signup.html")
 
 
+# view function for signup feature
 def sign(request):
     if request.method == "POST":
         user_id = request.POST.get('user_id')
@@ -66,6 +66,7 @@ def sign(request):
     return render(request, "signin.html")
 
 
+# view function for logout
 def logout(request):
     res = redirect("/")
     res.delete_cookie('id')
@@ -73,6 +74,7 @@ def logout(request):
     return res
 
 
+# view function for mychildren
 def my_children(request):
     user_id = request.session.get("user_id")
     kids = Children.objects.filter(parent_id=user_id)
@@ -84,8 +86,8 @@ def my_children(request):
         for kid in kids:
             if kid.kids_name in request.POST:
                 new_time_limit_minutes = request.POST.get(kid.kids_name)
-                new_time_limit_hours = request.POST.get(kid.kids_name+"hours")
-                new_time_limit = str(int(new_time_limit_minutes) + (int(new_time_limit_hours)*60))
+                new_time_limit_hours = request.POST.get(kid.kids_name + "hours")
+                new_time_limit = str(int(new_time_limit_minutes) + (int(new_time_limit_hours) * 60))
                 if int(new_time_limit) > 1440:
                     messages.warning(request, 'Time limits has to be within 24 hours')
                     return render(request, 'my_children.html', {'kids': kids})
@@ -101,6 +103,7 @@ def my_children(request):
         return render(request, 'my_children.html', {'kids': kids})
 
 
+# view function for my profile
 def my_profile(request):
     user_id = request.session.get("user_id")
     try:
@@ -114,10 +117,12 @@ def my_profile(request):
         return HttpResponse('Could not get user information')
 
 
+# view function for about us
 def about_us(request):
     return render(request, 'about_us.html')
 
 
+# view function for main page redirections
 def page(request):
     uname = request.session.get("user_id")
 

@@ -9,6 +9,7 @@ from django.contrib.messages.middleware import MessageMiddleware
 aes_pass = AESCipher()
 
 
+# test for view functions
 class views_tests(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
@@ -18,12 +19,14 @@ class views_tests(TestCase):
         self.user = User.objects.create(user_name='test_account', password=aes_pass.encrypt_main('test_pw'),
                                         user_id='123')
 
+    # test for get function in login
     def test_login_page_get(self):
         request = self.factory.get('login/')
         request.user = self.user
         response = sign(request)
         self.assertEqual(response.status_code, 200)
 
+    # test for post function in login
     def test_login_post(self):
         request = self.factory.post('signin/',
                                     {'user_id': '123',
@@ -55,6 +58,7 @@ class views_tests(TestCase):
         self.assertIsNone(response.cookies.get('id'))
         self.assertEqual(response.status_code, 302)
 
+    # test for get function in register
     def test_register_get(self):
         request = self.factory.get('register/')
         request.user = self.user
@@ -64,6 +68,7 @@ class views_tests(TestCase):
         response = register(request)
         self.assertEqual(response.status_code, 200)
 
+    # test for post function in register
     def test_register_post(self):
         request = self.factory.post('register/',
                                     {'user_id': '321',
@@ -84,6 +89,7 @@ class views_tests(TestCase):
         self.assertIsNone(response.cookies.get('id'), 302)
         self.assertEqual(response.status_code, 302)
 
+    # test for logout
     def test_logout(self):
         request = self.factory.get('logout/')
         request.user = self.user
@@ -94,6 +100,7 @@ class views_tests(TestCase):
         response = logout(request)
         self.assertEqual(response.status_code, 302)
 
+    # test for get function in my children
     def test_my_children_get(self):
         request = self.factory.get('logout/')
         self.session.process_request(request)
@@ -104,6 +111,7 @@ class views_tests(TestCase):
         response = my_children(request)
         self.assertEqual(response.status_code, 200)
 
+    # test for post function in my children
     def test_my_children_post(self):
         request = self.factory.post('logout/', {'Mike': '20', 'Mikehours': '1'})
         self.session.process_request(request)
@@ -114,6 +122,7 @@ class views_tests(TestCase):
         response = my_children(request)
         self.assertEqual(response.status_code, 200)
 
+    # test for my profile
     def test_my_profile(self):
         request = self.factory.get('my_profile/')
         request.user = self.user
@@ -130,12 +139,14 @@ class views_tests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b'Could not get user information')
 
+    # test for about us page
     def test_about_us(self):
         request = self.factory.get('my_profile/')
         request.user = self.user
         response = about_us(request)
         self.assertEqual(response.status_code, 200)
 
+    # test for main page
     def test_page(self):
         request = self.factory.get('')
         request.user = self.user
