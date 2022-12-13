@@ -1,0 +1,5391 @@
+{
+	"info": {
+		"_postman_id": "7afea811-3bff-46d0-a1fb-a647e9a887cf",
+		"name": "FamiOwl_server_testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24820020"
+	},
+	"item": [
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "duojam3ptw249vl33gzf5q0zklg6om6i",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22demo%40demo.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "demo",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1hours",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "duojam3ptw249vl33gzf5q0zklg6om6i",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22demo%40demo.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "demo",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1hours",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test0\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "duojam3ptw249vl33gzf5q0zklg6om6i",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22demo%40demo.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "demo",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1hours",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "duojam3ptw249vl33gzf5q0zklg6om6i",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22demo%40demo.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "demo",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1hours",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "duojam3ptw249vl33gzf5q0zklg6om6i",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22demo%40demo.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "duojam3ptw249vl33gzf5q0zklg6om6i",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22demo%40demo.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_profile/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "duojam3ptw249vl33gzf5q0zklg6om6i",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22demo%40demo.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "demo",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1hours",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_profile/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_profile",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "duojam3ptw249vl33gzf5q0zklg6om6i",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22demo%40demo.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "demo",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "Web_Kid1hours",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "duojam3ptw249vl33gzf5q0zklg6om6i",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22demo%40demo.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "demo",
+							"type": "text"
+						},
+						{
+							"key": "kid1",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "kid1hours",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "demo",
+							"type": "text"
+						},
+						{
+							"key": "kid1",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "kid1hours",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "demo",
+							"type": "text"
+						},
+						{
+							"key": "kid1",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "kid1hours",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "demo",
+							"type": "text"
+						},
+						{
+							"key": "kid1",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "kid1hours",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "demo",
+							"type": "text"
+						},
+						{
+							"key": "kid1",
+							"value": "80",
+							"type": "text"
+						},
+						{
+							"key": "kid1hours",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "demo@demo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "kid1",
+							"value": "80",
+							"type": "text"
+						},
+						{
+							"key": "kid1hours",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test8",
+							"type": "text"
+						},
+						{
+							"key": "kid1",
+							"value": "80",
+							"type": "text"
+						},
+						{
+							"key": "kid1hours",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "kid1",
+							"value": "80",
+							"type": "text"
+						},
+						{
+							"key": "kid1hours",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "kid1",
+							"value": "80",
+							"type": "text"
+						},
+						{
+							"key": "kid1hours",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "kid1",
+							"value": "80",
+							"type": "text"
+						},
+						{
+							"key": "kid1hours",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "kid1",
+							"value": "80",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_profile/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_profile/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_profile",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "o90CZssBgoMAzyeYULbYcR208jGJ6ZCH9vck1m9V4v1V8RcqEtceSG3rsxZZ2pBS",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "VSyvfTzJ9IXRgAwMnexCrXubPz41nh6pGeKdhNg3XPccPTue7WyS7MvC9NnhjH5A",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/login/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://cs431-06.cs.rutgers.edu:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"cs431-06",
+						"cs",
+						"rutgers",
+						"edu"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					},
+					{
+						"key": "sessionid",
+						"value": "zgh4s24mx7ztquvpfx5bgyab6cu2ah1z",
+						"type": "text"
+					},
+					{
+						"key": "id",
+						"value": "%22test%40test.com%22",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							"user_id = request.session.get(\"user_id\")",
+							"kids = Children.objects.filter(parent_id=user_id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"user_id = request.session.get(\"user_id\")",
+							"kids = Children.objects.filter(parent_id=user_id)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							"user_id = request.session.get(\"user_id\")",
+							"kids = Children.objects.filter(parent_id=user_id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							"user_id = request.session.get(\"user_id\")",
+							"kids = Children.objects.filter(parent_id=user_id)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							"",
+							"user_id = request.session.get(\"user_id\")",
+							"kids = Children.objects.filter(parent_id=user_id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "kids",
+							"value": "kids",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_children/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_children/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_children",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_profile/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_profile/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_profile",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.1.244:8000/my_profile/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test0\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/my_profile/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"my_profile",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test0\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "oGt35sLENYfe49hccxzJ7CDRSEUbM6vCzYm4sZsQdStf4AZ3jwXcvbZvjOplwlZN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrfmiddlewaretoken'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const xsrfHeaderName = 'X-XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.collectionVariables.get(variableName)",
+							"pm.request.headers.remove(xsrfHeaderName)",
+							"pm.request.headers.add({",
+							"  key: xsrfHeaderName,",
+							"  value: csrf_token",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const xsrfCookieName = 'XSRF-TOKEN'",
+							"const variableName = 'csrf_token'",
+							"",
+							"const csrf_token = pm.cookies.get(xsrfCookieName)",
+							"pm.collectionVariables.set(variableName, csrf_token)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "{{csrftoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " http://192.168.1.244:8000/login/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var csrf_token = postman.getResponseCookie(\"csrftoken\").value",
+							"postman.clearGlobalVariable(\"csrftoken\");",
+							"postman.setGlobalVariable(\"csrftoken\", csrf_token);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "{{csrftoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/login/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " http://192.168.1.244:8000/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var csrf_token = postman.getResponseCookie(\"csrftoken\").value",
+							"postman.clearGlobalVariable(\"csrftoken\");",
+							"postman.setGlobalVariable(\"csrftoken\", csrf_token);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "{{csrftoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{\"user_id\":\"test@test.com\",\"password\":\"test\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.1.244:8000/",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"244"
+					],
+					"port": "8000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
