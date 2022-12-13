@@ -1,10 +1,10 @@
 {
-    "signin_state": true,
-    "parent_id": "test5@test.com",
-    "parent_name": "Theo",
-    "parent_pwd": "MDAwMDAwMDAwMDAwMDQwMFYRtNLC4Dgty/pKHFP7U/k=",
-    "signin_timestamp": null,
-    "current_child": "Adam",
-    "profile_icon": "1",
-    "default_child": null
+  "signin_state": true,
+  "parent_id": "demo@demo.com",
+  "parent_name": "Demo",
+  "parent_pwd": "MDAwMDAwMDAwMDAwMDU3NWuyoa6kKqcMkFiE6RaOC6Y=",
+  "signin_timestamp": null,
+  "current_child": "Web_Kid1",
+  "profile_icon": "2",
+  "default_child": null
 }

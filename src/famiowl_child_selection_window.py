@@ -14,88 +14,88 @@ class Ui_FamiOwlChildSelection(object):
         FamiOwlChildSelection.setObjectName("FamiOwlChildSelection")
         FamiOwlChildSelection.resize(900, 600)
         FamiOwlChildSelection.setStyleSheet("QScrollBar:horizontal{\n"
-"    height:8px;\n"
-"    background:rgba(0,0,0,0%);\n"
-"border-radius:4px;\n"
-"\n"
-"}\n"
-"QScrollBar::handle:horizontal{\n"
-"    background:rgba(125,125,125,50%);\n"
-"border-radius:4px;\n"
-"}\n"
-"QScrollBar::handle:horizontal:hover{\n"
-"    background:rgba(125,125,125,100%);\n"
-"    min-width:0;\n"
-"}\n"
-"QScrollBar::add-line:horizontal{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::sub-line:horizontal{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::add-line:horizontal:hover{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::sub-line:horizontal:hover{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal\n"
-"{\n"
-"    background:rgba(0,0,0,10%);\n"
-"    border-radius:4px;\n"
-"}\n"
-"\n"
-"QScrollBar:vertical{\n"
-"    width:8px;\n"
-"    background:rgba(0,0,0,0%);\n"
-"\n"
-"}\n"
-"QScrollBar::handle:vertical{\n"
-"    width:0px;\n"
-"    background:rgba(125,125,125,50%);\n"
-"    border-radius:4px;\n"
-"}\n"
-"QScrollBar::handle:vertical:hover{\n"
-"    width:0px;\n"
-"    background:rgba(125,125,125,100%);\n"
-"    border-radius:4px;\n"
-"    min-width:20;\n"
-"}\n"
-"QScrollBar::add-line:vertical{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::sub-line:vertical{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::add-line:vertical:hover{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::sub-line:vertical:hover{\n"
-"    height:0px;width:0px;\n"
-"\n"
-"}\n"
-"QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical\n"
-"{\n"
-"    background:rgba(0,0,0,10%);\n"
-"    border-radius:4px;\n"
-"}\n"
-"")
+                                            "    height:8px;\n"
+                                            "    background:rgba(0,0,0,0%);\n"
+                                            "border-radius:4px;\n"
+                                            "\n"
+                                            "}\n"
+                                            "QScrollBar::handle:horizontal{\n"
+                                            "    background:rgba(125,125,125,50%);\n"
+                                            "border-radius:4px;\n"
+                                            "}\n"
+                                            "QScrollBar::handle:horizontal:hover{\n"
+                                            "    background:rgba(125,125,125,100%);\n"
+                                            "    min-width:0;\n"
+                                            "}\n"
+                                            "QScrollBar::add-line:horizontal{\n"
+                                            "    height:0px;width:0px;\n"
+                                            "\n"
+                                            "}\n"
+                                            "QScrollBar::sub-line:horizontal{\n"
+                                            "    height:0px;width:0px;\n"
+                                            "\n"
+                                            "}\n"
+                                            "QScrollBar::add-line:horizontal:hover{\n"
+                                            "    height:0px;width:0px;\n"
+                                            "\n"
+                                            "}\n"
+                                            "QScrollBar::sub-line:horizontal:hover{\n"
+                                            "    height:0px;width:0px;\n"
+                                            "\n"
+                                            "}\n"
+                                            "QScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal\n"
+                                            "{\n"
+                                            "    background:rgba(0,0,0,10%);\n"
+                                            "    border-radius:4px;\n"
+                                            "}\n"
+                                            "\n"
+                                            "QScrollBar:vertical{\n"
+                                            "    width:8px;\n"
+                                            "    background:rgba(0,0,0,0%);\n"
+                                            "\n"
+                                            "}\n"
+                                            "QScrollBar::handle:vertical{\n"
+                                            "    width:0px;\n"
+                                            "    background:rgba(125,125,125,50%);\n"
+                                            "    border-radius:4px;\n"
+                                            "}\n"
+                                            "QScrollBar::handle:vertical:hover{\n"
+                                            "    width:0px;\n"
+                                            "    background:rgba(125,125,125,100%);\n"
+                                            "    border-radius:4px;\n"
+                                            "    min-width:20;\n"
+                                            "}\n"
+                                            "QScrollBar::add-line:vertical{\n"
+                                            "    height:0px;width:0px;\n"
+                                            "\n"
+                                            "}\n"
+                                            "QScrollBar::sub-line:vertical{\n"
+                                            "    height:0px;width:0px;\n"
+                                            "\n"
+                                            "}\n"
+                                            "QScrollBar::add-line:vertical:hover{\n"
+                                            "    height:0px;width:0px;\n"
+                                            "\n"
+                                            "}\n"
+                                            "QScrollBar::sub-line:vertical:hover{\n"
+                                            "    height:0px;width:0px;\n"
+                                            "\n"
+                                            "}\n"
+                                            "QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical\n"
+                                            "{\n"
+                                            "    background:rgba(0,0,0,10%);\n"
+                                            "    border-radius:4px;\n"
+                                            "}\n"
+                                            "")
         self.centralwidget = QtWidgets.QWidget(FamiOwlChildSelection)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.central_frame = QtWidgets.QFrame(self.centralwidget)
         self.central_frame.setStyleSheet("QFrame#central_frame{\n"
-"    background-color: rgb(255, 255, 255);\n"
-"    border-radius:20px;\n"
-"}")
+                                         "    background-color: rgb(255, 255, 255);\n"
+                                         "    border-radius:20px;\n"
+                                         "}")
         self.central_frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.central_frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.central_frame.setObjectName("central_frame")
@@ -111,7 +111,8 @@ class Ui_FamiOwlChildSelection(object):
         self.vertical_line.setObjectName("vertical_line")
         self.child_widget_0 = QtWidgets.QWidget(self.central_frame)
         self.child_widget_0.setGeometry(QtCore.QRect(50, 50, 400, 250))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred,
+                                           QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.child_widget_0.sizePolicy().hasHeightForWidth())
@@ -120,11 +121,13 @@ class Ui_FamiOwlChildSelection(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.child_widget_0)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
+                                           QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.child_layout_0 = QtWidgets.QVBoxLayout()
         self.child_layout_0.setObjectName("child_layout_0")
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                            QtWidgets.QSizePolicy.Policy.Expanding)
         self.child_layout_0.addItem(spacerItem1)
         self.child_profile_0 = QtWidgets.QPushButton(self.child_widget_0)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Maximum)
@@ -147,10 +150,12 @@ class Ui_FamiOwlChildSelection(object):
         self.child_name_0.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.child_name_0.setObjectName("child_name_0")
         self.child_layout_0.addWidget(self.child_name_0)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                            QtWidgets.QSizePolicy.Policy.Expanding)
         self.child_layout_0.addItem(spacerItem2)
         self.horizontalLayout.addLayout(self.child_layout_0)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
+                                            QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout.addItem(spacerItem3)
         self.child_widget_1 = QtWidgets.QWidget(self.central_frame)
         self.child_widget_1.setGeometry(QtCore.QRect(450, 50, 400, 250))
@@ -158,11 +163,13 @@ class Ui_FamiOwlChildSelection(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.child_widget_1)
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
+                                            QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem4)
         self.child_layout_1 = QtWidgets.QVBoxLayout()
         self.child_layout_1.setObjectName("child_layout_1")
-        spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                            QtWidgets.QSizePolicy.Policy.Expanding)
         self.child_layout_1.addItem(spacerItem5)
         self.child_profile_1 = QtWidgets.QPushButton(self.child_widget_1)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Maximum)
@@ -185,10 +192,12 @@ class Ui_FamiOwlChildSelection(object):
         self.child_name_1.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.child_name_1.setObjectName("child_name_1")
         self.child_layout_1.addWidget(self.child_name_1)
-        spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                            QtWidgets.QSizePolicy.Policy.Expanding)
         self.child_layout_1.addItem(spacerItem6)
         self.horizontalLayout_2.addLayout(self.child_layout_1)
-        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
+                                            QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem7)
         self.child_widget_2 = QtWidgets.QWidget(self.central_frame)
         self.child_widget_2.setGeometry(QtCore.QRect(50, 300, 400, 250))
@@ -196,11 +205,13 @@ class Ui_FamiOwlChildSelection(object):
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.child_widget_2)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
+                                            QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem8)
         self.child_layout_2 = QtWidgets.QVBoxLayout()
         self.child_layout_2.setObjectName("child_layout_2")
-        spacerItem9 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem9 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                            QtWidgets.QSizePolicy.Policy.Expanding)
         self.child_layout_2.addItem(spacerItem9)
         self.child_profile_2 = QtWidgets.QPushButton(self.child_widget_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Maximum)
@@ -223,10 +234,12 @@ class Ui_FamiOwlChildSelection(object):
         self.child_name_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.child_name_2.setObjectName("child_name_2")
         self.child_layout_2.addWidget(self.child_name_2)
-        spacerItem10 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem10 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                             QtWidgets.QSizePolicy.Policy.Expanding)
         self.child_layout_2.addItem(spacerItem10)
         self.horizontalLayout_3.addLayout(self.child_layout_2)
-        spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
+                                             QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem11)
         self.child_widget_3 = QtWidgets.QWidget(self.central_frame)
         self.child_widget_3.setGeometry(QtCore.QRect(450, 300, 400, 250))
@@ -234,11 +247,13 @@ class Ui_FamiOwlChildSelection(object):
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.child_widget_3)
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
+                                             QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem12)
         self.child_layout_3 = QtWidgets.QVBoxLayout()
         self.child_layout_3.setObjectName("child_layout_3")
-        spacerItem13 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem13 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                             QtWidgets.QSizePolicy.Policy.Expanding)
         self.child_layout_3.addItem(spacerItem13)
         self.child_profile_3 = QtWidgets.QPushButton(self.child_widget_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Maximum)
@@ -261,10 +276,12 @@ class Ui_FamiOwlChildSelection(object):
         self.child_name_3.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.child_name_3.setObjectName("child_name_3")
         self.child_layout_3.addWidget(self.child_name_3)
-        spacerItem14 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem14 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                             QtWidgets.QSizePolicy.Policy.Expanding)
         self.child_layout_3.addItem(spacerItem14)
         self.horizontalLayout_4.addLayout(self.child_layout_3)
-        spacerItem15 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem15 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
+                                             QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem15)
         self.horizontalLayout_8.addWidget(self.central_frame)
         FamiOwlChildSelection.setCentralWidget(self.centralwidget)

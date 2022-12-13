@@ -1,14 +1,14 @@
 <RCC>
-  <qresource prefix="famiowl_title">
-    <file>famiowl_title.png</file>
-  </qresource>
-  <qresource prefix="signup_pic">
-    <file>Image_4.png</file>
-  </qresource>
-  <qresource prefix="owl_gif">
-    <file>owl_gif.gif</file>
-  </qresource>
-  <qresource prefix="login_icon">
-    <file>login_icon.png</file>
-  </qresource>
+    <qresource prefix="famiowl_title">
+        <file>famiowl_title.png</file>
+    </qresource>
+    <qresource prefix="signup_pic">
+        <file>Image_4.png</file>
+    </qresource>
+    <qresource prefix="owl_gif">
+        <file>owl_gif.gif</file>
+    </qresource>
+    <qresource prefix="login_icon">
+        <file>login_icon.png</file>
+    </qresource>
 </RCC>

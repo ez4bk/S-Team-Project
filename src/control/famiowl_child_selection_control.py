@@ -57,7 +57,7 @@ class FamiOwlChildSelectionWindow(QMainWindow, Ui_FamiOwlChildSelection):
                 # profile_list[i].clicked.connect(lambda num=i: self.__add_new_child(num))
 
         self.__define_buttons()
-    
+
     def __define_buttons(self):
         if self.child_profile_0.objectName() != to_add_new_child:
             self.child_profile_0.clicked.connect(lambda: self.__save_child_select(self.child_name_0.text(), 0))
