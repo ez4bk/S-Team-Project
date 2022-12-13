@@ -24,7 +24,10 @@ class StoreGame(Game):
     def run_game(self, fami_parent):
         path = self.download()
         parent_invent = fami_parent.return_inventory()
-        if self not in parent_invent:
+        store_in_invent = []
+        for invent in parent_invent:
+            store_in_invent.append(invent.return_store_game())
+        if self not in store_in_invent:
             fami_parent = self.add_to_inventory(fami_parent, path)
         else:
             return 'Game already in inventory!'

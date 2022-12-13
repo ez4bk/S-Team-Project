@@ -8,6 +8,7 @@
             <path value="file://$PROJECT_DIR$/src/resource" />
             <path value="file://$PROJECT_DIR$/src/resource/img" />
             <path value="file://$PROJECT_DIR$/src/resource/profile_icons" />
+            <path value="file://$PROJECT_DIR$/src/resource/game_covers" />
           </resourceRoots>
         </entryData>
       </entry>
